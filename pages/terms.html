@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- ── CONFIG (loaded early for Meta Pixel) ──────────────────── -->
+  <script src="../CONFIG.js"></script>
+  <!-- ── Meta Pixel Base Code (reads CONFIG.metaPixelId) ───────── -->
+  <script>
+  (function() {
+    if (!CONFIG.metaPixelId) return;
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', CONFIG.metaPixelId);
+    fbq('track', 'PageView');
+    document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
+  })();
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>Terms & Conditions</title>
+  <meta name="description" content="Terms and conditions for using our website and services." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=optional" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+<!-- ── HERO ──────────────────────────────────────────────────── -->
+<section class="page-hero" style="background-color:var(--color-secondary); padding-bottom: 4rem;">
+  <div class="grid-overlay"></div>
+  <div class="container-wide" style="position:relative; max-width:48rem;">
+    <div class="page-hero-eyebrow">Legal</div>
+    <h1 style="color:#fff; margin-bottom:1rem;">Terms &amp; Conditions</h1>
+    <p style="color:rgba(255,255,255,0.7); font-size:0.875rem;" id="terms-date"></p>
+  </div>
+</section>
+
+<!-- ── CONTENT ───────────────────────────────────────────────── -->
+<section class="section-y bg-white">
+  <div class="container-wide" style="max-width:48rem; margin-inline:auto;">
+
+    <div class="prose-box">
+      <p class="prose" id="terms-intro"></p>
+    </div>
+
+    <div class="prose prose-section">
+      <h2 class="section-title text-navy" style="font-size:1.5rem; margin-bottom:0.75rem;">1. Use of This Website</h2>
+      <p>By accessing and using this website, you agree to use it only for lawful purposes. You may not:</p>
+      <ul>
+        <li>Use the site in any way that violates applicable federal, state, or local laws or regulations</li>
+        <li>Attempt to gain unauthorised access to any part of the site or its related systems</li>
+        <li>Transmit any unsolicited advertising, spam, or other unauthorised materials</li>
+        <li>Use automated tools to scrape, crawl, or otherwise extract content from this website</li>
+      </ul>
+    </div>
+
+    <div class="prose prose-section">
+      <h2 class="section-title text-navy" style="font-size:1.5rem; margin-bottom:0.75rem;">2. Quotes and Estimates</h2>
+      <p>Any estimate, quote, or pricing information provided through this website or by phone is an <strong>estimate only</strong> and is not a binding contract. Final pricing is determined after an in-person site assessment and is provided in a written proposal.</p>
+      <p>Estimates are subject to change based on actual project conditions (moisture levels, existing coatings, crack severity, square footage variations) discovered during the site visit.</p>
+    </div>
+
+    <div class="prose prose-section">
+      <h2 class="section-title text-navy" style="font-size:1.5rem; margin-bottom:0.75rem;">3. SMS Consent and Communications</h2>
+      <p>By submitting a form on this website and checking the SMS consent checkbox, you expressly consent to receive text messages from us at the phone number you provide. These messages may include:</p>
+      <ul>
+        <li>Quote follow-up and scheduling information</li>
+        <li>Project updates and reminders</li>
+        <li>Post-installation follow-up</li>
+      </ul>
+      <p>Message frequency varies by project stage. Message and data rates may apply. You can opt out at any time by replying <strong>STOP</strong>.</p>
+      <p><strong>SMS consent is not a condition of purchase.</strong> You are not required to agree to SMS communications to receive a quote or have work performed.</p>
+    </div>
+
+    <div class="prose prose-section">
+      <h2 class="section-title text-navy" style="font-size:1.5rem; margin-bottom:0.75rem;">4. Intellectual Property</h2>
+      <p>All content on this website — including text, photography, logos, graphics, and the overall site design — is the property of <span id="terms-biz-name"></span> or its licensors and is protected by copyright and other intellectual property laws. You may not reproduce, distribute, or create derivative works without our express written permission.</p>
+    </div>
+
+    <div class="prose prose-section">
+      <h2 class="section-title text-navy" style="font-size:1.5rem; margin-bottom:0.75rem;">5. Disclaimer of Warranties</h2>
+      <p>This website is provided "as is" without any representations or warranties, express or implied. We make no warranty that the website will be uninterrupted, error-free, or free of viruses or other harmful components.</p>
+      <p>Information on this website is for general informational purposes. While we strive for accuracy, actual project outcomes depend on specific site conditions and are covered by your written project contract, not by this website.</p>
+    </div>
+
+    <div class="prose prose-section">
+      <h2 class="section-title text-navy" style="font-size:1.5rem; margin-bottom:0.75rem;">6. Limitation of Liability</h2>
+      <p>To the fullest extent permitted by applicable law, we shall not be liable for any indirect, incidental, consequential, or punitive damages arising out of your use of this website or your reliance on any content herein.</p>
+    </div>
+
+    <div class="prose prose-section">
+      <h2 class="section-title text-navy" style="font-size:1.5rem; margin-bottom:0.75rem;">7. Third-Party Links</h2>
+      <p>This website may contain links to third-party websites (such as Google Maps). We have no control over the content or privacy practices of those sites and accept no responsibility or liability for them.</p>
+    </div>
+
+    <div class="prose prose-section">
+      <h2 class="section-title text-navy" style="font-size:1.5rem; margin-bottom:0.75rem;">8. Governing Law</h2>
+      <p id="terms-governing-law"></p>
+    </div>
+
+    <div class="prose prose-section">
+      <h2 class="section-title text-navy" style="font-size:1.5rem; margin-bottom:0.75rem;">9. Changes to These Terms</h2>
+      <p>We reserve the right to update these terms at any time. Changes will be posted to this page with an updated effective date. Continued use of the website after changes are posted constitutes acceptance of the revised terms.</p>
+    </div>
+
+    <div class="prose prose-section">
+      <h2 class="section-title text-navy" style="font-size:1.5rem; margin-bottom:0.75rem;">10. Contact</h2>
+      <p>Questions about these terms?</p>
+      <div class="prose-contact-box" id="terms-contact-box"></div>
+    </div>
+
+  </div>
+</section><script src="../components.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.title = `Terms & Conditions | ${CONFIG.businessName}`;
+  document.getElementById('terms-date').textContent = `Effective date: ${CONFIG.legal.termsDate}`;
+  document.getElementById('terms-intro').textContent =
+    `These Terms and Conditions govern your use of the ${CONFIG.businessName} website (the "Site") and any interactions with our business, including requesting quotes and consenting to SMS communications. By accessing or using the Site, you agree to be bound by these terms.`;
+  document.getElementById('terms-biz-name').textContent = CONFIG.businessName;
+  document.getElementById('terms-governing-law').textContent =
+    `These terms are governed by the laws of the State of ${CONFIG.state}. Any disputes arising from the use of this website or our services shall be resolved in the courts of ${CONFIG.state}.`;
+  document.getElementById('terms-contact-box').innerHTML = `
+    <strong>${CONFIG.businessName}</strong><br/>
+    ${CONFIG.address}<br/>
+    Phone: <a href="tel:${CONFIG.phoneRaw}" style="color:var(--color-primary)">${CONFIG.phone}</a><br/>
+    Email: <a href="mailto:${CONFIG.email}" style="color:var(--color-primary)">${CONFIG.email}</a>
+  `;
+});
+</script>
+
+</body>
+</html>
