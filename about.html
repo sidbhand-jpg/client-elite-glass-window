@@ -1,165 +1,42 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <!-- ── CONFIG (loaded early for Meta Pixel) ──────────────────── -->
-  <script src="CONFIG.js"></script>
-  <!-- ── Meta Pixel Base Code (reads CONFIG.metaPixelId) ───────── -->
-  <script>
-  (function() {
-    if (!CONFIG.metaPixelId) return;
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', CONFIG.metaPixelId);
-    fbq('track', 'PageView');
-    document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
-  })();
-  </script>
-
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <title>About Us | Home Services</title>
-  <meta name="description" content="Learn about our mission, values, and commitment to professional epoxy and professional project installations." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=optional" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-
-<!-- ── ABOUT HERO ─────────────────────────────────────────────── -->
-<section class="page-hero" style="background-color:var(--color-secondary)">
-  <div class="grid-overlay"></div>
-  <div class="container-wide" style="position:relative; max-width: 56rem;">
-    <div class="page-hero-eyebrow">About Us</div>
-    <h1 class="about-headline" id="about-headline"></h1>
-    <p class="about-hero-sub">
-      <span id="biz-name-hero"></span> was built on one belief: the only home service worth installing is one you'll never have to reinstall. That means no shortcuts on prep, no compromises on materials, and no jobs we're not proud to put our name on.
-    </p>
-  </div>
-</section>
-
-<!-- ── STORY SECTION ─────────────────────────────────────────── -->
-<section class="section-y bg-white">
-  <div class="container-wide" style="max-width: 48rem;">
-    <div class="about-prose">
-      <p>
-        Most epoxy failures come down to one thing: the installer skipped proper prep. Acid washing, shot blasting, or just applying product over a dirty project — these all lead to delamination within months.
-      </p>
-      <p>
-        We diamond-grind every project we coat. It takes longer and costs more than the shortcuts, but it's the only prep method that creates the mechanical bond needed for a permanent installation. Our projects don't peel because we don't cut corners where it counts.
-      </p>
-      <p id="about-story-end"></p>
+<!doctype html><html lang="en"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Elite Glass &amp; Window | Redmond, WA Glass Company</title>
+  <meta name="description" content="Meet Elite Glass &amp; Window, a Redmond-based custom glass, window, door and commercial glazing company serving Greater Seattle.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://eliteglassandwindow.com/about.html">
+  <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Elite Glass &amp; Window">
+  <meta property="og:title" content="About Elite Glass &amp; Window | Redmond, WA Glass Company">
+  <meta property="og:description" content="Meet Elite Glass &amp; Window, a Redmond-based custom glass, window, door and commercial glazing company serving Greater Seattle.">
+  <meta property="og:url" content="https://eliteglassandwindow.com/about.html">
+  <meta property="og:image" content="https://eliteglassandwindow.com/assets/indexbg.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":["LocalBusiness","HomeAndConstructionBusiness"],"@id":"https://eliteglassandwindow.com/#business","name":"Elite Glass & Window","legalName":"Elite Glass & Windows","url":"https://eliteglassandwindow.com","logo":"https://eliteglassandwindow.com/assets/logo.svg","image":"https://eliteglassandwindow.com/assets/showroom.jpg","telephone":"+14258908233","email":"sales@eliteglassandwindow.com","address":{"@type":"PostalAddress","streetAddress":"4028 148th Ave NE","addressLocality":"Redmond","addressRegion":"WA","postalCode":"98052","addressCountry":"US"},"geo":{"@type":"GeoCoordinates","latitude":47.6468,"longitude":-122.1431},"areaServed":[{"@type":"City","name":"Redmond, Washington"},{"@type":"City","name":"Bellevue, Washington"},{"@type":"City","name":"Kirkland, Washington"},{"@type":"City","name":"Sammamish, Washington"},{"@type":"City","name":"Issaquah, Washington"},{"@type":"City","name":"Mercer Island, Washington"},{"@type":"City","name":"Newcastle, Washington"},{"@type":"City","name":"Woodinville, Washington"},{"@type":"City","name":"Bothell, Washington"},{"@type":"City","name":"Kenmore, Washington"},{"@type":"City","name":"Duvall, Washington"},{"@type":"City","name":"Snoqualmie, Washington"},{"@type":"City","name":"North Bend, Washington"},{"@type":"City","name":"Shoreline, Washington"},{"@type":"City","name":"Edmonds, Washington"},{"@type":"City","name":"Lynnwood, Washington"},{"@type":"City","name":"Mountlake Terrace, Washington"},{"@type":"City","name":"Mill Creek, Washington"},{"@type":"City","name":"Everett, Washington"},{"@type":"City","name":"Mukilteo, Washington"},{"@type":"City","name":"Renton, Washington"},{"@type":"City","name":"Kent, Washington"},{"@type":"City","name":"Auburn, Washington"},{"@type":"City","name":"Tukwila, Washington"},{"@type":"City","name":"Federal Way, Washington"},{"@type":"City","name":"Burien, Washington"},{"@type":"City","name":"SeaTac, Washington"},{"@type":"City","name":"Des Moines, Washington"},{"@type":"City","name":"Seattle, Washington"},{"@type":"City","name":"West Seattle, Washington"},{"@type":"City","name":"Ballard, Washington"},{"@type":"City","name":"Queen Anne, Washington"},{"@type":"City","name":"Capitol Hill, Washington"},{"@type":"City","name":"Magnolia, Washington"},{"@type":"City","name":"Green Lake, Washington"},{"@type":"City","name":"University District, Washington"},{"@type":"City","name":"Bainbridge Island, Washington"}],"knowsAbout":["Window Replacement & Installation","Custom Shower Doors","Entry, Patio & Folding Doors","Glass Railings","Custom Mirrors","Glass Replacement & Foggy Window Repair","Storefront & Commercial Glass","Custom Glass Products"],"priceRange":"$$"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://eliteglassandwindow.com/"},{"@type":"ListItem","position":2,"name":"About","item":"https://eliteglassandwindow.com/about.html"}]}</script></head><body class=""><a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="topbar"><div class="shell topbar-inner"><span>Redmond showroom · Serving Greater Seattle</span><a href="tel:+14258908233">(425) 890-8233</a></div></div>
+    <div class="shell nav-row">
+      <a class="brand" href="/" aria-label="Elite Glass &amp; Window home"><img src="/assets/logo.svg" alt="Elite Glass &amp; Window"></a>
+      <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <a href="/about.html">About</a>
+        <div class="nav-group"><button type="button" aria-expanded="false">Products & Services</button><div class="nav-menu"><a href="/services/window-replacement.html">Windows</a><a href="/services/shower-doors.html">Shower Doors</a><a href="/services/entry-patio-doors.html">Doors</a><a href="/services/glass-railings.html">Railings</a><a href="/services/custom-mirrors.html">Mirrors</a><a href="/services/glass-replacement.html">Glass Replacement</a><a href="/services/storefront-glass.html">Storefront Glass</a><a href="/services/custom-glass-products.html">Custom Glass</a></div></div>
+        <a href="/installation-process.html">Process</a>
+        <a href="/service-areas.html">Service Areas</a>
+        <a href="/contact.html" class="nav-cta">Free Estimate</a>
+      </nav>
     </div>
-
-    <!-- Stats -->
-    <div class="about-stats" id="about-stats"></div>
-  </div>
-</section>
-
-<!-- ── VALUES ────────────────────────────────────────────────── -->
-<section class="section-y bg-slate-50">
-  <div class="container-wide">
-    <div class="about-values-header text-center">
-      <div class="section-eyebrow">How We Operate</div>
-      <h2 class="section-title text-navy">Our Values in Practice</h2>
+  </header><main id="main"><section class="simple-hero"><div class="shell narrow"><p class="eyebrow light">About Elite Glass & Window</p><h1>Built on experience. Focused on quality.</h1><p>A local Redmond team helping homeowners and businesses make custom glass projects clearer from the first conversation.</p></div></section><section class="section"><div class="shell story-grid light-story"><div><p class="eyebrow">Our approach</p><h2>Custom work should feel organized, not uncertain.</h2><p class="lead">Elite Glass & Window was founded to make custom glass solutions easier, more transparent, and more beautiful for homes and businesses in the Seattle area.</p><p>From frameless shower enclosures and energy-efficient windows to architectural railings and commercial glass, the work starts by understanding the opening, the environment, and what the finished space needs to do.</p><div class="value-grid"><div><h3>Local guidance</h3><p>Visit the Redmond showroom and talk through materials, configurations, and next steps.</p></div><div><h3>Custom solutions</h3><p>Measurements and specifications are tailored to the actual space.</p></div><div><h3>Professional installation</h3><p>The project stays coordinated from field measurement through final inspection.</p></div><div><h3>Residential + commercial</h3><p>One team supports homes, offices, retail, restaurants, and managed properties.</p></div></div></div><img src="/assets/showroom.jpg" alt="Elite Glass & Window Redmond showroom" width="900" height="700"></div></section><section class="section section-soft"><div class="shell"><div class="section-head centered"><p class="eyebrow">Proudly serving Greater Seattle</p><h2>Four regional service areas.</h2><p>Select your community for local products, service details, and answers.</p></div><div class="region-grid"><section class="region-card"><h2>Eastside</h2><p class="city-line"><a href="/locations/redmond.html">Redmond</a><span aria-hidden="true">•</span><a href="/locations/bellevue.html">Bellevue</a><span aria-hidden="true">•</span><a href="/locations/kirkland.html">Kirkland</a><span aria-hidden="true">•</span><a href="/locations/sammamish.html">Sammamish</a><span aria-hidden="true">•</span><a href="/locations/issaquah.html">Issaquah</a><span aria-hidden="true">•</span><a href="/locations/mercer-island.html">Mercer Island</a><span aria-hidden="true">•</span><a href="/locations/newcastle.html">Newcastle</a><span aria-hidden="true">•</span><a href="/locations/woodinville.html">Woodinville</a><span aria-hidden="true">•</span><a href="/locations/bothell.html">Bothell</a><span aria-hidden="true">•</span><a href="/locations/kenmore.html">Kenmore</a><span aria-hidden="true">•</span><a href="/locations/duvall.html">Duvall</a><span aria-hidden="true">•</span><a href="/locations/snoqualmie.html">Snoqualmie</a><span aria-hidden="true">•</span><a href="/locations/north-bend.html">North Bend</a></p></section><section class="region-card"><h2>North Seattle &amp; Snohomish County</h2><p class="city-line"><a href="/locations/shoreline.html">Shoreline</a><span aria-hidden="true">•</span><a href="/locations/edmonds.html">Edmonds</a><span aria-hidden="true">•</span><a href="/locations/lynnwood.html">Lynnwood</a><span aria-hidden="true">•</span><a href="/locations/mountlake-terrace.html">Mountlake Terrace</a><span aria-hidden="true">•</span><a href="/locations/mill-creek.html">Mill Creek</a><span aria-hidden="true">•</span><a href="/locations/everett.html">Everett</a><span aria-hidden="true">•</span><a href="/locations/mukilteo.html">Mukilteo</a></p></section><section class="region-card"><h2>South Seattle &amp; South King County</h2><p class="city-line"><a href="/locations/renton.html">Renton</a><span aria-hidden="true">•</span><a href="/locations/kent.html">Kent</a><span aria-hidden="true">•</span><a href="/locations/auburn.html">Auburn</a><span aria-hidden="true">•</span><a href="/locations/tukwila.html">Tukwila</a><span aria-hidden="true">•</span><a href="/locations/federal-way.html">Federal Way</a><span aria-hidden="true">•</span><a href="/locations/burien.html">Burien</a><span aria-hidden="true">•</span><a href="/locations/seatac.html">SeaTac</a><span aria-hidden="true">•</span><a href="/locations/des-moines.html">Des Moines</a></p></section><section class="region-card"><h2>Seattle &amp; Surrounding Areas</h2><p class="city-line"><a href="/locations/seattle.html">Seattle</a><span aria-hidden="true">•</span><a href="/locations/west-seattle.html">West Seattle</a><span aria-hidden="true">•</span><a href="/locations/ballard.html">Ballard</a><span aria-hidden="true">•</span><a href="/locations/queen-anne.html">Queen Anne</a><span aria-hidden="true">•</span><a href="/locations/capitol-hill.html">Capitol Hill</a><span aria-hidden="true">•</span><a href="/locations/magnolia.html">Magnolia</a><span aria-hidden="true">•</span><a href="/locations/green-lake.html">Green Lake</a><span aria-hidden="true">•</span><a href="/locations/university-district.html">University District</a><span aria-hidden="true">•</span><a href="/locations/mercer-island.html">Mercer Island</a><span aria-hidden="true">•</span><a href="/locations/bainbridge-island.html">Bainbridge Island</a></p></section></div></div></section><section class="section section-dark"><div class="shell section-head centered inverse"><p class="eyebrow light">Start in Redmond</p><h2>Rooted locally. Working across the region.</h2><p>Contact the team to confirm availability for your address and project type.</p><a class="button button-primary" href="/contact.html">Request a free estimate</a></div></section></main><footer class="site-footer">
+    <div class="shell footer-grid">
+      <div><img class="footer-logo" src="/assets/logo.svg" alt="Elite Glass &amp; Window"><p>Custom glass, windows, doors, showers, railings, mirrors, and commercial glazing from a local Redmond team.</p></div>
+      <div><h2>Products & services</h2><ul><li><a href="/services/window-replacement.html">Windows</a></li><li><a href="/services/shower-doors.html">Shower Doors</a></li><li><a href="/services/entry-patio-doors.html">Doors</a></li><li><a href="/services/glass-railings.html">Railings</a></li><li><a href="/services/custom-mirrors.html">Mirrors</a></li><li><a href="/services/glass-replacement.html">Glass Replacement</a></li><li><a href="/services/storefront-glass.html">Storefront Glass</a></li><li><a href="/services/custom-glass-products.html">Custom Glass</a></li></ul></div>
+      <div><h2>Visit or contact</h2><address>4028 148th Ave NE, Redmond, WA 98052</address><p><a href="tel:+14258908233">(425) 890-8233</a><br><a href="mailto:sales@eliteglassandwindow.com">sales@eliteglassandwindow.com</a></p><p class="small">Contact us before visiting to confirm current showroom hours.</p></div>
     </div>
-    <div class="about-values-grid">
-      <div class="value-card">
-        <div class="value-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="value-icon-svg"><rect x="3" y="14" width="18" height="3" rx="1" fill="currentColor" opacity="0.5"/><rect x="3" y="10" width="18" height="3" rx="1" fill="currentColor" opacity="0.75"/><rect x="3" y="6" width="18" height="3" rx="1" fill="currentColor"/></svg>
-        </div>
-        <div class="value-title">Prep Is Everything</div>
-        <p class="value-desc">We diamond-grind every project. No acid washes, no shortcuts. Proper prep is the only reason coatings last 20 years instead of 2.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="value-icon-svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
-        <div class="value-title">Written Warranty</div>
-        <p class="value-desc">We stand behind every installation with a written warranty. If the coating fails due to our workmanship, we come back and fix it.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="value-icon-svg"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
-        </div>
-        <div class="value-title">Premium Materials</div>
-        <p class="value-desc">100% solids epoxy and professional only. We don't use water-based or box-store products — ever.</p>
-      </div>
-      <div class="value-card">
-        <div class="value-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="value-icon-svg"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-        </div>
-        <div class="value-title">Respect Your Time</div>
-        <p class="value-desc">Most installs done in one day. We arrive on time, work efficiently, and leave your space clean and ready to use.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── CTA ────────────────────────────────────────────────────── -->
-<div id="about-cta"></div><script src="components.js"></script><script src="/generic-runtime.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  document.title = `About Us | ${CONFIG.businessName}`;
-  document.querySelector('meta[name="description"]').setAttribute('content',
-    `${CONFIG.businessName} — ${CONFIG.yearsExperience}+ years of installing epoxy and professional projects. We diamond-grind every project and back every job with a written warranty.`
-  );
-
-  document.getElementById('biz-name-hero').textContent = CONFIG.businessName;
-  document.getElementById('about-headline').textContent = `${CONFIG.yearsExperience}+ Years of Installing Projects That Last`;
-  document.getElementById('about-story-end').textContent =
-    `After ${CONFIG.yearsExperience} years and ${CONFIG.projectsCompleted} projects across the region, our reviews tell the story better than we can.`;
-
-  // Stats
-  const stats = [
-    { value: CONFIG.yearsExperience + '+', label: 'Years in Business' },
-    { value: CONFIG.projectsCompleted, label: 'Projects Installed' },
-    { value: CONFIG.rating, label: 'Star Rating' },
-    { value: CONFIG.satisfactionRate, label: 'Customer Satisfaction' },
-  ];
-  document.getElementById('about-stats').innerHTML = stats.map(s => `
-    <div class="about-stat">
-      <div class="about-stat-value">${s.value}</div>
-      <div class="about-stat-label">${s.label}</div>
-    </div>`).join('');
-
-  // CTA
-  document.getElementById('about-cta').innerHTML = ctaSectionHTML({
-    title: "Want to Work With Us?",
-    subtitle: "Free site visit, written quote, no pressure. We assess your concrete and tell you exactly what's needed — and what's not."
-  });
-});
-</script>
-
-<style>
-/* ── ABOUT PAGE STYLES ──────────────────────────────────── */
-.about-headline { color: #fff; margin-bottom: 1.5rem; }
-.about-hero-sub { color: rgba(255,255,255,0.8); font-size: 1.25rem; line-height: 1.65; max-width: 42rem; }
-.about-prose { display: flex; flex-direction: column; gap: 1rem; font-size: 1.0625rem; line-height: 1.75; color: #374151; margin-bottom: 3.5rem; }
-.about-prose p { margin: 0; }
-.about-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
-@media (min-width: 768px) { .about-stats { grid-template-columns: repeat(4, 1fr); } }
-.about-stat { text-align: center; }
-.about-stat-value { font-family: var(--font-display); font-size: 2.5rem; font-weight: 700; color: var(--color-primary); }
-.about-stat-label { font-size: 0.875rem; color: var(--color-muted); margin-top: 0.25rem; }
-
-.about-values-header { margin-bottom: 3rem; }
-.about-values-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-@media (min-width: 768px) { .about-values-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .about-values-grid { grid-template-columns: repeat(4, 1fr); } }
-.value-card { background: #fff; border-radius: var(--radius-2xl); border: 1px solid var(--color-slate-200); padding: 1.5rem; text-align: center; }
-.value-icon-wrap { width: 3rem; height: 3rem; border-radius: 0.75rem; background-color: var(--color-primary); display: grid; place-items: center; margin-inline: auto; margin-bottom: 1rem; }
-.value-icon-svg { width: 1.5rem; height: 1.5rem; color: #fff; }
-.value-title { font-family: var(--font-display); font-weight: 700; color: var(--color-navy); font-size: 1.125rem; margin-bottom: 0.5rem; }
-.value-desc { font-size: 0.875rem; color: var(--color-muted); line-height: 1.6; }
-</style>
-
-</body>
-</html>
+    <div class="shell footer-bottom"><span>© 2026 Elite Glass &amp; Windows</span><span><a href="/privacy-policy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a href="/sitemap.xml">Sitemap</a></span></div>
+  </footer><script src="/CONFIG.js"></script><script src="/site.js" defer></script></body></html>
