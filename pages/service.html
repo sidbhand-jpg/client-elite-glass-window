@@ -57,12 +57,15 @@
     <div class="service-main">
       <p class="service-longdesc" id="service-longdesc"></p>
 
+      <h2 class="service-benefits-title">Products & Options</h2>
+      <div class="service-product-grid" id="service-products"></div>
+
       <h2 class="service-benefits-title">What's Included</h2>
       <ul class="service-benefits" id="service-benefits"></ul>
 
       <!-- Other services -->
       <div class="other-services-box">
-        <div class="other-services-title">Other Coating Systems</div>
+        <div class="other-services-title">Other Glass, Window & Door Services</div>
         <div class="other-services-list" id="other-services-list"></div>
       </div>
     </div>
@@ -88,7 +91,7 @@
 <div id="service-cta"></div><script src="../components.js"></script><script src="/generic-runtime.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // Read slug from URL: /services/epoxy-garage-projects.html -> epoxy-garage-projects
+  // Read the service slug from the generated page URL.
   const slug = window.location.pathname.split('/').pop().replace('.html', '');
   const service = CONFIG.services.find(s => s.slug === slug);
 
@@ -113,6 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Long desc
   document.getElementById('service-longdesc').textContent = service.longDesc;
+
+  document.getElementById('service-products').innerHTML = (service.products || []).map(product => `
+    <div class="service-product-item">${product}</div>`).join('');
 
   // Benefits
   document.getElementById('service-benefits').innerHTML = service.benefits.map(b => `
@@ -141,8 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // CTA
   document.getElementById('service-cta').innerHTML = ctaSectionHTML({
-    title: `Ready to Install ${service.name}?`,
-    subtitle: "Free site visit and written quote. Most residential installs completed in one day."
+    title: `Planning a ${service.name} Project?`,
+    subtitle: "Request a free consultation for product guidance, measurement, and a clear written scope."
   });
 });
 </script>
@@ -185,6 +191,9 @@ document.addEventListener('DOMContentLoaded', () => {
 @media (min-width: 1024px) { .service-content-grid { flex-direction: row; gap: 3rem; } }
 .service-main { flex: 1; }
 .service-longdesc { color: var(--color-muted); font-size: 1.0625rem; line-height: 1.75; margin-bottom: 2rem; }
+.service-product-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; margin-bottom: 2.5rem; }
+.service-product-item { border: 1px solid var(--color-slate-200); background: var(--color-slate-50); border-radius: var(--radius-xl); padding: 0.875rem 1rem; color: var(--color-navy); font-weight: 600; font-size: 0.875rem; }
+@media (max-width: 640px) { .service-product-grid { grid-template-columns: 1fr; } }
 .service-benefits-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-navy); margin-bottom: 1.25rem; }
 .service-benefits { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem; }
 .service-benefit-item { display: flex; align-items: flex-start; gap: 0.75rem; }

@@ -25,7 +25,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <title>About Us | Home Services</title>
-  <meta name="description" content="Learn about our mission, values, and commitment to professional epoxy and professional project installations." />
+  <meta name="description" content="Learn about Elite Glass & Window, a Redmond glass, window, and door company serving Greater Seattle." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=optional" rel="stylesheet" />
@@ -40,7 +40,7 @@
     <div class="page-hero-eyebrow">About Us</div>
     <h1 class="about-headline" id="about-headline"></h1>
     <p class="about-hero-sub">
-      <span id="biz-name-hero"></span> was built on one belief: the only home service worth installing is one you'll never have to reinstall. That means no shortcuts on prep, no compromises on materials, and no jobs we're not proud to put our name on.
+      <span id="biz-name-hero"></span> helps homeowners, businesses, contractors, and designers plan custom glass projects with clear guidance, accurate measurement, and professional installation.
     </p>
   </div>
 </section>
@@ -50,10 +50,10 @@
   <div class="container-wide" style="max-width: 48rem;">
     <div class="about-prose">
       <p>
-        Most epoxy failures come down to one thing: the installer skipped proper prep. Acid washing, shot blasting, or just applying product over a dirty project — these all lead to delamination within months.
+        Elite Glass & Window was founded to make custom glass solutions easier and more transparent for homes and businesses throughout Greater Seattle.
       </p>
       <p>
-        We diamond-grind every project we coat. It takes longer and costs more than the shortcuts, but it's the only prep method that creates the mechanical bond needed for a permanent installation. Our projects don't peel because we don't cut corners where it counts.
+        From windows and doors to shower enclosures, railings, mirrors, storefronts, and specialty glass, each project begins with the space, the intended use, and the right product specification.
       </p>
       <p id="about-story-end"></p>
     </div>
@@ -75,29 +75,29 @@
         <div class="value-icon-wrap">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="value-icon-svg"><rect x="3" y="14" width="18" height="3" rx="1" fill="currentColor" opacity="0.5"/><rect x="3" y="10" width="18" height="3" rx="1" fill="currentColor" opacity="0.75"/><rect x="3" y="6" width="18" height="3" rx="1" fill="currentColor"/></svg>
         </div>
-        <div class="value-title">Prep Is Everything</div>
-        <p class="value-desc">We diamond-grind every project. No acid washes, no shortcuts. Proper prep is the only reason coatings last 20 years instead of 2.</p>
+        <div class="value-title">Clear Communication</div>
+        <p class="value-desc">We explain product choices, measurements, scope, and next steps before fabrication begins.</p>
       </div>
       <div class="value-card">
         <div class="value-icon-wrap">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="value-icon-svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
-        <div class="value-title">Written Warranty</div>
-        <p class="value-desc">We stand behind every installation with a written warranty. If the coating fails due to our workmanship, we come back and fix it.</p>
+        <div class="value-title">Custom Solutions</div>
+        <p class="value-desc">Glass, hardware, configuration, and finish are selected around the actual opening and project goals.</p>
       </div>
       <div class="value-card">
         <div class="value-icon-wrap">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="value-icon-svg"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
         </div>
-        <div class="value-title">Premium Materials</div>
-        <p class="value-desc">100% solids epoxy and professional only. We don't use water-based or box-store products — ever.</p>
+        <div class="value-title">Trusted Products</div>
+        <p class="value-desc">We work across established window, shower-door, entry-door, and architectural glass product lines.</p>
       </div>
       <div class="value-card">
         <div class="value-icon-wrap">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="value-icon-svg"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
-        <div class="value-title">Respect Your Time</div>
-        <p class="value-desc">Most installs done in one day. We arrive on time, work efficiently, and leave your space clean and ready to use.</p>
+        <div class="value-title">Professional Installation</div>
+        <p class="value-desc">Our team protects the work area, installs with care, and completes a final walkthrough.</p>
       </div>
     </div>
   </div>
@@ -109,20 +109,20 @@
 document.addEventListener('DOMContentLoaded', () => {
   document.title = `About Us | ${CONFIG.businessName}`;
   document.querySelector('meta[name="description"]').setAttribute('content',
-    `${CONFIG.businessName} — ${CONFIG.yearsExperience}+ years of installing epoxy and professional projects. We diamond-grind every project and back every job with a written warranty.`
+    `${CONFIG.businessName} is a Redmond glass, window, and door company serving residential and commercial customers throughout Greater Seattle.`
   );
 
   document.getElementById('biz-name-hero').textContent = CONFIG.businessName;
-  document.getElementById('about-headline').textContent = `${CONFIG.yearsExperience}+ Years of Installing Projects That Last`;
+  document.getElementById('about-headline').textContent = 'Built on Experience. Focused on Quality.';
   document.getElementById('about-story-end').textContent =
-    `After ${CONFIG.yearsExperience} years and ${CONFIG.projectsCompleted} projects across the region, our reviews tell the story better than we can.`;
+    `Visit our Redmond showroom to compare available products and discuss the right next step for your project.`;
 
   // Stats
   const stats = [
-    { value: CONFIG.yearsExperience + '+', label: 'Years in Business' },
-    { value: CONFIG.projectsCompleted, label: 'Projects Installed' },
-    { value: CONFIG.rating, label: 'Star Rating' },
-    { value: CONFIG.satisfactionRate, label: 'Customer Satisfaction' },
+    { value: 'Redmond', label: 'Local Showroom' },
+    { value: 'Custom', label: 'Measured Solutions' },
+    { value: 'Homes', label: 'Residential Projects' },
+    { value: 'Business', label: 'Commercial Projects' },
   ];
   document.getElementById('about-stats').innerHTML = stats.map(s => `
     <div class="about-stat">
@@ -132,8 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // CTA
   document.getElementById('about-cta').innerHTML = ctaSectionHTML({
-    title: "Want to Work With Us?",
-    subtitle: "Free site visit, written quote, no pressure. We assess your concrete and tell you exactly what's needed — and what's not."
+    title: "Planning a Glass Project?",
+    subtitle: "Request a free consultation and get clear guidance on products, measurements, fabrication, and installation."
   });
 });
 </script>

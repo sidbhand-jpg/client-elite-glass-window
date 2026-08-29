@@ -3,6 +3,15 @@
 // Included on every page via <script src="../components.js">
 // ============================================================
 
+// Microsoft Clarity loads only when a real project ID is configured.
+if (CONFIG.clarityProjectId) {
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", CONFIG.clarityProjectId);
+}
+
 // ── ATTRIBUTION CAPTURE (Meta CAPI) ───────────────────────────
 // Captures UTM params, fbclid, fbp/fbc cookies, and a per-pageview
 // lead_event_id for Meta Pixel / CAPI deduplication. Runs on every
@@ -87,15 +96,8 @@ function renderStars(count = 5) {
 
 // ── Logo SVG ─────────────────────────────────────────────────
 function logoHTML() {
-  return `<a href="/" class="logo-link">
-    <span class="logo-icon">
-      <svg viewBox="0 0 24 24" fill="none" class="logo-svg">
-        <rect x="3" y="14" width="18" height="3" rx="1" fill="currentColor" opacity="0.5"/>
-        <rect x="3" y="10" width="18" height="3" rx="1" fill="currentColor" opacity="0.75"/>
-        <rect x="3" y="6" width="18" height="3" rx="1" fill="currentColor"/>
-      </svg>
-    </span>
-    <span class="logo-text">${CONFIG.businessName}</span>
+  return `<a href="/" class="logo-link" aria-label="${CONFIG.businessName} home">
+    <img src="/logo.svg" alt="${CONFIG.businessName}" class="brand-logo-img" />
   </a>`;
 }
 
@@ -108,13 +110,13 @@ function renderHeader() {
     </a>`).join('');
 
   const areasDropdown = CONFIG.serviceAreas.map(a => `
-    <a href="/${a.slug}.html" class="area-pill">${a.name}</a>`).join('');
+    <a href="/cities/${a.slug}.html" class="area-pill">${a.name}</a>`).join('');
 
   const mobileServiceLinks = CONFIG.services.map(s => `
     <a href="/services/${s.slug}.html" class="mobile-sub-link">${s.name}</a>`).join('');
 
   const mobileAreaLinks = CONFIG.serviceAreas.map(a => `
-    <a href="/${a.slug}.html" class="mobile-area-pill">${a.name}</a>`).join('');
+    <a href="/cities/${a.slug}.html" class="mobile-area-pill">${a.name}</a>`).join('');
 
   const html = `
   <header class="site-header" id="site-header">
@@ -270,7 +272,7 @@ function renderFooter() {
     `<li><a href="/services/${s.slug}.html">${s.name}</a></li>`).join('');
 
   const areaLinks = CONFIG.serviceAreas.map(a =>
-    `<a href="/${a.slug}.html" class="area-pill-sm">${a.name}</a>`).join('');
+    `<a href="/cities/${a.slug}.html" class="area-pill-sm">${a.name}</a>`).join('');
 
   // Social icons — only render if URL is set
   const SOCIAL_ICONS = {
@@ -349,7 +351,7 @@ function renderFooter() {
     <div class="footer-bottom">
       <div class="container-wide footer-bottom-inner">
         <div>&copy; <span id="footer-year"></span> ${CONFIG.businessName}. All rights reserved.</div>
-        <div>${CONFIG.niche || 'Professional Home Services'} &middot; ${CONFIG.state}.</div>
+        <div>${CONFIG.niche || 'Glass, Windows & Doors'} &middot; ${CONFIG.state}.</div>
       </div>
       <div class="container-wide" style="padding-block: 0.5rem 1rem; text-align: center; font-size: 0.7rem; color: rgba(255,255,255,0.4);">
         Website Design &amp; Marketing by <a href="https://houzflow.com" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.55); text-decoration: none;">HouzFlow</a>
@@ -370,7 +372,7 @@ function renderChatWidget() {
       <div class="chat-header">
         <div>
           <div class="chat-header-title">Chat with Us</div>
-          <div class="chat-header-sub">Typically reply in 15 minutes</div>
+          <div class="chat-header-sub">Tell us about your project</div>
         </div>
         <button class="chat-close" id="chat-close-btn">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-md"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
@@ -454,20 +456,23 @@ function initChatWidget() {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (!CONFIG.webhookUrl) {
+      chatError.innerHTML = `Online requests are not connected yet. Please call <a href="tel:${CONFIG.phoneRaw}">${CONFIG.phone}</a> or email <a href="mailto:${CONFIG.email}">${CONFIG.email}</a>.`;
+      chatError.style.display = 'block';
+      return;
+    }
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
     chatError.style.display = 'none';
     const data = Object.fromEntries(new FormData(form).entries());
     const attribution = HouzflowAttribution.get();
     try {
-      if (CONFIG.webhookUrl) {
-        await fetch(CONFIG.webhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          mode: 'no-cors',
-          body: JSON.stringify({ source: 'chat', ...data, ...attribution }),
-        });
-      }
+      await fetch(CONFIG.webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        mode: 'no-cors',
+        body: JSON.stringify({ source: 'chat', ...data, ...attribution }),
+      });
       if (typeof fbq !== 'undefined' && CONFIG.metaPixelId) {
         fbq('track', 'Lead', {}, { eventID: attribution.lead_event_id });
       }
@@ -537,7 +542,7 @@ function buildLeadForm(containerId, opts = {}) {
   <div class="${wrapClass}" id="lead-form-wrap-${containerId}">
     <div class="lead-form-header">
       <div class="lead-form-title">Get a Free Quote</div>
-      <div class="lead-form-sub">We'll call back within 15 minutes during business hours.</div>
+      <div class="lead-form-sub">Tell us what you need and how to reach you.</div>
     </div>
     <div id="lead-form-success-${containerId}" class="lead-form-success" style="display:none">
       <div class="lead-form-success-icon">✅</div>
@@ -554,7 +559,7 @@ function buildLeadForm(containerId, opts = {}) {
         <option value="other">Not Sure — Need Advice</option>
       </select>
       ${showCity ? `<select required name="city" class="form-select"><option value="" disabled selected>Your City</option>${cityOptions}</select>` : ''}
-      <input name="sqft" placeholder="Project details (optional)" class="form-input" />
+      <input name="project_details" placeholder="Project details (optional)" class="form-input" />
       ${showMessage ? `<textarea name="message" rows="3" placeholder="Tell us about your project (optional)" class="form-textarea"></textarea>` : ''}
       <!-- A2P SMS consent -->
       <label class="consent-label">
@@ -570,7 +575,7 @@ function buildLeadForm(containerId, opts = {}) {
       <button type="submit" class="btn-primary w-full" id="lead-submit-${containerId}">
         Get My Free Quote &rarr;
       </button>
-      <p class="form-disclaimer">No pressure. We never share your info.</p>
+      <p class="form-disclaimer">No pressure. Your information is handled according to our Privacy Policy.</p>
     </form>
   </div>`;
 
@@ -590,6 +595,11 @@ function initLeadForm(id) {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (!CONFIG.webhookUrl) {
+      errorDiv.innerHTML = `Online requests are not connected yet. Please call <a href="tel:${CONFIG.phoneRaw}">${CONFIG.phone}</a> or email <a href="mailto:${CONFIG.email}">${CONFIG.email}</a>.`;
+      errorDiv.style.display = 'block';
+      return;
+    }
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
     errorDiv.style.display = 'none';
@@ -603,14 +613,12 @@ function initLeadForm(id) {
 
     const data = Object.fromEntries(new FormData(form).entries());
     try {
-      if (CONFIG.webhookUrl) {
-        await fetch(CONFIG.webhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          mode: 'no-cors',
-          body: JSON.stringify({ source: 'lead-form', ...data }),
-        });
-      }
+      await fetch(CONFIG.webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        mode: 'no-cors',
+        body: JSON.stringify({ source: 'lead-form', ...data }),
+      });
       // Fire Meta Pixel Lead event, deduplicated against the server-side
       // CAPI Lead event via the shared lead_event_id.
       if (typeof fbq !== 'undefined' && CONFIG.metaPixelId) {
@@ -659,10 +667,10 @@ function renderTrustBar(containerId) {
   const container = document.getElementById(containerId);
   if (!container) return;
   const items = [
-    { svg: `<svg viewBox="0 0 24 24" fill="currentColor" class="trust-icon"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`, label: `${CONFIG.rating}-Star Rated`, sub: `${CONFIG.reviewCount} verified reviews` },
-    { svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="trust-icon"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`, label: "Written Warranty", sub: "Every job guaranteed" },
-    { svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="trust-icon"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`, label: "On-Time Completion", sub: "We stick to our schedule" },
-    { svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="trust-icon"><path d="M9 12l2 2 4-4"/><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`, label: "Licensed &amp; Insured", sub: "$2M liability coverage" },
+    { svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="trust-icon"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h6M9 14h6"/></svg>`, label: "Redmond Showroom", sub: "See options in person" },
+    { svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="trust-icon"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>`, label: "Custom Measured", sub: "Specified for your space" },
+    { svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="trust-icon"><path d="M4 20V10l8-6 8 6v10M8 20v-6h8v6"/></svg>`, label: "Residential", sub: "Windows, doors & glass" },
+    { svg: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="trust-icon"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 20v-6h8v6"/></svg>`, label: "Commercial", sub: "Storefronts & interiors" },
   ];
   container.innerHTML = `
     <div class="trust-bar-inner">

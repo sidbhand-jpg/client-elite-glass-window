@@ -173,6 +173,7 @@ h3 { font-size: 1.25rem; font-weight: 700; }
   gap: 0.625rem;
   text-decoration: none;
 }
+.brand-logo-img { width: 13rem; height: 3.5rem; object-fit: contain; object-position: left center; }
 .logo-icon {
   display: grid;
   place-items: center;

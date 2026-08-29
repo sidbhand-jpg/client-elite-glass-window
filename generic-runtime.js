@@ -1,4 +1,4 @@
-/* Generic home-services copy layer. Runs after the shared epoxy-derived UI. */
+/* Glass and window content layer for the shared Houzflow website template. */
 (() => {
   const niche = CONFIG.niche || 'Home Services';
   const serviceNames = () => CONFIG.services.map(s => s.name).join(', ');
@@ -11,8 +11,8 @@
     document.querySelectorAll('[data-generic-niche]').forEach(node => { node.textContent = niche; });
 
     if (document.getElementById('hero-headline')) {
-      document.title = `${CONFIG.businessName} | ${niche} in ${CONFIG.city}`;
-      document.querySelector('meta[name="description"]').setAttribute('content', `Professional ${niche.toLowerCase()} in ${CONFIG.city}. Request a clear, no-pressure estimate from ${CONFIG.businessName}.`);
+      document.title = `Glass Replacement & Window Company in Redmond, WA | ${CONFIG.businessName}`;
+      document.querySelector('meta[name="description"]').setAttribute('content', `${CONFIG.businessName} provides windows, shower doors, custom glass, railings, mirrors, doors, and storefront glass throughout Greater Seattle.`);
       const ogTitle = document.querySelector('meta[property="og:title"]');
       const ogDescription = document.querySelector('meta[property="og:description"]');
       if (ogTitle) ogTitle.setAttribute('content', `${CONFIG.businessName} | ${niche}`);
@@ -51,7 +51,7 @@
       document.getElementById('city-headline').innerHTML = `${niche} in <span style="color:var(--color-primary)">${area.name}</span>`;
       document.getElementById('city-sub').innerHTML = `Professional ${niche.toLowerCase()} for ${area.name} homeowners and businesses. Clear communication, dependable scheduling, and a team that respects your property.`;
       document.getElementById('city-why-grid').innerHTML = [
-        `Local team serving ${area.name}`, `${CONFIG.yearsExperience}+ years of experience`, 'Clear estimates and practical recommendations', 'Respectful, professional service', `${CONFIG.projectsCompleted} projects completed across the region`,
+        `Redmond-based team serving ${area.name}`, 'Residential and commercial glass expertise', 'Clear estimates and practical recommendations', 'Custom measurement and product guidance', 'Professional installation and final walkthrough',
       ].map(item => `<div class="city-why-item"><span>${item}</span></div>`).join('');
       document.getElementById('city-map').innerHTML = mapEmbedHTML(`${area.name} ${CONFIG.stateShort} ${niche}`);
       const faqs = [
@@ -70,7 +70,7 @@
       document.querySelector('meta[name="description"]').setAttribute('content', `Learn about ${CONFIG.businessName}, a local ${niche.toLowerCase()} team serving ${CONFIG.city}.`);
       document.getElementById('about-headline').textContent = `A local team that puts your project first.`;
       const prose = document.querySelector('.about-prose');
-      if (prose) prose.innerHTML = `<p>${CONFIG.businessName} serves ${CONFIG.city} with professional ${niche.toLowerCase()} and a straightforward customer experience.</p><p>We believe good service means clear communication, practical recommendations, respect for your property, and work completed with care.</p><p>From the first call through the final walkthrough, our team is here to make your project simpler.</p>`;
+      if (prose) prose.innerHTML = `<p>${CONFIG.businessName} was founded to make custom glass solutions easier and more transparent for homes and businesses throughout Greater Seattle.</p><p>From windows and doors to shower enclosures, railings, mirrors, storefronts, and specialty glass, each project begins with the space, the intended use, and the right product specification.</p><p>Visit our Redmond showroom to compare available options or schedule an on-site consultation when final field measurements are required.</p>`;
       const values = document.querySelector('.values-grid');
       if (values) values.innerHTML = [['Clear communication', 'We explain the plan and keep you informed.'], ['Respect for your property', 'We work carefully and leave your space tidy.'], ['Professional standards', 'We bring the experience and attention your project deserves.']].map(([title, desc]) => `<div class="value-card"><div class="value-title">${title}</div><p class="value-desc">${desc}</p></div>`).join('');
     }

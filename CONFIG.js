@@ -1,30 +1,32 @@
 const CONFIG = {
   businessName: "Elite Glass & Window",
+  siteUrl: "https://eliteglassandwindow.com",
   niche: "Glass & Window",
-  tagline: "Your Trusted Partner for Premium Glass & Window Solutions in Seattle",
-  phone: "425-890-8233",
-  phoneRaw: "4258908233",
+  tagline: "Custom Glass, Windows & Doors for Greater Seattle",
+  phone: "(425) 890-8233",
+  phoneRaw: "+14258908233",
   email: "sales@eliteglassandwindow.com",
-  city: "Seattle",
+  city: "Redmond",
   state: "Washington",
   stateShort: "WA",
-  address: "",
+  address: "4028 148th Ave NE, Redmond, WA 98052",
   licenseNumber: "",
   colors: { primary: "#004080", secondary: "#1C2333" },
   social: { facebook: "", instagram: "", youtube: "", yelp: "", nextdoor: "" },
   googleReviewsUrl: "https://search.google.com/local/writereview?placeid=ChIJg31wD_9tkFQRp-As1RijQDA",
-  rating: "4.8",
-  reviewCount: 42,
-  yearsExperience: 0,
-  projectsCompleted: "0+",
-  satisfactionRate: "98%",
+  rating: "",
+  reviewCount: 0,
+  yearsExperience: "",
+  projectsCompleted: "",
+  satisfactionRate: "",
   webhookUrl: "",
   metaPixelId: "",
+  clarityProjectId: "",
   maps: { mapEmbedUrl: "", mapSearchQuery: "Elite Glass & Window Redmond WA", mapHeight: 420 },
   hero: {
-    eyebrow: "Local Home Service Professionals",
-    headline: "Transform Your Home with Elite Glass & Window Solutions",
-    subheadline: "Enhancing Homes and Businesses with Quality Craftsmanship and Unmatched Service Across the Greater Seattle Area.",
+    eyebrow: "Redmond Glass & Window Specialists",
+    headline: "Custom Glass, Windows & Doors—Measured for Your Space",
+    subheadline: "Residential and commercial glass solutions from a local Redmond showroom serving the Greater Seattle area.",
     ctaPrimary: "Get a Free Estimate",
     ctaSecondary: "Explore Services",
     heroImage: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=80&auto=format&fit=crop",
@@ -35,6 +37,7 @@ const CONFIG = {
       name: "Window Replacement & Installation",
       desc: "Upgrade your home with energy-efficient window replacement and new window installations.",
       longDesc: "Whether you're looking to replace old, inefficient windows or install new ones in a construction project, we offer a comprehensive selection of high-quality windows designed for durability, energy efficiency, and aesthetic appeal. Choose from various styles, including vinyl, wood, and aluminum.",
+      products: ["Single-hung windows", "Double-hung windows", "Casement windows", "Sliding windows", "Picture windows", "Awning windows", "Custom window configurations"],
       benefits: ["Increased energy efficiency", "Reduced noise pollution", "Improved home comfort", "Modernized appearance", "Custom fit and finish"],
       faqs: [
         { q: "How long does window replacement take?", a: "The timeline depends on the number and type of windows, but most residential projects are completed within a few days." },
@@ -47,6 +50,7 @@ const CONFIG = {
       name: "Shower Doors",
       desc: "Custom frameless and sliding shower doors for a modern bathroom.",
       longDesc: "Transform your bathroom with our exquisite custom shower doors, including frameless, semi-frameless, and sliding options. We offer a variety of glass types and hardware finishes to match your style, ensuring a luxurious and functional upgrade.",
+      products: ["Frameless shower doors", "Sliding shower doors", "Hinged shower doors", "Clear tempered glass", "Frosted or textured glass", "Matte black, chrome, nickel, and brass hardware"],
       benefits: ["Modern aesthetic", "Custom design options", "Enhanced bathroom functionality", "Durable, high-quality glass", "Easy to clean"],
       faqs: [
         { q: "What types of shower doors do you offer?", a: "We specialize in frameless, semi-frameless, and sliding shower doors, available in various glass thicknesses and finishes." },
@@ -59,6 +63,7 @@ const CONFIG = {
       name: "Entry & Patio Doors",
       desc: "Enhance your home's curb appeal and security with our premium door installations.",
       longDesc: "From elegant entry doors that make a statement to functional and beautiful patio doors that connect your indoor and outdoor spaces, we provide expert installation of a wide range of door styles and materials, including wood, fiberglass, and steel.",
+      products: ["Fiberglass entry doors", "Steel entry doors", "Decorative-glass doors", "Sliding patio doors", "French patio doors", "Multi-panel and folding doors"],
       benefits: ["Improved home security", "Enhanced energy efficiency", "Boosted curb appeal", "Variety of styles and materials", "Professional installation"],
       faqs: [
         { q: "Can you help me choose the right door for my home?", a: "Absolutely! Our experts will guide you through the selection process, considering your home's style, budget, and functional needs." },
@@ -71,6 +76,7 @@ const CONFIG = {
       name: "Glass Railings",
       desc: "Modern and elegant glass railings for decks, balconies, and staircases.",
       longDesc: "Our glass railing systems provide a contemporary and unobstructed view for your deck, balcony, or interior stairs. Engineered for safety and durability, these railings add a touch of sophistication while maximizing natural light and openness.",
+      products: ["Deck glass railings", "Balcony glass railings", "Interior stair railings", "Clear, tinted, or frosted glass", "Post, standoff, and base-shoe systems"],
       benefits: ["Unobstructed views", "Modern aesthetic", "Enhanced safety and durability", "Low maintenance", "Increases property value"],
       faqs: [
         { q: "Are glass railings safe?", a: "Yes, our glass railings are constructed with tempered safety glass and robust hardware, meeting all local building codes for safety and structural integrity." },
@@ -83,6 +89,7 @@ const CONFIG = {
       name: "Custom Mirrors",
       desc: "Beautiful custom-cut mirrors for vanities, walls, gyms, and more.",
       longDesc: "Add light, space, and style to any room with our custom mirror services. We design, cut, and install mirrors for bathrooms, gyms, living areas, and commercial spaces, offering various edges, tints, and sizes to perfectly fit your vision.",
+      products: ["Bathroom and vanity mirrors", "Full-wall mirrors", "Gym and studio mirrors", "Decorative mirrors", "Polished and beveled edge options"],
       benefits: ["Custom-fit to any space", "Enhances room brightness", "Creates illusion of space", "Variety of edge finishes", "Professional installation"],
       faqs: [
         { q: "Can you install a large mirror?", a: "Yes, we specialize in installing large wall mirrors for homes, gyms, and commercial applications, ensuring secure and precise placement." },
@@ -95,9 +102,10 @@ const CONFIG = {
       name: "Storefront Glass",
       desc: "Professional storefront glass installation and repair for businesses.",
       longDesc: "Make a lasting first impression with our high-quality storefront glass solutions. We provide expert installation, repair, and replacement of commercial glass, including impact-resistant options, to enhance your business's appearance and security.",
+      products: ["Storefront glass replacement", "New storefront systems", "Commercial glass entrances", "Interior commercial glass", "Property-manager glass service"],
       benefits: ["Improved business aesthetic", "Enhanced security", "Custom design options", "Quick repair services", "Energy-efficient solutions"],
       faqs: [
-        { q: "Do you offer emergency storefront glass repair?", a: "Yes, we provide emergency repair services to secure your business quickly and efficiently after breakage." },
+        { q: "Do you replace broken storefront glass?", a: "Yes. Contact the team with the address, approximate dimensions, photos if available, and whether the opening is secure. Timing depends on the glass specification and availability." },
         { q: "Can you install custom logos or branding on storefront glass?", a: "We can work with your design specifications for custom branding or signage integration on your storefront glass." }
       ],
       image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1000&q=80&auto=format&fit=crop",
@@ -107,12 +115,26 @@ const CONFIG = {
       name: "Glass Replacement",
       desc: "Expert glass replacement services for windows, doors, and more.",
       longDesc: "Whether it's a cracked window, a foggy insulated glass unit, or a broken door panel, our skilled technicians provide prompt and reliable glass replacement services. We match existing glass types and ensure a seamless, high-quality repair.",
+      products: ["Single-pane replacement glass", "Insulated glass units (IGUs)", "Foggy double-pane replacement", "Tempered and laminated safety glass", "Low-E and specialty glass"],
       benefits: ["Restores clarity and integrity", "Prevents further damage", "Energy efficiency improvement", "Professional, timely service", "Cost-effective solution"],
       faqs: [
         { q: "Can you replace just one pane of glass in a double-pane window?", a: "Yes, in most cases, we can replace just the insulated glass unit (IGU) without needing to replace the entire window frame." },
         { q: "What types of glass can you replace?", a: "We replace various types of glass, including single-pane, double-pane (IGUs), tempered, laminated, and specialty glass for residential and commercial applications." }
       ],
       image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1000&q=80&auto=format&fit=crop",
+    },
+    {
+      slug: "custom-glass-products",
+      name: "Custom Glass Products",
+      desc: "Custom skylight glass, cabinet inserts, tabletops, shelves, and specialty fabricated glass.",
+      longDesc: "Beyond windows and shower enclosures, we provide custom glass for residential and commercial applications throughout Greater Seattle. Options include skylight glass, cabinet inserts, protective and standalone glass tabletops, custom shelving, safety glass, Low-E glass, and specialty sizes measured for the project.",
+      products: ["Skylight glass", "Cabinet glass inserts", "Glass tabletops", "Custom glass shelving", "Tempered, Low-E, and specialty fabricated glass"],
+      benefits: ["Custom sizes and edgework", "Cabinet and display glass", "Glass tabletops and shelving", "Tempered and specialty glass options", "Professional measurement and installation"],
+      faqs: [
+        { q: "Can you make a custom glass tabletop?", a: "Yes. We can help specify dimensions, thickness, edgework, corners, and safety-glass options for the furniture and intended use." },
+        { q: "What glass is available for cabinets and shelves?", a: "Common choices include clear, frosted, textured, patterned, tempered, and specialty glass. Availability depends on size and application." }
+      ],
+      image: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1000&q=80&auto=format&fit=crop",
     },
   ],
   serviceAreas: [
@@ -152,15 +174,15 @@ const CONFIG = {
     { slug: "magnolia", name: "Magnolia", county: "" },
     { slug: "green-lake", name: "Green Lake", county: "" },
     { slug: "university-district", name: "University District", county: "" },
-    { slug: "mercer-island", name: "Mercer Island", county: "" },
     { slug: "bainbridge-island", name: "Bainbridge Island", county: "" }
   ],
-  testimonials: [
-    { name: "Sarah", review: "Elite Glass & Window did an amazing job replacing our old, drafty windows in our Seattle home. The team was professional, efficient, and the new windows look fantastic and have made a huge difference in our energy bills!" },
-    { name: "David", review: "We absolutely love our new frameless shower door from Elite Glass & Window. The installation was flawless, and it completely transformed our bathroom. Highly recommend their services in Seattle!" },
-    { name: "Emily", review: "When our storefront window was vandalized, Elite Glass & Window responded quickly and had it replaced in no time. Their emergency service in Seattle saved us a lot of stress and potential business loss." },
-    { name: "Michael", review: "The custom mirrors they installed in our Seattle gym studio are perfect! Elite Glass & Window provided excellent service from consultation to installation. Very happy with the quality and professionalism." },
+  serviceRegions: [
+    { name: "Eastside", cities: ["Redmond", "Bellevue", "Kirkland", "Sammamish", "Issaquah", "Mercer Island", "Newcastle", "Woodinville", "Bothell", "Kenmore", "Duvall", "Snoqualmie", "North Bend"] },
+    { name: "North Seattle & Snohomish County", cities: ["Shoreline", "Edmonds", "Lynnwood", "Mountlake Terrace", "Mill Creek", "Everett", "Mukilteo"] },
+    { name: "South Seattle & South King County", cities: ["Renton", "Kent", "Auburn", "Tukwila", "Federal Way", "Burien", "SeaTac", "Des Moines"] },
+    { name: "Seattle & Surrounding Areas", cities: ["Seattle", "West Seattle", "Ballard", "Queen Anne", "Capitol Hill", "Magnolia", "Green Lake", "University District", "Mercer Island", "Bainbridge Island"] }
   ],
+  testimonials: [],
   processSteps: [
     { title: "Tell Us About Your Project", desc: "Share your goals and schedule a convenient consultation." },
     { title: "Receive a Clear Plan", desc: "We assess the work and provide a straightforward recommendation." },
@@ -168,14 +190,14 @@ const CONFIG = {
     { title: "Final Walkthrough", desc: "We make sure the completed work meets your expectations." },
   ],
   faqs: [
-    { q: "What areas do you serve?", a: "We proudly serve Seattle and the surrounding Puget Sound region, including Redmond, Bellevue, Kirkland, and many other communities listed in our service areas." },
+    { q: "What areas do you serve?", a: "We serve Redmond, the Eastside, Seattle, Snohomish County, South King County, and nearby Greater Seattle communities listed in our service areas." },
     { q: "Do you offer free estimates?", a: "Yes, we provide free, no-obligation estimates for all our glass and window services. Contact us to schedule an appointment." },
     { q: "How long does a typical installation take?", a: "Installation times vary depending on the scope of the project. A single window replacement might take a few hours, while a full home window replacement or custom shower door could take a day or more. We'll provide an estimated timeline during your consultation." },
     { q: "What kind of warranty do you offer on your work?", a: "We stand by the quality of our workmanship and the products we install. Warranties vary by product and service; please ask for specific details during your consultation." },
     { q: "Do you handle both residential and commercial projects?", a: "Yes, Elite Glass & Window is equipped to handle both residential and commercial glass and window projects, from home window replacements to storefront installations." },
-    { q: "What payment options do you accept?", a: "We accept various payment methods, including major credit cards, checks, and financing options for larger projects. Please discuss payment details with our team." },
+    { q: "Where is your showroom?", a: "Our showroom is at 4028 148th Ave NE, Redmond, WA 98052. Please contact the team before visiting to confirm current showroom hours." },
     { q: "Can you help with custom glass projects?", a: "Absolutely! We specialize in custom glass solutions, including unique mirror designs, glass tabletops, and specialty glass installations. Bring us your vision!" },
-    { q: "Are your technicians licensed and insured?", a: "Yes, all our technicians are highly trained, experienced, and fully insured for your peace of mind and protection." }
+    { q: "Do you work with contractors and designers?", a: "Yes. We work directly with homeowners and also coordinate with contractors, builders, architects, designers, and property managers." }
   ],
   portfolioProjects: [],
   legal: { privacyPolicyDate: "May 1, 2025", termsDate: "May 1, 2025" },

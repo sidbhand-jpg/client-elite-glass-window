@@ -57,6 +57,50 @@ function setMeta(html, title, description) {
     );
 }
 
+function injectGeneratedSeo(html, pathname, schemas = []) {
+  const block = `<!-- GENERATED SEO START -->
+  <link rel="canonical" href="${CONFIG.siteUrl}${pathname}" />
+  ${schemas.map(schema => `<script type="application/ld+json">${JSON.stringify(schema).replace(/</g, '\\u003c')}</script>`).join('\n  ')}
+  <!-- GENERATED SEO END -->`;
+  return html
+    .replace(/\s*<!-- GENERATED SEO START -->[\s\S]*?<!-- GENERATED SEO END -->/g, '')
+    .replace('</head>', `${block}\n</head>`);
+}
+
+function localBusinessSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': ['LocalBusiness', 'HomeAndConstructionBusiness'],
+    '@id': `${CONFIG.siteUrl}/#business`,
+    name: CONFIG.businessName,
+    url: CONFIG.siteUrl,
+    logo: `${CONFIG.siteUrl}/logo.svg`,
+    telephone: CONFIG.phoneRaw,
+    email: CONFIG.email,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '4028 148th Ave NE',
+      addressLocality: 'Redmond',
+      addressRegion: 'WA',
+      postalCode: '98052',
+      addressCountry: 'US',
+    },
+    areaServed: CONFIG.serviceAreas.map(area => ({ '@type': 'City', name: `${area.name}, Washington` })),
+  };
+}
+
+function faqSchema(faqs) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(faq => ({
+      '@type': 'Question',
+      name: faq.q,
+      acceptedAnswer: { '@type': 'Answer', text: faq.a },
+    })),
+  };
+}
+
 // ── Patch og:image / twitter:image content="" placeholders ───
 // Used for our-work.html: fills in the top featured PROJECTS image so
 // social shares of the gallery page show a real photo, not a blank card.
@@ -101,6 +145,19 @@ CONFIG.services.forEach(service => {
     `${service.name} in ${CONFIG.city} | ${CONFIG.businessName}`,
     service.longDesc.slice(0, 155)
   );
+  html = injectGeneratedSeo(html, `/services/${service.slug}.html`, [
+    localBusinessSchema(),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: service.name,
+      description: service.longDesc,
+      url: `${CONFIG.siteUrl}/services/${service.slug}.html`,
+      provider: { '@id': `${CONFIG.siteUrl}/#business` },
+      areaServed: CONFIG.serviceAreas.map(area => ({ '@type': 'City', name: `${area.name}, WA` })),
+    },
+    faqSchema(service.faqs),
+  ]);
   // Fix paths: services/ is depth 1 from root (same level as pages/)
   html = html
     .replace(/(src|href)="\.\.\/styles\.css"/g,    'href="../styles.css"')
@@ -120,6 +177,12 @@ CONFIG.serviceAreas.forEach(area => {
     `${CONFIG.niche || 'Home Services'} in ${area.name}, ${CONFIG.stateShort} | ${CONFIG.businessName}`,
     `${CONFIG.businessName} provides ${(CONFIG.niche || 'home services').toLowerCase()} services in ${area.name}, ${CONFIG.stateShort}. Request a free estimate today.`
   );
+  const cityFaqs = [
+    { q: `Does ${CONFIG.businessName} serve ${area.name}, WA?`, a: `Yes. ${area.name} is within the listed Greater Seattle service area. Availability depends on project type, address, and schedule.` },
+    { q: `What glass services are available in ${area.name}?`, a: `Services include window and glass replacement, shower doors, entry and patio doors, railings, mirrors, storefront glass, and custom fabricated glass.` },
+    { q: `Where is the showroom?`, a: `The showroom is at ${CONFIG.address}. Contact the team before visiting to confirm current hours.` },
+  ];
+  html = injectGeneratedSeo(html, `/cities/${area.slug}.html`, [localBusinessSchema(), faqSchema(cityFaqs)]);
   // City pages live at root — fix paths to point to root-level files
   html = html
     .replace(/(src|href)="\.\.\/styles\.css"/g,    'href="../styles.css"')
@@ -144,6 +207,14 @@ const pagesToRoot = [
   ['pages/terms.html',          'terms.html'],
   ['pages/404.html',            '404.html'],
 ];
+const rootMeta = {
+  'about.html': [`About ${CONFIG.businessName} | Redmond Glass Company`, `Learn about ${CONFIG.businessName}, a Redmond glass, window, and door company serving Greater Seattle.`],
+  'contact.html': [`Contact ${CONFIG.businessName} | Free Glass Estimate`, `Contact ${CONFIG.businessName} in Redmond for window, shower door, glass replacement, railing, mirror, door, or storefront service.`],
+  'our-work.html': [`Glass, Window & Door Projects | ${CONFIG.businessName}`, `Explore glass, window, shower door, railing, mirror, door, and commercial projects from ${CONFIG.businessName}.`],
+  'privacy-policy.html': [`Privacy Policy | ${CONFIG.businessName}`, `Privacy policy for the ${CONFIG.businessName} website, forms, analytics, and advertising measurement.`],
+  'terms.html': [`Website Terms | ${CONFIG.businessName}`, `Website terms for ${CONFIG.businessName}, including estimates, custom measurements, communications, and product information.`],
+  '404.html': [`Page Not Found | ${CONFIG.businessName}`, `The requested ${CONFIG.businessName} page could not be found.`],
+};
 
 pagesToRoot.forEach(([src, dest]) => {
   const srcPath  = path.join(__dirname, src);
@@ -151,6 +222,7 @@ pagesToRoot.forEach(([src, dest]) => {
   if (!fs.existsSync(srcPath)) { console.warn(`  ⚠  ${src} not found, skipping`); return; }
 
   let html = fs.readFileSync(srcPath, 'utf8');
+  html = setMeta(html, rootMeta[dest][0], rootMeta[dest][1]);
   // These pages are at root — update relative paths
   html = html
     .replace(/(src|href)="\.\.\/styles\.css"/g,    'href="styles.css"')
@@ -164,6 +236,9 @@ pagesToRoot.forEach(([src, dest]) => {
     html = setOgImage(html, getLeadProjectImage(PROJECTS));
   }
 
+  const pathname = `/${dest}`;
+  html = injectGeneratedSeo(html, pathname, [localBusinessSchema()]);
+
   writeFile(destPath, html);
 });
 
@@ -176,3 +251,22 @@ CONFIG.services.forEach(s => console.log(`  services/${s.slug}.html`));
 CONFIG.serviceAreas.forEach(a => console.log(`  cities/${a.slug}.html`));
 pagesToRoot.forEach(([, d]) => console.log(`  ${d}`));
 console.log('');
+
+// Refresh homepage SEO without changing its template structure.
+let indexHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+indexHtml = setMeta(
+  indexHtml,
+  `Glass Replacement & Window Company in Redmond, WA | ${CONFIG.businessName}`,
+  `${CONFIG.businessName} provides windows, shower doors, custom glass, railings, mirrors, doors, and storefront glass throughout Greater Seattle.`
+);
+indexHtml = injectGeneratedSeo(indexHtml, '/', [localBusinessSchema(), faqSchema(CONFIG.faqs)]);
+fs.writeFileSync(path.join(__dirname, 'index.html'), indexHtml, 'utf8');
+
+const sitemapPaths = [
+  '/', '/about.html', '/contact.html', '/our-work.html', '/privacy-policy.html', '/terms.html',
+  ...CONFIG.services.map(service => `/services/${service.slug}.html`),
+  ...CONFIG.serviceAreas.map(area => `/cities/${area.slug}.html`),
+];
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapPaths.map(pathname => `  <url><loc>${CONFIG.siteUrl}${pathname}</loc></url>`).join('\n')}\n</urlset>\n`;
+fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), sitemap, 'utf8');
+fs.writeFileSync(path.join(__dirname, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${CONFIG.siteUrl}/sitemap.xml\n`, 'utf8');

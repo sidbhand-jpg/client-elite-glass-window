@@ -30,6 +30,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=optional" rel="stylesheet" />
   <link rel="stylesheet" href="../styles.css" />
+<!-- GENERATED SEO START -->
+  <link rel="canonical" href="https://eliteglassandwindow.com/cities/des-moines.html" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":["LocalBusiness","HomeAndConstructionBusiness"],"@id":"https://eliteglassandwindow.com/#business","name":"Elite Glass & Window","url":"https://eliteglassandwindow.com","logo":"https://eliteglassandwindow.com/logo.svg","telephone":"+14258908233","email":"sales@eliteglassandwindow.com","address":{"@type":"PostalAddress","streetAddress":"4028 148th Ave NE","addressLocality":"Redmond","addressRegion":"WA","postalCode":"98052","addressCountry":"US"},"areaServed":[{"@type":"City","name":"Redmond, Washington"},{"@type":"City","name":"Bellevue, Washington"},{"@type":"City","name":"Kirkland, Washington"},{"@type":"City","name":"Sammamish, Washington"},{"@type":"City","name":"Issaquah, Washington"},{"@type":"City","name":"Mercer Island, Washington"},{"@type":"City","name":"Newcastle, Washington"},{"@type":"City","name":"Woodinville, Washington"},{"@type":"City","name":"Bothell, Washington"},{"@type":"City","name":"Kenmore, Washington"},{"@type":"City","name":"Duvall, Washington"},{"@type":"City","name":"Snoqualmie, Washington"},{"@type":"City","name":"North Bend, Washington"},{"@type":"City","name":"Shoreline, Washington"},{"@type":"City","name":"Edmonds, Washington"},{"@type":"City","name":"Lynnwood, Washington"},{"@type":"City","name":"Mountlake Terrace, Washington"},{"@type":"City","name":"Mill Creek, Washington"},{"@type":"City","name":"Everett, Washington"},{"@type":"City","name":"Mukilteo, Washington"},{"@type":"City","name":"Renton, Washington"},{"@type":"City","name":"Kent, Washington"},{"@type":"City","name":"Auburn, Washington"},{"@type":"City","name":"Tukwila, Washington"},{"@type":"City","name":"Federal Way, Washington"},{"@type":"City","name":"Burien, Washington"},{"@type":"City","name":"SeaTac, Washington"},{"@type":"City","name":"Des Moines, Washington"},{"@type":"City","name":"Seattle, Washington"},{"@type":"City","name":"West Seattle, Washington"},{"@type":"City","name":"Ballard, Washington"},{"@type":"City","name":"Queen Anne, Washington"},{"@type":"City","name":"Capitol Hill, Washington"},{"@type":"City","name":"Magnolia, Washington"},{"@type":"City","name":"Green Lake, Washington"},{"@type":"City","name":"University District, Washington"},{"@type":"City","name":"Bainbridge Island, Washington"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does Elite Glass & Window serve Des Moines, WA?","acceptedAnswer":{"@type":"Answer","text":"Yes. Des Moines is within the listed Greater Seattle service area. Availability depends on project type, address, and schedule."}},{"@type":"Question","name":"What glass services are available in Des Moines?","acceptedAnswer":{"@type":"Answer","text":"Services include window and glass replacement, shower doors, entry and patio doors, railings, mirrors, storefront glass, and custom fabricated glass."}},{"@type":"Question","name":"Where is the showroom?","acceptedAnswer":{"@type":"Answer","text":"The showroom is at 4028 148th Ave NE, Redmond, WA 98052. Contact the team before visiting to confirm current hours."}}]}</script>
+  <!-- GENERATED SEO END -->
 </head>
 <body>
 
@@ -100,17 +105,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const countyStr = area.county ? `, ${area.county} County` : '';
 
   // Meta
-  document.title = `Epoxy & Professional Home Services in ${area.name}, ${CONFIG.stateShort} | ${CONFIG.businessName}`;
+  document.title = `Glass & Window Services in ${area.name}, ${CONFIG.stateShort} | ${CONFIG.businessName}`;
   document.querySelector('meta[name="description"]').setAttribute('content',
-    `${CONFIG.businessName} installs epoxy garage projects, professional coatings, metallic epoxy and commercial home services in ${area.name}${countyStr}, ${CONFIG.stateShort}. Free quotes. Written warranty. Call ${CONFIG.phone}.`
+    `${CONFIG.businessName} provides window replacement, shower doors, custom glass, mirrors, railings, doors, and commercial glass in ${area.name}, ${CONFIG.stateShort}.`
   );
 
   // Hero
   document.getElementById('city-eyebrow').textContent = `${CONFIG.businessName} · ${area.name}, ${CONFIG.stateShort}`;
-  document.getElementById('city-headline').innerHTML = `Home Services in <span style="color:var(--color-primary)">${area.name}</span>`;
-  document.getElementById('city-sub').innerHTML = `Professional epoxy, professional, and metallic home services for ${area.name} homeowners and businesses. Diamond-ground prep, premium materials, and a <strong>written workmanship warranty</strong>.`;
-  document.getElementById('city-stars').innerHTML = renderStars(5);
-  document.getElementById('city-rating-text').textContent = `${CONFIG.rating} stars · ${CONFIG.reviewCount} verified reviews`;
+  document.getElementById('city-headline').innerHTML = `Glass & Window Services in <span style="color:var(--color-primary)">${area.name}</span>`;
+  document.getElementById('city-sub').innerHTML = `Custom-measured glass, windows, doors, showers, mirrors, railings, and commercial solutions for ${area.name} homes and businesses.`;
+  document.querySelector('.city-rating').style.display = 'none';
 
   // Service pills
   document.getElementById('city-service-pills').innerHTML = CONFIG.services.map(s => `
@@ -125,12 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
     title: `Why ${area.name} Homeowners & Businesses Choose ${CONFIG.businessName}`
   });
   const whyPoints = [
-    `Local crew based in the ${area.county || CONFIG.city} area`,
-    `${CONFIG.yearsExperience}+ years installing projects in ${area.name}`,
-    "Diamond-ground prep on every single job",
-    "100% solids epoxy and professional — no water-based fillers",
-    "Written workmanship warranty on all installations",
-    `${CONFIG.projectsCompleted} projects installed across the region`,
+    `Redmond-based team serving ${area.name}`,
+    "Residential and commercial glass expertise",
+    "Clear estimates and practical recommendations",
+    "Custom measurement and product guidance",
+    "Professional installation and final walkthrough",
   ];
   document.getElementById('city-why-grid').innerHTML = whyPoints.map(item => `
     <div class="city-why-item">
@@ -142,40 +145,40 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('city-map-header').innerHTML = sectionHeaderHTML({
     eyebrow: 'Service Area',
     title: `We Come to You in ${area.name}`,
-    subtitle: "Free site visits, no travel fees within our service zone."
+    subtitle: "Contact us to confirm availability for your address and project type."
   });
   document.getElementById('city-map').innerHTML = mapEmbedHTML(`${area.name} ${CONFIG.stateShort} home services contractor`);
 
   // FAQs
   const cityFaqs = [
     {
-      q: `Do you install epoxy projects throughout ${area.name}${countyStr}?`,
-      a: `Yes — we cover all neighbourhoods and zip codes in ${area.name} with no travel surcharges. Our local crew can typically schedule a free site visit within 1–2 business days.`,
+      q: `Do you provide glass and window services in ${area.name}?`,
+      a: `Yes. ${area.name} is within our listed Greater Seattle service area. Availability depends on the project type, address, and schedule.`,
     },
     {
-      q: `What types of projects do you coat in ${area.name}?`,
-      a: `We install epoxy garage projects, professional coatings, metallic epoxy, commercial warehouse projects, pool deck coatings, and basement project systems throughout ${area.name} and the surrounding area.`,
+      q: `Which services are available in ${area.name}?`,
+      a: `We provide window and glass replacement, shower doors, entry and patio doors, glass railings, mirrors, storefront glass, and custom fabricated glass.`,
     },
     {
-      q: `How much does home services cost in ${area.name}?`,
-      a: `Pricing depends on square footage, concrete condition, and the coating system chosen. A typical 2-car garage in ${area.name} ranges from $1,500–$3,500 for a full broadcast service standard with professional topcoat. We provide detailed written quotes at no charge.`,
+      q: `Can I visit the showroom before a ${area.name} project?`,
+      a: `Yes. Our showroom is at ${CONFIG.address}. Contact the team before visiting to confirm current hours and relevant product samples.`,
     },
     {
-      q: `How long does epoxy project installation take in ${area.name}?`,
-      a: `Most residential garages and basements in ${area.name} are completed in a single day. Commercial projects depend on square footage. Professional topcoats are ready for foot traffic in 4–6 hours and vehicle traffic in 24 hours.`,
+      q: `How do I request an estimate in ${area.name}?`,
+      a: `Share the address, product or glass type, approximate dimensions, photos, and any timeline constraints. Final custom fabrication requires verified measurements.`,
     },
   ];
 
   document.getElementById('city-faq-header').innerHTML = sectionHeaderHTML({
     eyebrow: `${area.name} FAQ`,
-    title: `Home Services Questions from ${area.name} Customers`
+    title: `Glass & Window Questions from ${area.name} Customers`
   });
   renderFAQs('city-faq-container', cityFaqs);
 
   // CTA
   document.getElementById('city-cta').innerHTML = ctaSectionHTML({
-    title: `Ready for a Better Project in ${area.name}?`,
-    subtitle: `Free, no-obligation quote from ${CONFIG.businessName}. We visit your site, assess the concrete, and deliver a written estimate — usually same day.`
+    title: `Planning a Glass Project in ${area.name}?`,
+    subtitle: `Request a free consultation from ${CONFIG.businessName} for product guidance, measurement, and a clear written scope.`
   });
 });
 </script>
