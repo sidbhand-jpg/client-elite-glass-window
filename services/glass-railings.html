@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- ── CONFIG (loaded early for Meta Pixel) ──────────────────── -->
+  <script src="../CONFIG.js"></script>
+  <!-- ── Meta Pixel Base Code (reads CONFIG.metaPixelId) ───────── -->
+  <script>
+  (function() {
+    if (!CONFIG.metaPixelId) return;
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', CONFIG.metaPixelId);
+    fbq('track', 'PageView');
+    document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
+  })();
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>Glass Railings in Seattle | Elite Glass & Window</title>
+  <meta name="description" content="Our glass railing systems provide a contemporary and unobstructed view for your deck, balcony, or interior stairs. Engineered for safety and durability, th" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=optional" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+
+<!-- ── SERVICE HERO ──────────────────────────────────────────── -->
+<section class="service-hero" id="service-hero">
+  <div class="service-hero-bg">
+    <img id="service-hero-img" src="" alt="" class="service-hero-img" />
+    <div class="service-hero-gradient"></div>
+  </div>
+  <div class="container-wide service-hero-inner">
+    <div class="service-breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <span>Services</span>
+    </div>
+    <h1 class="service-hero-title" id="service-title"></h1>
+    <p class="service-hero-desc" id="service-desc"></p>
+  </div>
+</section>
+
+<!-- ── CONTENT + FORM ─────────────────────────────────────────── -->
+<section class="section-y bg-white">
+  <div class="container-wide service-content-grid">
+    <!-- Main content -->
+    <div class="service-main">
+      <p class="service-longdesc" id="service-longdesc"></p>
+
+      <h2 class="service-benefits-title">What's Included</h2>
+      <ul class="service-benefits" id="service-benefits"></ul>
+
+      <!-- Other services -->
+      <div class="other-services-box">
+        <div class="other-services-title">Other Coating Systems</div>
+        <div class="other-services-list" id="other-services-list"></div>
+      </div>
+    </div>
+
+    <!-- Sticky form -->
+    <div class="service-form-col">
+      <div class="service-form-sticky">
+        <div id="service-lead-form"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICE FAQs ───────────────────────────────────────────── -->
+<section class="section-y bg-slate-50">
+  <div class="container-wide">
+    <div id="service-faq-header"></div>
+    <div id="service-faq-container"></div>
+  </div>
+</section>
+
+<!-- ── CTA ────────────────────────────────────────────────────── -->
+<div id="service-cta"></div><script src="../components.js"></script><script src="/generic-runtime.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Read slug from URL: /services/epoxy-garage-projects.html -> epoxy-garage-projects
+  const slug = window.location.pathname.split('/').pop().replace('.html', '');
+  const service = CONFIG.services.find(s => s.slug === slug);
+
+  if (!service) {
+    document.querySelector('.service-hero').innerHTML = `
+      <div class="container-wide" style="padding-top:8rem;padding-bottom:4rem;text-align:center;color:#fff">
+        <h1 style="font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--color-navy)">Service Not Found</h1>
+        <a href="/" style="color:var(--color-primary);text-decoration:underline;margin-top:1rem;display:inline-block">Back to Home</a>
+      </div>`;
+    return;
+  }
+
+  // Meta
+  document.title = `${service.name} in ${CONFIG.city} | ${CONFIG.businessName}`;
+  document.querySelector('meta[name="description"]').setAttribute('content', service.longDesc.slice(0, 155));
+
+  // Hero
+  document.getElementById('service-hero-img').src = service.image;
+  document.getElementById('service-hero-img').alt = service.name;
+  document.getElementById('service-title').textContent = service.name;
+  document.getElementById('service-desc').textContent = service.desc;
+
+  // Long desc
+  document.getElementById('service-longdesc').textContent = service.longDesc;
+
+  // Benefits
+  document.getElementById('service-benefits').innerHTML = service.benefits.map(b => `
+    <li class="service-benefit-item">
+      <svg class="benefit-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <span>${b}</span>
+    </li>`).join('');
+
+  // Other services
+  const others = CONFIG.services.filter(s => s.slug !== slug).slice(0, 5);
+  document.getElementById('other-services-list').innerHTML = others.map(s => `
+    <a href="/services/${s.slug}.html" class="other-service-link">
+      <svg class="other-service-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      ${s.name}
+    </a>`).join('');
+
+  // Lead form
+  buildLeadForm('service-lead-form', { variant: 'card', defaultService: service.slug, showMessage: true });
+
+  // FAQs
+  document.getElementById('service-faq-header').innerHTML = sectionHeaderHTML({
+    eyebrow: 'FAQ',
+    title: `${service.name} — Common Questions`
+  });
+  renderFAQs('service-faq-container', service.faqs);
+
+  // CTA
+  document.getElementById('service-cta').innerHTML = ctaSectionHTML({
+    title: `Ready to Install ${service.name}?`,
+    subtitle: "Free site visit and written quote. Most residential installs completed in one day."
+  });
+});
+</script>
+
+<style>
+/* ── SERVICE PAGE STYLES ──────────────────────────────────── */
+.service-hero {
+  position: relative;
+  min-height: 60vh;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 3rem;
+  overflow: hidden;
+}
+.service-hero-bg { position: absolute; inset: 0; }
+.service-hero-img { width: 100%; height: 100%; object-fit: cover; }
+.service-hero-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+}
+.service-hero-inner { position: relative; padding-top: 8rem; }
+.service-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.75rem;
+}
+.service-breadcrumb a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.15s; }
+.service-breadcrumb a:hover { color: #fff; }
+.service-hero-title { color: #fff; margin-bottom: 1rem; }
+.service-hero-desc { color: rgba(255,255,255,0.85); font-size: 1.125rem; max-width: 42rem; }
+
+.service-content-grid { display: flex; flex-direction: column; gap: 3rem; }
+@media (min-width: 1024px) { .service-content-grid { flex-direction: row; gap: 3rem; } }
+.service-main { flex: 1; }
+.service-longdesc { color: var(--color-muted); font-size: 1.0625rem; line-height: 1.75; margin-bottom: 2rem; }
+.service-benefits-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-navy); margin-bottom: 1.25rem; }
+.service-benefits { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2.5rem; }
+.service-benefit-item { display: flex; align-items: flex-start; gap: 0.75rem; }
+.benefit-check { width: 1.25rem; height: 1.25rem; color: var(--color-primary); flex-shrink: 0; margin-top: 0.125rem; }
+.service-benefit-item span { color: var(--color-navy); }
+
+.other-services-box { background: var(--color-slate-50); border-radius: var(--radius-2xl); padding: 1.5rem; border: 1px solid var(--color-slate-200); }
+.other-services-title { font-family: var(--font-display); font-weight: 600; color: var(--color-navy); margin-bottom: 1rem; }
+.other-services-list { display: flex; flex-direction: column; gap: 0.5rem; }
+.other-service-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--color-muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.other-service-link:hover { color: var(--color-primary); }
+.other-service-arrow { width: 1rem; height: 1rem; color: var(--color-primary); flex-shrink: 0; }
+
+.service-form-col { width: 100%; }
+@media (min-width: 1024px) { .service-form-col { width: 22rem; flex-shrink: 0; } }
+.service-form-sticky { position: sticky; top: 7rem; }
+</style>
+
+</body>
+</html>
