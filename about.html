@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- ── CONFIG (loaded early for Meta Pixel) ──────────────────── -->
+  <script src="CONFIG.js"></script>
+  <!-- ── Meta Pixel Base Code (reads CONFIG.metaPixelId) ───────── -->
+  <script>
+  (function() {
+    if (!CONFIG.metaPixelId) return;
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', CONFIG.metaPixelId);
+    fbq('track', 'PageView');
+    document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
+  })();
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>About Us | Home Services</title>
+  <meta name="description" content="Learn about our mission, values, and commitment to professional epoxy and professional project installations." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=optional" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ── ABOUT HERO ─────────────────────────────────────────────── -->
+<section class="page-hero" style="background-color:var(--color-secondary)">
+  <div class="grid-overlay"></div>
+  <div class="container-wide" style="position:relative; max-width: 56rem;">
+    <div class="page-hero-eyebrow">About Us</div>
+    <h1 class="about-headline" id="about-headline"></h1>
+    <p class="about-hero-sub">
+      <span id="biz-name-hero"></span> was built on one belief: the only home service worth installing is one you'll never have to reinstall. That means no shortcuts on prep, no compromises on materials, and no jobs we're not proud to put our name on.
+    </p>
+  </div>
+</section>
+
+<!-- ── STORY SECTION ─────────────────────────────────────────── -->
+<section class="section-y bg-white">
+  <div class="container-wide" style="max-width: 48rem;">
+    <div class="about-prose">
+      <p>
+        Most epoxy failures come down to one thing: the installer skipped proper prep. Acid washing, shot blasting, or just applying product over a dirty project — these all lead to delamination within months.
+      </p>
+      <p>
+        We diamond-grind every project we coat. It takes longer and costs more than the shortcuts, but it's the only prep method that creates the mechanical bond needed for a permanent installation. Our projects don't peel because we don't cut corners where it counts.
+      </p>
+      <p id="about-story-end"></p>
+    </div>
+
+    <!-- Stats -->
+    <div class="about-stats" id="about-stats"></div>
+  </div>
+</section>
+
+<!-- ── VALUES ────────────────────────────────────────────────── -->
+<section class="section-y bg-slate-50">
+  <div class="container-wide">
+    <div class="about-values-header text-center">
+      <div class="section-eyebrow">How We Operate</div>
+      <h2 class="section-title text-navy">Our Values in Practice</h2>
+    </div>
+    <div class="about-values-grid">
+      <div class="value-card">
+        <div class="value-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="value-icon-svg"><rect x="3" y="14" width="18" height="3" rx="1" fill="currentColor" opacity="0.5"/><rect x="3" y="10" width="18" height="3" rx="1" fill="currentColor" opacity="0.75"/><rect x="3" y="6" width="18" height="3" rx="1" fill="currentColor"/></svg>
+        </div>
+        <div class="value-title">Prep Is Everything</div>
+        <p class="value-desc">We diamond-grind every project. No acid washes, no shortcuts. Proper prep is the only reason coatings last 20 years instead of 2.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="value-icon-svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="value-title">Written Warranty</div>
+        <p class="value-desc">We stand behind every installation with a written warranty. If the coating fails due to our workmanship, we come back and fix it.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="value-icon-svg"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <div class="value-title">Premium Materials</div>
+        <p class="value-desc">100% solids epoxy and professional only. We don't use water-based or box-store products — ever.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="value-icon-svg"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <div class="value-title">Respect Your Time</div>
+        <p class="value-desc">Most installs done in one day. We arrive on time, work efficiently, and leave your space clean and ready to use.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ────────────────────────────────────────────────────── -->
+<div id="about-cta"></div><script src="components.js"></script><script src="/generic-runtime.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.title = `About Us | ${CONFIG.businessName}`;
+  document.querySelector('meta[name="description"]').setAttribute('content',
+    `${CONFIG.businessName} — ${CONFIG.yearsExperience}+ years of installing epoxy and professional projects. We diamond-grind every project and back every job with a written warranty.`
+  );
+
+  document.getElementById('biz-name-hero').textContent = CONFIG.businessName;
+  document.getElementById('about-headline').textContent = `${CONFIG.yearsExperience}+ Years of Installing Projects That Last`;
+  document.getElementById('about-story-end').textContent =
+    `After ${CONFIG.yearsExperience} years and ${CONFIG.projectsCompleted} projects across the region, our reviews tell the story better than we can.`;
+
+  // Stats
+  const stats = [
+    { value: CONFIG.yearsExperience + '+', label: 'Years in Business' },
+    { value: CONFIG.projectsCompleted, label: 'Projects Installed' },
+    { value: CONFIG.rating, label: 'Star Rating' },
+    { value: CONFIG.satisfactionRate, label: 'Customer Satisfaction' },
+  ];
+  document.getElementById('about-stats').innerHTML = stats.map(s => `
+    <div class="about-stat">
+      <div class="about-stat-value">${s.value}</div>
+      <div class="about-stat-label">${s.label}</div>
+    </div>`).join('');
+
+  // CTA
+  document.getElementById('about-cta').innerHTML = ctaSectionHTML({
+    title: "Want to Work With Us?",
+    subtitle: "Free site visit, written quote, no pressure. We assess your concrete and tell you exactly what's needed — and what's not."
+  });
+});
+</script>
+
+<style>
+/* ── ABOUT PAGE STYLES ──────────────────────────────────── */
+.about-headline { color: #fff; margin-bottom: 1.5rem; }
+.about-hero-sub { color: rgba(255,255,255,0.8); font-size: 1.25rem; line-height: 1.65; max-width: 42rem; }
+.about-prose { display: flex; flex-direction: column; gap: 1rem; font-size: 1.0625rem; line-height: 1.75; color: #374151; margin-bottom: 3.5rem; }
+.about-prose p { margin: 0; }
+.about-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+@media (min-width: 768px) { .about-stats { grid-template-columns: repeat(4, 1fr); } }
+.about-stat { text-align: center; }
+.about-stat-value { font-family: var(--font-display); font-size: 2.5rem; font-weight: 700; color: var(--color-primary); }
+.about-stat-label { font-size: 0.875rem; color: var(--color-muted); margin-top: 0.25rem; }
+
+.about-values-header { margin-bottom: 3rem; }
+.about-values-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+@media (min-width: 768px) { .about-values-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .about-values-grid { grid-template-columns: repeat(4, 1fr); } }
+.value-card { background: #fff; border-radius: var(--radius-2xl); border: 1px solid var(--color-slate-200); padding: 1.5rem; text-align: center; }
+.value-icon-wrap { width: 3rem; height: 3rem; border-radius: 0.75rem; background-color: var(--color-primary); display: grid; place-items: center; margin-inline: auto; margin-bottom: 1rem; }
+.value-icon-svg { width: 1.5rem; height: 1.5rem; color: #fff; }
+.value-title { font-family: var(--font-display); font-weight: 700; color: var(--color-navy); font-size: 1.125rem; margin-bottom: 0.5rem; }
+.value-desc { font-size: 0.875rem; color: var(--color-muted); line-height: 1.6; }
+</style>
+
+</body>
+</html>

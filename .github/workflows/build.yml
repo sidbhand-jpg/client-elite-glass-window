@@ -1,0 +1,35 @@
+name: Build Pages
+
+on:
+  push:
+    paths:
+      - 'CONFIG.js'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Run page generator
+        run: node generate-pages.js
+
+      - name: Commit generated pages
+        run: |
+          git config user.email "bot@houzflow.com"
+          git config user.name "Houzflow Bot"
+          git add services/ cities/ about.html contact.html our-work.html privacy-policy.html terms.html 404.html
+          git diff --staged --quiet || git commit -m "Auto-build: generate pages from CONFIG.js"
+          git push

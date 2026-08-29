@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- ── CONFIG (loaded early for Meta Pixel) ──────────────────── -->
+  <script src="CONFIG.js"></script>
+  <!-- ── PROJECTS (gallery photos — separate file, updates monthly) ── -->
+  <script src="PROJECTS.js"></script>
+  <!-- ── Meta Pixel Base Code (reads CONFIG.metaPixelId) ───────── -->
+  <script>
+  (function() {
+    if (!CONFIG.metaPixelId) return;
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', CONFIG.metaPixelId);
+    fbq('track', 'PageView');
+    document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
+  })();
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>YOUR BUSINESS NAME | Professional Home Services</title>
+  <meta name="description" content="Professional local home services with clear estimates, dependable scheduling, and respectful workmanship." />
+  <meta name="author" content="YOUR BUSINESS NAME" />
+  <meta property="og:title" content="YOUR BUSINESS NAME | Professional Home Services" />
+  <meta property="og:description" content="Clear estimates, dependable scheduling, and professional local service." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=optional" rel="stylesheet" />
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=75&fm=webp" fetchpriority="high" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ── HERO SECTION ──────────────────────────────────────────── -->
+<section class="home-hero" id="hero">
+  <div class="hero-bg">
+    <img id="hero-img" src="" alt="Professional home service at work" class="hero-bg-img" loading="eager" />
+    <div class="hero-bg-gradient"></div>
+    <div class="grid-overlay"></div>
+  </div>
+  <div class="container-wide hero-inner">
+    <!-- Left: copy -->
+    <div class="hero-copy">
+      <!-- Social proof pill -->
+      <div class="hero-proof-pill">
+        <div class="stars" id="hero-stars"></div>
+        <span id="hero-proof-text"></span>
+      </div>
+      <h1 class="hero-headline" id="hero-headline"></h1>
+      <p class="hero-sub" id="hero-sub"></p>
+      <!-- Trust bullets -->
+      <ul class="hero-bullets">
+        <li class="hero-bullet">
+          <svg class="bullet-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Diamond-ground prep — the only prep that lasts
+        </li>
+        <li class="hero-bullet">
+          <svg class="bullet-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Professional topcoat — UV stable, never yellows
+        </li>
+        <li class="hero-bullet">
+          <svg class="bullet-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Most installs completed in one day
+        </li>
+      </ul>
+      <div class="hero-btns">
+        <a href="/contact.html" class="btn-primary btn-lg" id="hero-cta-primary"></a>
+        <!-- Desktop: "See Our Projects" link -->
+        <a href="/our-work.html" class="btn-outline btn-lg hero-cta-desktop" id="hero-cta-secondary">
+          <span id="hero-cta-secondary-text"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <!-- Mobile: Call button -->
+        <a href="#" class="btn-outline btn-lg hero-cta-mobile" id="hero-cta-call">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12a19.79 19.79 0 01-3-8.63A2 2 0 012.11 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.27a16 16 0 006.29 6.29l1.45-1.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15.36z"/></svg>
+          <span id="hero-cta-phone-text"></span>
+        </a>
+      </div>
+    </div>
+    <!-- Right: Lead form (desktop only) -->
+    <div class="hero-form-wrap lg-show">
+      <div id="hero-lead-form"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST BAR ─────────────────────────────────────────────── -->
+<div class="trust-bar">
+  <div class="container-wide" id="trust-bar-container"></div>
+</div>
+
+<!-- ── WHY EPOXY FAILS ────────────────────────────────────────── -->
+<section class="section-y bg-white">
+  <div class="container-wide">
+    <div id="why-section-header"></div>
+    <div class="comparison-grid">
+      <div class="comparison-card comparison-bad">
+        <div class="comparison-label">
+          <span>❌</span> Bare Concrete
+        </div>
+        <ul class="comparison-points">
+          <li><span class="dot dot-bad"></span> Dusty &amp; porous</li>
+          <li><span class="dot dot-bad"></span> Stains permanently</li>
+          <li><span class="dot dot-bad"></span> Cracks spread</li>
+          <li><span class="dot dot-bad"></span> Hard to clean</li>
+        </ul>
+      </div>
+      <div class="comparison-card comparison-good">
+        <div class="comparison-label">
+          <span>✅</span> Our Service Standard
+        </div>
+        <ul class="comparison-points">
+          <li><span class="dot dot-good"></span> Sealed &amp; seamless</li>
+          <li><span class="dot dot-good"></span> Chemical resistant</li>
+          <li><span class="dot dot-good"></span> Crack-filled &amp; bonded</li>
+          <li><span class="dot dot-good"></span> Wipes clean instantly</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES SECTION ───────────────────────────────────────── -->
+<section class="section-y bg-slate-50">
+  <div class="container-wide">
+    <div id="services-section-header"></div>
+    <div class="services-grid-home" id="services-grid"></div>
+  </div>
+</section>
+
+<!-- ── RECENT WORK ───────────────────────────────────────────── -->
+<section class="section-y bg-white">
+  <div class="container-wide">
+    <div id="recent-work-header"></div>
+    <div class="portfolio-gallery" id="recent-work-gallery">
+      <div class="portfolio-gallery-viewport">
+        <div class="portfolio-grid" id="recent-work-grid"></div>
+      </div>
+      <div class="portfolio-gallery-controls">
+        <div class="portfolio-gallery-dots" id="recent-work-dots" aria-label="Home project gallery pagination"></div>
+        <div class="portfolio-gallery-nav">
+          <button type="button" class="portfolio-gallery-arrow" id="recent-work-prev" aria-label="Previous project slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button type="button" class="portfolio-gallery-arrow" id="recent-work-next" aria-label="Next project slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="recent-work-cta-row">
+      <a href="/our-work.html" class="btn-outline btn-lg">View Full Portfolio →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOCIAL PROOF ───────────────────────────────────────────── -->
+<section class="section-y bg-white">
+  <div class="container-wide">
+    <div id="reviews-section-header"></div>
+    <div class="reviews-grid" id="reviews-grid"></div>
+    <!-- Google Reviews Badge — rendered by JS if googleReviewsUrl is set -->
+    <div id="google-reviews-badge-wrap"></div>
+  </div>
+</section>
+
+<!-- ── DIFFERENTIATORS ────────────────────────────────────────── -->
+<section class="section-y bg-secondary" style="background-color: var(--color-secondary);">
+  <div class="container-wide">
+    <div id="diff-section-header"></div>
+    <div class="diff-grid">
+      <div class="diff-card">
+        <svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="14" width="18" height="3" rx="1" fill="currentColor" opacity="0.5"/><rect x="3" y="10" width="18" height="3" rx="1" fill="currentColor" opacity="0.75"/><rect x="3" y="6" width="18" height="3" rx="1" fill="currentColor"/></svg>
+        <div class="diff-title">Diamond Grind Prep</div>
+        <p class="diff-desc">Every project is ground to bare concrete. No exceptions. This is what makes coatings permanent.</p>
+      </div>
+      <div class="diff-card">
+        <svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div class="diff-title">Written Warranty</div>
+        <p class="diff-desc">We back every installation with a written workmanship warranty. If it fails, we come back and fix it.</p>
+      </div>
+      <div class="diff-card">
+        <svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div class="diff-title">One-Day Installs</div>
+        <p class="diff-desc">Most residential projects done in a single day. Back to normal by the next morning.</p>
+      </div>
+      <div class="diff-card">
+        <svg class="diff-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        <div class="diff-title">Premium Materials Only</div>
+        <p class="diff-desc">100% solids epoxy and professional — never watered-down box-store products.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESS SECTION ────────────────────────────────────────── -->
+<section class="section-y bg-slate-50">
+  <div class="container-wide">
+    <div id="process-section-header"></div>
+    <div id="process-steps-container"></div>
+  </div>
+</section>
+
+<!-- ── LEAD FORM (mobile) ─────────────────────────────────────── -->
+<section class="section-y bg-white lg-hidden">
+  <div class="container-wide" style="max-width: 560px; margin-inline: auto;">
+    <div id="mobile-lead-form"></div>
+  </div>
+</section>
+
+<!-- ── SERVICE AREAS ─────────────────────────────────────────── -->
+<section class="section-y bg-white">
+  <div class="container-wide">
+    <div id="areas-section-header"></div>
+    <div class="areas-layout">
+      <!-- Map: full-width on mobile, right column on desktop -->
+      <div class="areas-map-col" id="areas-map"></div>
+      <!-- Chips -->
+      <div class="areas-chips-col">
+        <div class="areas-chips" id="areas-chips"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQs ──────────────────────────────────────────────────── -->
+<section class="section-y bg-slate-50">
+  <div class="container-wide">
+    <div id="faq-section-header"></div>
+    <div id="faq-container"></div>
+  </div>
+</section>
+
+<!-- ── FINAL CTA ──────────────────────────────────────────────── -->
+<div id="cta-section"></div><script src="components.js"></script><script src="/generic-runtime.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Hero
+  document.title = `${CONFIG.businessName} | Professional Home Services`;
+  document.getElementById('hero-img').src = CONFIG.hero.heroImage;
+  document.getElementById('hero-headline').textContent = CONFIG.hero.headline;
+  document.getElementById('hero-sub').textContent = CONFIG.hero.subheadline;
+  document.getElementById('hero-cta-primary').textContent = CONFIG.hero.ctaPrimary;
+  document.getElementById('hero-cta-secondary-text').textContent = CONFIG.hero.ctaSecondary;
+  // Mobile call button — href and label from CONFIG
+  const callBtn = document.getElementById('hero-cta-call');
+  callBtn.href = `tel:${CONFIG.phoneRaw}`;
+  document.getElementById('hero-cta-phone-text').textContent = CONFIG.phone;
+  document.getElementById('hero-stars').innerHTML = renderStars(5);
+  document.getElementById('hero-proof-text').textContent = `${CONFIG.rating} stars · ${CONFIG.reviewCount} verified reviews`;
+
+  // Trust bar
+  renderTrustBar('trust-bar-container');
+
+  // Why section
+  document.getElementById('why-section-header').innerHTML = sectionHeaderHTML({
+    eyebrow: 'The Truth About Home Services',
+    title: "Most Epoxy Fails. Ours Doesn't.",
+    subtitle: "The difference comes down to one thing: prep. 90% of coating failures are caused by inadequate surface preparation. We diamond-grind every project — no shortcuts."
+  });
+
+  // Services
+  document.getElementById('services-section-header').innerHTML = sectionHeaderHTML({
+    eyebrow: 'What We Install',
+    title: 'Home Service Systems for Every Application',
+    subtitle: 'From residential garages to industrial warehouses — the right coating for every surface, environment, and budget.'
+  });
+  document.getElementById('services-grid').innerHTML = CONFIG.services.map(s => serviceCardHTML(s)).join('');
+
+  // Recent Work (home page gallery teaser — featured PROJECTS only, link-through to /our-work.html)
+  document.getElementById('recent-work-header').innerHTML = sectionHeaderHTML({
+    eyebrow: 'Recent Projects',
+    title: "Work We're Proud Of",
+    subtitle: 'A few of our most recent installs. See the full portfolio for more.'
+  });
+  const featuredProjects = (typeof PROJECTS !== 'undefined' ? PROJECTS.slice(0, 8) : []);
+  const recentWorkCta = document.querySelector('.recent-work-cta-row a');
+  if (recentWorkCta) {
+    recentWorkCta.textContent = 'View All Projects';
+    recentWorkCta.classList.remove('btn-outline');
+    recentWorkCta.classList.add('btn-primary', 'recent-work-cta-btn');
+  }
+  initProjectGallery({
+    galleryId: 'recent-work-gallery',
+    trackId: 'recent-work-grid',
+    dotsId: 'recent-work-dots',
+    prevId: 'recent-work-prev',
+    nextId: 'recent-work-next',
+    projects: featuredProjects,
+    linkHref: '/our-work.html',
+    linkLabel: 'View project in our full portfolio',
+  });
+
+  // JSON-LD: ItemList of ImageObject for the featured home-page set
+  if (featuredProjects.length) {
+    const recentWorkJsonLd = {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": featuredProjects.map((p, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "item": {
+          "@type": "ImageObject",
+          "contentUrl": p.img,
+          "name": p.title,
+          "description": p.alt,
+          "width": p.width,
+          "height": p.height
+        }
+      }))
+    };
+    const ldScript = document.createElement('script');
+    ldScript.type = 'application/ld+json';
+    ldScript.textContent = JSON.stringify(recentWorkJsonLd);
+    document.head.appendChild(ldScript);
+  }
+
+  function initProjectGallery({
+    galleryId,
+    trackId,
+    dotsId,
+    prevId,
+    nextId,
+    projects,
+    linkHref,
+    linkLabel,
+  }) {
+    const gallery = document.getElementById(galleryId);
+    const track = document.getElementById(trackId);
+    const dots = document.getElementById(dotsId);
+    const prevBtn = document.getElementById(prevId);
+    const nextBtn = document.getElementById(nextId);
+
+    if (!gallery || !track || !dots || !prevBtn || !nextBtn) return;
+    if (!projects.length) {
+      track.innerHTML = '<div class="portfolio-gallery-empty">Projects will appear here soon.</div>';
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
+    }
+
+    const autoplayDelay = 5000;
+    let slides = [];
+    let currentIndex = 0;
+    let autoplayId = null;
+    let resizeTimer = null;
+    let startX = 0;
+    let deltaX = 0;
+    let isPointerDown = false;
+    let suppressClick = false;
+
+    const getItemsPerSlide = () => {
+      if (window.innerWidth >= 1024) return 4;
+      if (window.innerWidth >= 640) return 2;
+      return 1;
+    };
+
+    const buildCard = (project, index, eagerCount) => `
+      <div class="portfolio-item">
+        <a href="${linkHref}" class="portfolio-img-btn portfolio-card" aria-label="${linkLabel}: ${project.title}" draggable="false">
+          <img
+            src="${project.img}"
+            alt="${project.alt}"
+            width="${project.width}"
+            height="${project.height}"
+            class="portfolio-img"
+            loading="${index < eagerCount ? 'eager' : 'lazy'}"
+            sizes="(min-width: 1024px) 23vw, (min-width: 640px) 46vw, 90vw"
+            draggable="false"
+          />
+          <span class="portfolio-overlay">
+            <span class="portfolio-overlay-inner">
+              <span class="portfolio-cat-badge">${project.category}</span>
+              <span class="portfolio-project-title">${project.title}</span>
+            </span>
+          </span>
+        </a>
+      </div>`;
+
+    const updateButtons = () => {
+      const hasMultipleSlides = slides.length > 1;
+      prevBtn.disabled = !hasMultipleSlides;
+      nextBtn.disabled = !hasMultipleSlides;
+      dots.querySelectorAll('.portfolio-gallery-dot').forEach((dot, index) => {
+        const isActive = index === currentIndex;
+        dot.classList.toggle('is-active', isActive);
+        dot.setAttribute('aria-pressed', String(isActive));
+      });
+    };
+
+    const updatePosition = (animate = true) => {
+      track.style.transition = animate ? '' : 'none';
+      track.style.transform = `translateX(calc(${-100 * currentIndex}% - ${1.25 * currentIndex}rem))`;
+      updateButtons();
+    };
+
+    const goToSlide = (index, animate = true) => {
+      if (!slides.length) return;
+      currentIndex = (index + slides.length) % slides.length;
+      updatePosition(animate);
+    };
+
+    const restartAutoplay = () => {
+      window.clearInterval(autoplayId);
+      if (slides.length <= 1) return;
+      autoplayId = window.setInterval(() => goToSlide(currentIndex + 1), autoplayDelay);
+    };
+
+    const renderSlides = () => {
+      const itemsPerSlide = getItemsPerSlide();
+      const eagerCount = itemsPerSlide;
+      slides = [];
+      for (let i = 0; i < projects.length; i += itemsPerSlide) {
+        slides.push(projects.slice(i, i + itemsPerSlide));
+      }
+      currentIndex = Math.min(currentIndex, slides.length - 1);
+      track.innerHTML = slides.map((slide, slideIndex) => `
+        <div class="portfolio-slide" data-slide-index="${slideIndex}">
+          ${slide.map((project, itemIndex) => buildCard(project, slideIndex * itemsPerSlide + itemIndex, eagerCount)).join('')}
+        </div>
+      `).join('');
+      dots.innerHTML = slides.map((_, index) => `
+        <button type="button" class="portfolio-gallery-dot${index === currentIndex ? ' is-active' : ''}" data-dot-index="${index}" aria-label="Go to project slide ${index + 1}" aria-pressed="${index === currentIndex ? 'true' : 'false'}"></button>
+      `).join('');
+      updatePosition(false);
+    };
+
+    const finishGesture = () => {
+      if (!isPointerDown) return;
+      isPointerDown = false;
+      track.classList.remove('is-dragging');
+      if (Math.abs(deltaX) > 50) {
+        goToSlide(currentIndex + (deltaX < 0 ? 1 : -1));
+        suppressClick = true;
+      } else {
+        updatePosition();
+      }
+      deltaX = 0;
+      restartAutoplay();
+    };
+
+    prevBtn.addEventListener('click', () => {
+      goToSlide(currentIndex - 1);
+      restartAutoplay();
+    });
+    nextBtn.addEventListener('click', () => {
+      goToSlide(currentIndex + 1);
+      restartAutoplay();
+    });
+    dots.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-dot-index]');
+      if (!button) return;
+      goToSlide(Number(button.dataset.dotIndex));
+      restartAutoplay();
+    });
+    gallery.addEventListener('pointerdown', (event) => {
+      if (slides.length <= 1 || (event.pointerType === 'mouse' && event.button !== 0)) return;
+      isPointerDown = true;
+      startX = event.clientX;
+      deltaX = 0;
+      suppressClick = false;
+      track.classList.add('is-dragging');
+      window.clearInterval(autoplayId);
+    });
+    gallery.addEventListener('pointermove', (event) => {
+      if (!isPointerDown) return;
+      deltaX = event.clientX - startX;
+    });
+    gallery.addEventListener('pointerup', finishGesture);
+    gallery.addEventListener('pointercancel', finishGesture);
+    gallery.addEventListener('pointerleave', finishGesture);
+    gallery.addEventListener('dragstart', (event) => event.preventDefault());
+    gallery.addEventListener('click', (event) => {
+      if (!suppressClick) return;
+      event.preventDefault();
+      suppressClick = false;
+    }, true);
+    gallery.addEventListener('mouseenter', () => window.clearInterval(autoplayId));
+    gallery.addEventListener('mouseleave', restartAutoplay);
+    gallery.addEventListener('focusin', () => window.clearInterval(autoplayId));
+    gallery.addEventListener('focusout', restartAutoplay);
+    window.addEventListener('resize', () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        renderSlides();
+        restartAutoplay();
+      }, 120);
+    });
+
+    renderSlides();
+    restartAutoplay();
+  }
+
+  // Reviews
+  document.getElementById('reviews-section-header').innerHTML = sectionHeaderHTML({
+    eyebrow: 'Real Customers',
+    title: `${CONFIG.rating}-Star Reviews from Real Customers`,
+    subtitle: `${CONFIG.reviewCount} reviews. Here's what people say about our projects.`
+  });
+  document.getElementById('reviews-grid').innerHTML = CONFIG.testimonials.map(t => `
+    <div class="review-card">
+      <div class="stars">${renderStars(t.stars)}</div>
+      <p class="review-text">"${t.text}"</p>
+      <div class="review-footer">
+        <div>
+          <div class="review-name">${t.name}</div>
+          <div class="review-location">${t.location}</div>
+        </div>
+        <span class="review-badge">${t.service}</span>
+      </div>
+    </div>`).join('');
+
+  // Google Reviews badge — only render when googleReviewsUrl is set
+  const reviewsUrl = CONFIG.googleReviewsUrl && CONFIG.googleReviewsUrl.trim();
+  const badgeWrap = document.getElementById('google-reviews-badge-wrap');
+  if (reviewsUrl && badgeWrap) {
+    badgeWrap.innerHTML = `
+      <div class="google-badge-row">
+        <a href="${reviewsUrl}" target="_blank" rel="noopener noreferrer" class="google-badge">
+          <!-- Google G logo -->
+          <svg viewBox="0 0 24 24" class="google-g-logo" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+          <div class="google-badge-text">
+            <div class="google-badge-title">Read Our Reviews</div>
+            <div class="google-badge-sub">
+              <div class="stars">${renderStars(5)}</div>
+              <span>${CONFIG.rating} · ${CONFIG.reviewCount} reviews on Google</span>
+            </div>
+          </div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="google-badge-arrow"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>`;
+  }
+
+  // Differentiators header
+  document.getElementById('diff-section-header').innerHTML = sectionHeaderHTML({
+    eyebrow: 'Why Choose Us',
+    title: 'Built Different. Installed Right.',
+    light: true
+  });
+
+  // Process
+  document.getElementById('process-section-header').innerHTML = sectionHeaderHTML({
+    eyebrow: 'How It Works',
+    title: 'From Quote to Finished Project',
+    subtitle: 'A clear, fast process with no surprises. Most installs go from first contact to finished project in under a week.'
+  });
+  document.getElementById('process-steps-container').innerHTML = processStepsHTML(CONFIG.processSteps);
+
+  // Lead forms
+  buildLeadForm('hero-lead-form', { variant: 'card', showMessage: false });
+  buildLeadForm('mobile-lead-form', { variant: 'full', showMessage: true });
+
+  // Service areas
+  document.getElementById('areas-section-header').innerHTML = sectionHeaderHTML({
+    eyebrow: 'Where We Work',
+    title: `Serving ${CONFIG.city} & Surrounding Areas`,
+    subtitle: 'Local crews, no travel fees, fast scheduling within our service zone.'
+  });
+  document.getElementById('areas-map').innerHTML = mapEmbedHTML();
+  document.getElementById('areas-chips').innerHTML = CONFIG.serviceAreas.map(a => `
+    <a href="/${a.slug}.html" class="area-chip">
+      ${a.name}
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sm"><polyline points="9 18 15 12 9 6"/></svg>
+    </a>`).join('');
+
+  // FAQs
+  document.getElementById('faq-section-header').innerHTML = sectionHeaderHTML({
+    eyebrow: 'Questions',
+    title: 'Everything You Need to Know About Epoxy Projects'
+  });
+  renderFAQs('faq-container', CONFIG.faqs);
+
+  // CTA
+  document.getElementById('cta-section').innerHTML = ctaSectionHTML({
+    title: "Ready for a Project That Lasts?",
+    subtitle: "Get a free, no-pressure quote. We visit your site, assess the concrete, and give you a detailed written estimate — most delivered same day."
+  });
+});
+</script>
+
+<style>
+/* ── HOME PAGE SPECIFIC STYLES ─────────────────────────────── */
+.home-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.hero-bg { position: absolute; inset: 0; }
+.hero-bg-img { width: 100%; height: 100%; object-fit: cover; }
+.hero-bg-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.6) 50%, transparent);
+}
+.hero-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  padding-block: clamp(3rem, 8vw, 6rem);
+  padding-top: 8rem;
+}
+@media (min-width: 1024px) {
+  .hero-inner { flex-direction: row; align-items: center; gap: 4rem; }
+}
+.hero-copy { flex: 1; color: #fff; max-width: 42rem; }
+.hero-proof-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 9999px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.hero-headline { margin-bottom: 1.5rem; }
+.hero-sub { font-size: 1.125rem; color: rgba(255,255,255,0.85); line-height: 1.65; margin-bottom: 2rem; max-width: 36rem; }
+.hero-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
+.hero-bullet { display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.9); font-size: 0.9375rem; }
+.bullet-check { width: 1rem; height: 1rem; color: var(--color-primary); flex-shrink: 0; }
+.hero-btns { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+/* Secondary CTA: hide desktop variant on mobile, hide mobile variant on desktop */
+.hero-cta-desktop { display: none; }
+.hero-cta-mobile  { display: inline-flex; }
+@media (min-width: 768px) {
+  .hero-cta-desktop { display: inline-flex; }
+  .hero-cta-mobile  { display: none; }
+}
+
+/* Google Reviews badge */
+.google-badge-row { display: flex; justify-content: center; margin-top: 2.5rem; }
+.google-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: #fff;
+  border: 1.5px solid var(--color-slate-200);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-md);
+  text-decoration: none;
+  transition: box-shadow 0.2s, border-color 0.2s;
+  max-width: 28rem;
+  width: 100%;
+}
+.google-badge:hover { box-shadow: var(--shadow-xl); border-color: #4285F4; }
+.google-g-logo { width: 2rem; height: 2rem; flex-shrink: 0; }
+.google-badge-text { flex: 1; }
+.google-badge-title { font-family: var(--font-display); font-weight: 700; color: var(--color-navy); font-size: 0.9375rem; }
+.google-badge-sub { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem; font-size: 0.75rem; color: var(--color-muted); }
+.google-badge-arrow { width: 1.25rem; height: 1.25rem; color: #4285F4; flex-shrink: 0; }
+.hero-form-wrap { width: 100%; max-width: 22rem; }
+
+/* Comparison */
+.comparison-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; max-width: 48rem; margin-inline: auto; }
+@media (min-width: 768px) { .comparison-grid { grid-template-columns: 1fr 1fr; } }
+.comparison-card { border-radius: var(--radius-2xl); padding: 1.5rem; border: 2px solid; }
+.comparison-bad { border-color: var(--color-stone-200); background: #fafaf9; }
+.comparison-good { border-color: #bfdbfe; background: #eff6ff; }
+.comparison-label { font-family: var(--font-display); font-weight: 700; font-size: 1.125rem; color: var(--color-navy); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.comparison-points { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+.comparison-points li { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9375rem; color: var(--color-navy); }
+.dot { width: 6px; height: 6px; border-radius: 9999px; flex-shrink: 0; }
+.dot-bad { background: #94a3b8; }
+.dot-good { background: var(--color-primary); }
+
+/* Services grid */
+.services-grid-home { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+@media (min-width: 640px) { .services-grid-home { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .services-grid-home { grid-template-columns: repeat(3, 1fr); } }
+
+/* Recent Work (home page gallery teaser) */
+.recent-work-cta-row { display: flex; justify-content: center; margin-top: 2.5rem; }
+.recent-work-cta-btn { border: none; }
+
+/* Reviews */
+.reviews-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+@media (min-width: 768px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); } }
+.review-card { background: var(--color-slate-50); border-radius: var(--radius-2xl); padding: 1.5rem; border: 1px solid var(--color-slate-200); }
+.review-text { margin-top: 0.75rem; color: var(--color-navy); font-weight: 500; line-height: 1.65; }
+.review-footer { margin-top: 1rem; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
+.review-name { font-family: var(--font-display); font-weight: 600; color: var(--color-navy); }
+.review-location { font-size: 0.75rem; color: var(--color-muted); }
+.review-badge { font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 9999px; background: #fff; border: 1px solid var(--color-slate-200); color: var(--color-muted); white-space: nowrap; }
+
+/* Differentiators */
+.bg-secondary { background-color: var(--color-secondary); }
+.diff-grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+@media (min-width: 640px) { .diff-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .diff-grid { grid-template-columns: repeat(4, 1fr); } }
+.diff-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-2xl); padding: 1.5rem; color: #fff; }
+.diff-icon { width: 1.75rem; height: 1.75rem; color: var(--color-primary); margin-bottom: 1rem; }
+.diff-title { font-family: var(--font-display); font-weight: 600; font-size: 1.125rem; margin-bottom: 0.5rem; }
+.diff-desc { color: rgba(255,255,255,0.7); font-size: 0.875rem; line-height: 1.6; }
+
+/* Service areas layout — map + chips */
+.areas-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+@media (min-width: 1024px) {
+  .areas-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3rem;
+  }
+  .areas-map-col  { flex: 1; min-width: 0; }
+  .areas-chips-col { width: 22rem; flex-shrink: 0; }
+}
+/* Override iframe height to respect CONFIG.maps.mapHeight at runtime;
+   the style attr on the iframe handles the actual height. */
+.areas-map-col .map-wrap { border-radius: var(--radius-2xl); overflow: hidden; }
+.areas-map-col .map-iframe { width: 100%; display: block; border: none; }
+
+/* Service areas chips */
+.areas-chips { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.area-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 9999px;
+  border: 2px solid var(--color-slate-200);
+  color: var(--color-navy);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s;
+}
+.area-chip:hover { border-color: var(--color-primary); color: var(--color-primary); }
+</style>
+
+</body>
+</html>

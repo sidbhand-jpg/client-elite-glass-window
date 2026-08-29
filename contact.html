@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- ── CONFIG (loaded early for Meta Pixel) ──────────────────── -->
+  <script src="CONFIG.js"></script>
+  <!-- ── Meta Pixel Base Code (reads CONFIG.metaPixelId) ───────── -->
+  <script>
+  (function() {
+    if (!CONFIG.metaPixelId) return;
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', CONFIG.metaPixelId);
+    fbq('track', 'PageView');
+    document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
+  })();
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>Contact | Get a Free Quote</title>
+  <meta name="description" content="Request a free epoxy project quote. We visit your site, assess the concrete, and give you a written estimate — usually same day." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=optional" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ── CONTACT HERO ───────────────────────────────────────────── -->
+<section class="page-hero" style="background-color:var(--color-secondary); padding-bottom: 5rem;">
+  <div class="grid-overlay"></div>
+  <div class="container-wide" style="position:relative">
+    <div class="page-hero-eyebrow">Contact Us</div>
+    <h1 style="color:#fff; margin-bottom: 1rem;">Get Your Free Quote</h1>
+    <p style="color:rgba(255,255,255,0.8); font-size:1.125rem; max-width:42rem; line-height:1.65;">
+      Fill in the form and we'll follow up within 15 minutes during business hours. Or call us directly — we pick up.
+    </p>
+  </div>
+</section>
+
+<!-- ── CONTACT CONTENT ────────────────────────────────────────── -->
+<section class="section-y bg-white">
+  <div class="container-wide contact-grid">
+
+    <!-- Left: info cards -->
+    <div class="contact-info-col">
+      <h2 class="contact-info-heading">Talk to a Home Services Specialist</h2>
+      <p class="contact-info-sub">No bots, no runaround. A real home services expert answers every call and reviews every form submission.</p>
+
+      <div class="contact-cards">
+        <!-- Phone -->
+        <a href="#" class="contact-card" id="contact-phone-card">
+          <div class="contact-card-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="contact-card-icon"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12a19.79 19.79 0 01-3-8.63A2 2 0 012.11 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.27a16 16 0 006.29 6.29l1.45-1.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15.36z"/></svg>
+          </div>
+          <div>
+            <div class="contact-card-label">Call Us</div>
+            <div class="contact-card-value" id="contact-phone-display"></div>
+            <div class="contact-card-note">Mon–Sat 7am–7pm</div>
+          </div>
+        </a>
+
+        <!-- Email -->
+        <a href="#" class="contact-card" id="contact-email-card">
+          <div class="contact-card-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="contact-card-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="contact-card-label">Email Us</div>
+            <div class="contact-card-value" id="contact-email-display"></div>
+            <div class="contact-card-note">Replies within a few hours</div>
+          </div>
+        </a>
+
+        <!-- Location -->
+        <div class="contact-card">
+          <div class="contact-card-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="contact-card-icon"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="contact-card-label">Service Area</div>
+            <div class="contact-card-value" id="contact-city-display"></div>
+            <div class="contact-card-note" id="contact-license-display"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust signals -->
+      <div class="contact-trust-list">
+        <div class="contact-trust-item">
+          <svg class="contact-trust-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Free site visit — no obligation
+        </div>
+        <div class="contact-trust-item">
+          <svg class="contact-trust-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Written estimate, usually same day
+        </div>
+        <div class="contact-trust-item">
+          <svg class="contact-trust-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Licensed, insured, background-checked crew
+        </div>
+        <div class="contact-trust-item">
+          <svg class="contact-trust-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Written workmanship warranty
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Lead form -->
+    <div class="contact-form-col">
+      <div id="contact-lead-form"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MAP ────────────────────────────────────────────────────── -->
+<section class="section-y bg-slate-50">
+  <div class="container-wide" style="max-width:56rem;margin-inline:auto;">
+    <div id="contact-map-header"></div>
+    <div id="contact-map"></div>
+  </div>
+</section><script src="components.js"></script><script src="/generic-runtime.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.title = `Contact | Get a Free Quote | ${CONFIG.businessName}`;
+
+  // Fill contact info
+  const phoneCard = document.getElementById('contact-phone-card');
+  phoneCard.href = `tel:${CONFIG.phoneRaw}`;
+  document.getElementById('contact-phone-display').textContent = CONFIG.phone;
+
+  const emailCard = document.getElementById('contact-email-card');
+  emailCard.href = `mailto:${CONFIG.email}`;
+  document.getElementById('contact-email-display').textContent = CONFIG.email;
+
+  document.getElementById('contact-city-display').textContent = CONFIG.city;
+  document.getElementById('contact-license-display').textContent = `License #${CONFIG.licenseNumber}`;
+
+  // Form
+  buildLeadForm('contact-lead-form', {
+    variant: 'full',
+    showMessage: true,
+    showEmail: true,
+    showCity: true,
+  });
+
+  // Map
+  document.getElementById('contact-map-header').innerHTML = sectionHeaderHTML({
+    eyebrow: 'Service Coverage',
+    title: `We Serve ${CONFIG.city} & Beyond`,
+    subtitle: 'Free site visits within our service zone. No travel fees.'
+  });
+  document.getElementById('contact-map').innerHTML = mapEmbedHTML(CONFIG.city);
+});
+</script>
+
+<style>
+/* ── CONTACT PAGE STYLES ────────────────────────────────── */
+.contact-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+@media (min-width: 1024px) {
+  .contact-grid { flex-direction: row; gap: 4rem; }
+}
+.contact-info-col { flex: 1; }
+.contact-form-col { flex: 1; max-width: 36rem; }
+
+.contact-info-heading {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  margin-bottom: 0.75rem;
+}
+.contact-info-sub {
+  font-size: 1rem;
+  color: var(--color-muted);
+  line-height: 1.65;
+  margin-bottom: 2rem;
+}
+
+.contact-cards { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+.contact-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem;
+  background: var(--color-slate-50);
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-xl);
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.contact-card:hover { border-color: var(--color-primary); box-shadow: var(--shadow-md); }
+.contact-card-icon-wrap {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.625rem;
+  background-color: var(--color-primary);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.contact-card-icon { width: 1.25rem; height: 1.25rem; color: #fff; }
+.contact-card-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-muted); }
+.contact-card-value { font-family: var(--font-display); font-weight: 600; color: var(--color-navy); font-size: 1rem; margin-top: 0.125rem; }
+.contact-card-note { font-size: 0.75rem; color: var(--color-muted); margin-top: 0.125rem; }
+
+.contact-trust-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.contact-trust-item { display: flex; align-items: center; gap: 0.625rem; font-size: 0.9375rem; color: var(--color-navy); font-weight: 500; }
+.contact-trust-check { width: 1.25rem; height: 1.25rem; color: var(--color-primary); flex-shrink: 0; }
+</style>
+
+</body>
+</html>
