@@ -14,6 +14,7 @@ const CONFIG = {
   colors: { primary: "#004080", secondary: "#1C2333" },
   social: { facebook: "", instagram: "", youtube: "", yelp: "", nextdoor: "" },
   googleReviewsUrl: "https://search.google.com/local/writereview?placeid=ChIJg31wD_9tkFQRp-As1RijQDA",
+  googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Elite+Glass+%26+Window&query_place_id=ChIJg31wD_9tkFQRp-As1RijQDA",
   rating: "",
   reviewCount: 0,
   yearsExperience: "",
@@ -21,7 +22,7 @@ const CONFIG = {
   satisfactionRate: "",
   webhookUrl: "",
   metaPixelId: "",
-  clarityProjectId: "",
+  clarityProjectId: "yae0ijptel",
   maps: { mapEmbedUrl: "", mapSearchQuery: "Elite Glass & Window Redmond WA", mapHeight: 420 },
   hero: {
     eyebrow: "Redmond Glass & Window Specialists",
