@@ -30,7 +30,7 @@ const CONFIG = {
     subheadline: "Residential and commercial glass solutions from a local Redmond showroom serving the Greater Seattle area.",
     ctaPrimary: "Get a Free Estimate",
     ctaSecondary: "Explore Services",
-    heroImage: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=80&auto=format&fit=crop",
+    heroImage: "https://images.unsplash.com/photo-1775466145653-a47a853428d2?w=1800&q=84&auto=format&fit=crop",
   },
   services: [
     {
@@ -44,7 +44,7 @@ const CONFIG = {
         { q: "How long does window replacement take?", a: "The timeline depends on the number and type of windows, but most residential projects are completed within a few days." },
         { q: "What types of windows do you install?", a: "We install a wide range of window types, including single-hung, double-hung, casement, awning, picture, slider, bay, and bow windows." }
       ],
-      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1000&q=80&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1758448756207-54505680d130?w=1200&q=82&auto=format&fit=crop",
     },
     {
       slug: "shower-doors",
@@ -57,7 +57,7 @@ const CONFIG = {
         { q: "What types of shower doors do you offer?", a: "We specialize in frameless, semi-frameless, and sliding shower doors, available in various glass thicknesses and finishes." },
         { q: "Can you install a custom-sized shower door?", a: "Yes, all our shower doors are custom measured and installed to perfectly fit your unique shower opening." }
       ],
-      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1000&q=80&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1771929662486-f793e08f0f16?w=1200&q=82&auto=format&fit=crop",
     },
     {
       slug: "entry-patio-doors",
@@ -70,7 +70,7 @@ const CONFIG = {
         { q: "Can you help me choose the right door for my home?", a: "Absolutely! Our experts will guide you through the selection process, considering your home's style, budget, and functional needs." },
         { q: "Do you install interior doors as well?", a: "While our primary focus is exterior entry and patio doors, we can discuss interior door projects based on your specific needs." }
       ],
-      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1000&q=80&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1721134111286-b3c4a5772ea9?w=1200&q=82&auto=format&fit=crop",
     },
     {
       slug: "glass-railings",
@@ -83,7 +83,7 @@ const CONFIG = {
         { q: "Are glass railings safe?", a: "Yes, our glass railings are constructed with tempered safety glass and robust hardware, meeting all local building codes for safety and structural integrity." },
         { q: "What is the maintenance for glass railings?", a: "Glass railings are relatively low maintenance. Regular cleaning with glass cleaner is usually sufficient to keep them looking pristine." }
       ],
-      image: "https://images.unsplash.com/photo-1581578731548-c64696cc6952?w=1000&q=80&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1767555026364-b2b17d7dc455?w=1200&q=82&auto=format&fit=crop",
     },
     {
       slug: "custom-mirrors",
@@ -96,7 +96,7 @@ const CONFIG = {
         { q: "Can you install a large mirror?", a: "Yes, we specialize in installing large wall mirrors for homes, gyms, and commercial applications, ensuring secure and precise placement." },
         { q: "What types of mirror edges do you offer?", a: "We offer various edge finishes, including polished, beveled, and seamed edges, to complement your design aesthetic." }
       ],
-      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1000&q=80&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1666372488758-8cc57b6ff4a7?w=1200&q=82&auto=format&fit=crop",
     },
     {
       slug: "storefront-glass",
@@ -109,7 +109,7 @@ const CONFIG = {
         { q: "Do you replace broken storefront glass?", a: "Yes. Contact the team with the address, approximate dimensions, photos if available, and whether the opening is secure. Timing depends on the glass specification and availability." },
         { q: "Can you install custom logos or branding on storefront glass?", a: "We can work with your design specifications for custom branding or signage integration on your storefront glass." }
       ],
-      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1000&q=80&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1776918780862-7997f9923408?w=1200&q=82&auto=format&fit=crop",
     },
     {
       slug: "glass-replacement",
@@ -122,7 +122,7 @@ const CONFIG = {
         { q: "Can you replace just one pane of glass in a double-pane window?", a: "Yes, in most cases, we can replace just the insulated glass unit (IGU) without needing to replace the entire window frame." },
         { q: "What types of glass can you replace?", a: "We replace various types of glass, including single-pane, double-pane (IGUs), tempered, laminated, and specialty glass for residential and commercial applications." }
       ],
-      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=1000&q=80&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1546012112-142c81b59a42?w=1200&q=82&auto=format&fit=crop",
     },
     {
       slug: "custom-glass-products",
@@ -135,7 +135,7 @@ const CONFIG = {
         { q: "Can you make a custom glass tabletop?", a: "Yes. We can help specify dimensions, thickness, edgework, corners, and safety-glass options for the furniture and intended use." },
         { q: "What glass is available for cabinets and shelves?", a: "Common choices include clear, frosted, textured, patterned, tempered, and specialty glass. Availability depends on size and application." }
       ],
-      image: "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=1000&q=80&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1646592474163-cbef6e0b3b39?w=1200&q=82&auto=format&fit=crop",
     },
   ],
   serviceAreas: [

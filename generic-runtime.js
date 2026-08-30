@@ -2,9 +2,9 @@
 (() => {
   const niche = CONFIG.niche || 'Home Services';
   const serviceNames = () => CONFIG.services.map(s => s.name).join(', ');
-  const setHeader = (id, eyebrow, title, subtitle = '') => {
+  const setHeader = (id, eyebrow, title, subtitle = '', light = false) => {
     const node = document.getElementById(id);
-    if (node) node.innerHTML = sectionHeaderHTML({ eyebrow, title, subtitle });
+    if (node) node.innerHTML = sectionHeaderHTML({ eyebrow, title, subtitle, light });
   };
 
   document.addEventListener('DOMContentLoaded', () => setTimeout(() => {
@@ -18,7 +18,7 @@
       if (ogTitle) ogTitle.setAttribute('content', `${CONFIG.businessName} | ${niche}`);
       if (ogDescription) ogDescription.setAttribute('content', `Professional ${niche.toLowerCase()} in ${CONFIG.city}.`);
       const heroImage = document.getElementById('hero-img');
-      if (heroImage) heroImage.alt = `${niche} professional at work`;
+      if (heroImage) heroImage.alt = `Modern home featuring custom windows and glass doors`;
       document.querySelector('.hero-bullets').innerHTML = [
         'Clear communication from first call to final walkthrough',
         'Experienced local professionals who respect your property',
@@ -29,7 +29,7 @@
         <div class="comparison-card comparison-bad"><div class="comparison-label"><span>✕</span> The frustrating way</div><ul class="comparison-points"><li><span class="dot dot-bad"></span>Vague timelines</li><li><span class="dot dot-bad"></span>Surprise changes</li><li><span class="dot dot-bad"></span>Poor communication</li><li><span class="dot dot-bad"></span>Rushed work</li></ul></div>
         <div class="comparison-card comparison-good"><div class="comparison-label"><span>✓</span> Our approach</div><ul class="comparison-points"><li><span class="dot dot-good"></span>Clear plan from the start</li><li><span class="dot dot-good"></span>Honest recommendations</li><li><span class="dot dot-good"></span>Responsive local team</li><li><span class="dot dot-good"></span>Careful final walkthrough</li></ul></div>`;
       setHeader('services-section-header', 'What we do', `${niche} services for your property.`, `Explore the services ${CONFIG.businessName} provides in ${CONFIG.city}.`);
-      setHeader('diff-section-header', 'The standard we work to', 'Professional service, without the runaround.');
+      setHeader('diff-section-header', 'The standard we work to', 'Professional service, without the runaround.', '', true);
       const diff = document.querySelector('.diff-grid');
       if (diff) diff.innerHTML = [
         ['Clear communication', 'You always know what happens next and who to contact.'],

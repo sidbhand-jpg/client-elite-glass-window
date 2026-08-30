@@ -109,14 +109,28 @@ function renderHeader() {
       <div class="dropdown-item-desc">${s.desc}</div>
     </a>`).join('');
 
-  const areasDropdown = CONFIG.serviceAreas.map(a => `
-    <a href="/cities/${a.slug}.html" class="area-pill">${a.name}</a>`).join('');
+  const areaByName = new Map(CONFIG.serviceAreas.map(area => [area.name, area]));
+  const serviceRegions = CONFIG.serviceRegions || [{ name: 'All Service Areas', cities: CONFIG.serviceAreas.map(area => area.name) }];
+  const areasDropdown = serviceRegions.map(region => `
+    <div class="nav-area-region">
+      <div class="nav-area-region-title">${region.name}</div>
+      <div class="nav-area-region-links">
+        ${region.cities.map(name => areaByName.get(name)).filter(Boolean).map(area =>
+          `<a href="/cities/${area.slug}.html" class="area-pill">${area.name}</a>`).join('')}
+      </div>
+    </div>`).join('');
 
   const mobileServiceLinks = CONFIG.services.map(s => `
     <a href="/services/${s.slug}.html" class="mobile-sub-link">${s.name}</a>`).join('');
 
-  const mobileAreaLinks = CONFIG.serviceAreas.map(a => `
-    <a href="/cities/${a.slug}.html" class="mobile-area-pill">${a.name}</a>`).join('');
+  const mobileAreaLinks = serviceRegions.map(region => `
+    <div class="mobile-area-region">
+      <div class="mobile-area-region-title">${region.name}</div>
+      <div class="mobile-area-pills">
+        ${region.cities.map(name => areaByName.get(name)).filter(Boolean).map(area =>
+          `<a href="/cities/${area.slug}.html" class="mobile-area-pill">${area.name}</a>`).join('')}
+      </div>
+    </div>`).join('');
 
   const html = `
   <header class="site-header" id="site-header">
@@ -143,7 +157,7 @@ function renderHeader() {
             <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="dropdown-panel areas-panel" id="areas-panel">
-            <div class="areas-pills">${areasDropdown}</div>
+            <div class="areas-regions">${areasDropdown}</div>
           </div>
         </div>
 
@@ -186,7 +200,7 @@ function renderHeader() {
           <svg class="chevron-icon" id="mobile-areas-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="mobile-acc-panel" id="mobile-areas-panel" style="display:none">
-          <div class="mobile-area-pills">${mobileAreaLinks}</div>
+          <div class="mobile-area-regions">${mobileAreaLinks}</div>
         </div>
 
         <a href="/our-work.html" class="mobile-nav-link border-top">Our Work</a>
@@ -271,8 +285,16 @@ function renderFooter() {
   const serviceLinks = CONFIG.services.map(s =>
     `<li><a href="/services/${s.slug}.html">${s.name}</a></li>`).join('');
 
-  const areaLinks = CONFIG.serviceAreas.map(a =>
-    `<a href="/cities/${a.slug}.html" class="area-pill-sm">${a.name}</a>`).join('');
+  const footerAreaByName = new Map(CONFIG.serviceAreas.map(area => [area.name, area]));
+  const footerRegions = CONFIG.serviceRegions || [{ name: 'All Service Areas', cities: CONFIG.serviceAreas.map(area => area.name) }];
+  const areaLinks = footerRegions.map(region => `
+    <div class="footer-region-group">
+      <div class="footer-region-title">${region.name}</div>
+      <div class="footer-region-links">
+        ${region.cities.map(name => footerAreaByName.get(name)).filter(Boolean).map(area =>
+          `<a href="/cities/${area.slug}.html">${area.name}</a>`).join('<span aria-hidden="true">&bull;</span>')}
+      </div>
+    </div>`).join('');
 
   // Social icons — only render if URL is set
   const SOCIAL_ICONS = {
@@ -327,7 +349,7 @@ function renderFooter() {
       <!-- Service Areas column -->
       <div class="footer-col">
         <div class="footer-col-title">Service Areas</div>
-        <div class="footer-area-pills">${areaLinks}</div>
+        <div class="footer-area-regions">${areaLinks}</div>
         <div class="footer-license">
           <div>License #${CONFIG.licenseNumber}</div>
           <div>Licensed &amp; Insured in ${CONFIG.state}</div>
