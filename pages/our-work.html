@@ -49,7 +49,7 @@
     <div class="page-hero-eyebrow">Our Work</div>
     <h1 style="color:#fff; margin-bottom:1rem;">Projects We're Proud Of</h1>
     <p style="color:rgba(255,255,255,0.8); font-size:1.125rem; line-height:1.65;">
-      Browse verified Elite Glass & Window projects as they are added. Each gallery item will identify the product, application, and completed installation.
+      Explore seven completed glass, window, door, railing, and mirror projects, including project details and before, during, and after photography.
     </p>
   </div>
 </section>
@@ -62,10 +62,10 @@
   </div>
 </div>
 
-<!-- ── PORTFOLIO GRID ─────────────────────────────────────────── -->
+<!-- ── CONFIG-DRIVEN CASE STUDIES ─────────────────────────────── -->
 <section class="section-y bg-slate-50">
   <div class="container-wide">
-    <div class="portfolio-grid" id="portfolio-grid"></div>
+    <div class="project-list" id="portfolio-grid"></div>
   </div>
 </section>
 
@@ -90,7 +90,7 @@
   </div>
 </div><script src="components.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+false && document.addEventListener('DOMContentLoaded', () => {
   document.title = `Our Work | Portfolio | ${CONFIG.businessName}`;
 
   // Build unique category list
@@ -194,6 +194,164 @@ document.addEventListener('DOMContentLoaded', () => {
     subtitle: "Free site visit and written quote. Most installs completed in one day."
   });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.title = `Our Work | Portfolio | ${CONFIG.businessName}`;
+  const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+  })[char]);
+  const absoluteImageUrl = (src) => src.startsWith('http') ? src : `${CONFIG.siteUrl}${src}`;
+  const cats = [...new Set(PROJECTS.map(project => project.category))];
+
+  document.getElementById('filter-btns').innerHTML = cats.map(category => `
+    <button class="filter-btn" data-filter="${escapeHTML(category)}">${escapeHTML(category)}</button>`).join('');
+
+  function imageButton(image, caption, className, loading = 'lazy') {
+    return `
+      <button type="button" class="project-image-button ${className}" data-img="${escapeHTML(image.img)}" data-caption="${escapeHTML(caption)}" aria-label="Open image: ${escapeHTML(caption)}">
+        <img src="${escapeHTML(image.img)}" alt="${escapeHTML(image.alt)}" width="${image.width}" height="${image.height}" loading="${loading}" />
+        <span class="project-image-label">${escapeHTML(caption)}</span>
+      </button>`;
+  }
+
+  function checklist(items) {
+    return `<ul class="project-checklist">${items.map(item => `<li>${escapeHTML(item)}</li>`).join('')}</ul>`;
+  }
+
+  function renderProject(project, index) {
+    return `
+      <article class="project-case-study" id="${escapeHTML(project.id)}" data-category="${escapeHTML(project.category)}">
+        <div class="project-summary-grid">
+          ${imageButton(project, `${project.title} - project overview`, 'project-cover', index < 2 ? 'eager' : 'lazy')}
+          <div class="project-intro">
+            <span class="portfolio-cat-badge">${escapeHTML(project.category)}</span>
+            <h2>${escapeHTML(project.title)}</h2>
+            <p class="project-tagline">${escapeHTML(project.tagline)}</p>
+            <div class="project-meta" aria-label="Project information">
+              <span>${escapeHTML(project.location)}</span>
+              <span>${escapeHTML(project.completed)}</span>
+              <span>${escapeHTML(project.duration)}</span>
+            </div>
+            <p class="project-summary">${escapeHTML(project.summary)}</p>
+          </div>
+          <details class="project-disclosure">
+              <summary>View full case study and all photos</summary>
+              <div class="project-expanded">
+                <section class="project-overview">
+                  <p class="project-section-label">Project Overview</p>
+                  <p>${escapeHTML(project.overview)}</p>
+                </section>
+                <section>
+                  <p class="project-section-label">Before, During &amp; After</p>
+                  <div class="project-process-grid">
+                    ${project.process.map(image => imageButton(image, image.stage, 'project-process-image')).join('')}
+                  </div>
+                </section>
+                <div class="project-info-grid">
+                  <section class="project-info-card">
+                    <h3>${escapeHTML(project.benefitHeading)}</h3>
+                    ${checklist(project.benefits)}
+                  </section>
+                  <section class="project-info-card">
+                    <h3>Product Details</h3>
+                    <dl class="project-detail-list">
+                      ${project.details.map(detail => `<div><dt>${escapeHTML(detail.label)}</dt><dd>${escapeHTML(detail.value)}</dd></div>`).join('')}
+                    </dl>
+                  </section>
+                  <section class="project-info-card">
+                    <h3>Project Features</h3>
+                    ${checklist(project.features)}
+                  </section>
+                </div>
+                <section>
+                  <p class="project-section-label">More ${escapeHTML(project.category)} Work</p>
+                  <div class="project-related-grid">
+                    ${project.related.map(image => imageButton(image, image.title, 'project-related-image')).join('')}
+                  </div>
+                </section>
+              </div>
+          </details>
+        </div>
+      </article>`;
+  }
+
+  function renderGrid(filter) {
+    const projects = filter === 'all' ? PROJECTS : PROJECTS.filter(project => project.category === filter);
+    document.getElementById('portfolio-grid').innerHTML = projects.map(renderProject).join('');
+  }
+  renderGrid('all');
+
+  const portfolioJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": PROJECTS.map((project, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "CreativeWork",
+        "url": `${CONFIG.siteUrl}/our-work.html#${project.id}`,
+        "name": project.title,
+        "description": project.summary,
+        "dateCreated": project.completed,
+        "locationCreated": { "@type": "Place", "name": project.location },
+        "image": [project, ...project.process, ...project.related].map(image => absoluteImageUrl(image.img))
+      }
+    }))
+  };
+  const ldScript = document.createElement('script');
+  ldScript.type = 'application/ld+json';
+  ldScript.textContent = JSON.stringify(portfolioJsonLd);
+  document.head.appendChild(ldScript);
+
+  document.querySelector('.portfolio-filter-inner').addEventListener('click', (event) => {
+    const button = event.target.closest('.filter-btn');
+    if (!button) return;
+    document.querySelectorAll('.filter-btn').forEach(item => item.classList.remove('filter-btn-active'));
+    button.classList.add('filter-btn-active');
+    renderGrid(button.dataset.filter);
+  });
+
+  function openLightbox(src, caption) {
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox-img').alt = caption;
+    document.getElementById('lightbox-caption').textContent = caption;
+    document.getElementById('lightbox').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  document.getElementById('portfolio-grid').addEventListener('click', (event) => {
+    const button = event.target.closest('.project-image-button');
+    if (button) openLightbox(button.dataset.img, button.dataset.caption);
+  });
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  document.getElementById('lightbox-backdrop').addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeLightbox(); });
+
+  const linkedProject = window.location.hash && document.querySelector(window.location.hash);
+  if (linkedProject) {
+    linkedProject.querySelector('details').open = true;
+    window.setTimeout(() => linkedProject.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+  }
+
+  document.getElementById('portfolio-proof-header').innerHTML = sectionHeaderHTML({
+    eyebrow: 'What Customers Say',
+    title: 'Real Reviews from Real Projects'
+  });
+  document.getElementById('portfolio-reviews-row').innerHTML = CONFIG.testimonials.slice(0, 3).map(testimonial => `
+    <div class="portfolio-review-card">
+      <div class="stars">${renderStars(testimonial.stars)}</div>
+      <p class="portfolio-review-text">"${testimonial.text}"</p>
+      <div class="portfolio-review-name">${testimonial.name} &middot; ${testimonial.location}</div>
+    </div>`).join('');
+
+  document.getElementById('portfolio-cta').innerHTML = ctaSectionHTML({
+    title: "Want a Project Like These?",
+    subtitle: "Tell us what you're planning and get a written quote for your space."
+  });
+});
 </script>
 
 <style>
@@ -244,6 +402,195 @@ document.addEventListener('DOMContentLoaded', () => {
   color: #fff;
 }
 .filter-btn-active:hover { color: #fff; }
+
+.project-list {
+  display: grid;
+  gap: 2rem;
+}
+.project-case-study {
+  scroll-margin-top: 7rem;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-md);
+}
+.project-summary-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  align-items: stretch;
+}
+.project-intro {
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+.project-intro h2 {
+  margin: 0.8rem 0 0.45rem;
+  font-size: clamp(1.6rem, 3vw, 2.35rem);
+  line-height: 1.12;
+}
+.project-tagline {
+  color: var(--color-primary);
+  font-weight: 700;
+  margin: 0 0 1rem;
+}
+.project-summary {
+  color: var(--color-muted);
+  line-height: 1.7;
+  margin: 1rem 0 0;
+}
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.project-meta span {
+  padding: 0.4rem 0.7rem;
+  border-radius: 9999px;
+  background: var(--color-slate-50);
+  border: 1px solid var(--color-slate-200);
+  color: var(--color-navy);
+  font-size: 0.78rem;
+  font-weight: 650;
+}
+.project-image-button {
+  position: relative;
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+  border: 0;
+  background: var(--color-secondary);
+  color: #fff;
+  cursor: zoom-in;
+  text-align: left;
+}
+.project-image-button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+.project-image-button:hover img,
+.project-image-button:focus-visible img { transform: scale(1.035); }
+.project-image-button:focus-visible { outline: 3px solid var(--color-primary); outline-offset: -3px; }
+.project-cover { min-height: 28rem; }
+.project-cover img { min-height: 28rem; }
+.project-image-label {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 1rem;
+  background: linear-gradient(transparent, rgba(5, 14, 28, 0.88));
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.project-disclosure {
+  grid-column: 1 / -1;
+  border-top: 1px solid var(--color-slate-200);
+}
+.project-disclosure > summary {
+  list-style: none;
+  padding: 1.1rem 1.5rem;
+  color: var(--color-primary);
+  font-weight: 750;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.project-disclosure > summary::-webkit-details-marker { display: none; }
+.project-disclosure > summary::after { content: ' +'; }
+.project-disclosure[open] > summary::after { content: ' -'; }
+.project-disclosure > summary:hover { background: var(--color-slate-50); }
+.project-expanded {
+  display: grid;
+  gap: 2rem;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  border-top: 1px solid var(--color-slate-200);
+}
+.project-section-label {
+  margin: 0 0 0.8rem;
+  color: var(--color-primary);
+  font-size: 0.77rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.project-overview {
+  max-width: 60rem;
+  color: var(--color-navy);
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+.project-overview p:last-child { margin: 0; }
+.project-process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+.project-process-image {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-xl);
+}
+.project-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+.project-info-card {
+  padding: 1.25rem;
+  border: 1px solid var(--color-slate-200);
+  border-radius: var(--radius-xl);
+  background: var(--color-slate-50);
+}
+.project-info-card h3 {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+.project-checklist {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--color-muted);
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+.project-checklist li { display: grid; grid-template-columns: auto 1fr; gap: 0.55rem; }
+.project-checklist li::before { content: '✓'; color: #15803d; font-weight: 800; }
+.project-detail-list { display: grid; gap: 0.65rem; margin: 0; }
+.project-detail-list div { display: grid; gap: 0.12rem; }
+.project-detail-list dt { color: var(--color-navy); font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; }
+.project-detail-list dd { margin: 0; color: var(--color-muted); font-size: 0.88rem; line-height: 1.45; }
+.project-related-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+.project-related-image {
+  aspect-ratio: 2.2 / 1;
+  border-radius: var(--radius-lg);
+}
+@media (max-width: 899px) {
+  .project-summary-grid { grid-template-columns: 1fr; }
+  .project-cover, .project-cover img { min-height: 20rem; }
+  .project-info-grid { grid-template-columns: 1fr; }
+  .project-related-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 639px) {
+  .project-cover, .project-cover img { min-height: 15rem; }
+  .project-process-grid { grid-template-columns: 1fr; }
+  .project-process-image { aspect-ratio: 4 / 3; }
+  .project-related-grid { grid-template-columns: 1fr; }
+  .project-related-image { aspect-ratio: 2 / 1; }
+  .project-disclosure > summary { text-align: left; }
+}
 
 .portfolio-reviews-row { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
 @media (min-width: 768px) { .portfolio-reviews-row { grid-template-columns: repeat(3, 1fr); } }

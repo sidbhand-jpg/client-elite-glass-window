@@ -117,7 +117,9 @@ function setOgImage(html, imageUrl) {
 function getLeadProjectImage(projects) {
   if (!projects || !projects.length) return null;
   const featured = projects.find(p => p.featured);
-  return (featured || projects[0]).img || null;
+  const image = (featured || projects[0]).img || null;
+  if (!image || /^https?:\/\//.test(image)) return image;
+  return `${CONFIG.siteUrl}${image.startsWith('/') ? '' : '/'}${image}`;
 }
 
 // ── Fix relative paths based on output directory depth ───────

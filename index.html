@@ -321,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "position": i + 1,
         "item": {
           "@type": "ImageObject",
-          "contentUrl": p.img,
+          "contentUrl": p.img.startsWith('http') ? p.img : `${CONFIG.siteUrl}${p.img}`,
           "name": p.title,
           "description": p.alt,
           "width": p.width,
@@ -377,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const buildCard = (project, index, eagerCount) => `
       <div class="portfolio-item">
-        <a href="${linkHref}" class="portfolio-img-btn portfolio-card" aria-label="${linkLabel}: ${project.title}" draggable="false">
+        <a href="${project.href || (project.id ? `${linkHref}#${project.id}` : linkHref)}" class="portfolio-img-btn portfolio-card" aria-label="${linkLabel}: ${project.title}" draggable="false">
           <img
             src="${project.img}"
             alt="${project.alt}"
