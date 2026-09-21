@@ -112,8 +112,8 @@ function injectGeneratedSeo(html, pathname, schemas = []) {
   });
   const block = `<!-- GENERATED SEO START -->
   <link rel="canonical" href="${CONFIG.siteUrl}${pathname}" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260921-brand" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=20260921-brand" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260921-transparent" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=20260921-transparent" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   ${pathname === '/' ? '<link rel="preload" as="image" href="/public/optimized/window-redmond-960.webp" imagesrcset="/public/optimized/window-redmond-960.webp 960w, /public/optimized/window-redmond-1440.webp 1440w" imagesizes="100vw" fetchpriority="high" />' : ''}

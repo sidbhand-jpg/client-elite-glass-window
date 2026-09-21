@@ -158,7 +158,7 @@ assert.ok(!homepage.includes('hero-lead-form'), 'Homepage hero must not contain 
 assert.ok(!homepage.includes('hero-cta-secondary'), 'Homepage hero must contain only estimate and phone CTAs.');
 assert.match(homepage, /id="hero-cta-primary"[^>]*data-lead-cta/);
 assert.match(homepage, /id="hero-cta-call"/);
-assert.match(homepage, /href="\/favicon\.svg\?v=20260921-brand"/, 'Homepage must use the cache-busted brand favicon.');
+assert.match(homepage, /href="\/favicon\.svg\?v=20260921-transparent"/, 'Homepage must use the cache-busted transparent favicon.');
 for (const id of ['recent-work-gallery', 'recent-work-grid', 'recent-work-dots', 'recent-work-prev', 'recent-work-next']) {
   assert.ok(homepage.includes(`id="${id}"`), `Homepage project gallery is missing ${id}.`);
 }
@@ -167,6 +167,7 @@ assert.match(homepage, /gallery\.classList\.add\('is-enhanced'\)/, 'Homepage gal
 const favicon = await read('favicon.svg');
 assert.match(favicon, /Elite Glass &amp; Windows/);
 assert.match(favicon, /#306C9E/);
+assert.doesNotMatch(favicon, /<rect\b/, 'Favicon must not contain a background rectangle.');
 for (const service of config.services) {
   assert.match(service.image, /^\/public\/service-luxury\/.+-960\.webp$/);
   await fs.access(path.join(root, service.image.slice(1)));
