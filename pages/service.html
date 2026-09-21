@@ -80,6 +80,13 @@
 </section>
 
 <!-- ── SERVICE FAQs ───────────────────────────────────────────── -->
+<section class="section-y bg-white service-map-section" aria-label="Visit our Redmond showroom">
+  <div class="container-wide">
+    <div id="service-map-header"></div>
+    <div id="service-map"></div>
+  </div>
+</section>
+
 <section class="section-y bg-slate-50">
   <div class="container-wide">
     <div id="service-faq-header"></div>
@@ -137,6 +144,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Lead form
   buildLeadForm('service-lead-form', { variant: 'card', defaultService: service.slug, showMessage: true });
+
+  // Showroom map
+  document.getElementById('service-map-header').innerHTML = sectionHeaderHTML({
+    eyebrow: 'Visit Us in Redmond',
+    title: 'Explore Options at Our Showroom',
+    subtitle: `Planning a ${service.name.toLowerCase()} project? Visit ${CONFIG.address} to discuss products and finishes. Contact the team before visiting to confirm current hours.`
+  });
+  document.getElementById('service-map').innerHTML = mapEmbedHTML();
 
   // FAQs
   document.getElementById('service-faq-header').innerHTML = sectionHeaderHTML({

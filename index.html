@@ -205,10 +205,38 @@
 </section>
 
 <!-- ── SOCIAL PROOF ───────────────────────────────────────────── -->
+<section class="section-y showroom-section" id="showroom" aria-labelledby="showroom-title">
+  <div class="container-wide">
+    <div class="showroom-card">
+      <div class="showroom-copy">
+        <p class="section-eyebrow">Visit Us in Redmond</p>
+        <h2 id="showroom-title">See Glass, Window &amp; Door Options in Person</h2>
+        <p class="showroom-intro">Bring photos, measurements, finish ideas, or project questions to our Redmond showroom. Our team can help you compare product and design options before the next project step.</p>
+        <div class="showroom-address">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <div><strong>Elite Glass &amp; Windows</strong><span>4028 148th Ave NE, Redmond, WA 98052</span></div>
+        </div>
+        <p class="showroom-note">Contact the team before visiting to confirm current showroom hours.</p>
+        <div class="showroom-actions">
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Elite+Glass+%26+Windows&amp;query_place_id=ChIJg31wD_9tkFQRp-As1RijQDA" target="_blank" rel="noopener noreferrer" class="btn-primary">Get Directions</a>
+          <a href="tel:+14258908233" class="showroom-call">Call (425) 890-8233</a>
+        </div>
+      </div>
+      <div class="showroom-highlights" aria-label="Showroom visit highlights">
+        <div class="showroom-highlight"><span>01</span><div><strong>Compare Options</strong><p>Review glass, window, door, hardware, and finish choices side by side.</p></div></div>
+        <div class="showroom-highlight"><span>02</span><div><strong>Bring Your Project</strong><p>Share photos and approximate measurements so the conversation starts with your space.</p></div></div>
+        <div class="showroom-highlight"><span>03</span><div><strong>Plan the Next Step</strong><p>Discuss whether a showroom conversation or on-site measurement should come next.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="section-y bg-white" id="reviews-section">
   <div class="container-wide">
     <div id="reviews-section-header"></div>
-    <div class="reviews-grid" id="reviews-grid"></div>
+    <div class="reviews-marquee" id="reviews-marquee" role="region" aria-label="Featured five-star customer reviews" tabindex="0">
+      <div class="reviews-track" id="reviews-grid"></div>
+    </div>
     <!-- Google Reviews Badge — rendered by JS if googleReviewsUrl is set -->
     <div id="google-reviews-badge-wrap"></div>
   </div>
@@ -550,21 +578,24 @@ document.addEventListener('DOMContentLoaded', () => {
   if (hasPublishedReviews) {
     document.getElementById('reviews-section-header').innerHTML = sectionHeaderHTML({
       eyebrow: 'Customer Reviews',
-      title: `${CONFIG.rating}-Star Reviews`,
-      subtitle: `${CONFIG.reviewCount} verified Google reviews.`
+      title: `${CONFIG.rating}-Star Rated on Google`,
+      subtitle: `Highlights from ${CONFIG.reviewCount} Google reviews.`
     });
-    document.getElementById('reviews-grid').innerHTML = CONFIG.testimonials.map(t => `
-    <div class="review-card">
-      <div class="stars">${renderStars(t.stars)}</div>
-      <p class="review-text">"${t.text}"</p>
-      <div class="review-footer">
-        <div>
-          <div class="review-name">${t.name}</div>
-          <div class="review-location">${t.location}</div>
+    const reviewCards = (hidden = false) => CONFIG.testimonials.slice(0, 5).map(t => `
+      <article class="review-card" role="listitem"${hidden ? ' aria-hidden="true"' : ''}>
+        <div class="stars" aria-label="${t.stars} out of 5 stars">${renderStars(t.stars)}</div>
+        <p class="review-text">&ldquo;${t.text}&rdquo;</p>
+        <div class="review-footer">
+          <div>
+            <div class="review-name">${t.name}</div>
+            <div class="review-location">${t.location}</div>
+          </div>
+          <span class="review-badge">${t.service}</span>
         </div>
-        <span class="review-badge">${t.service}</span>
-      </div>
-    </div>`).join('');
+      </article>`).join('');
+    document.getElementById('reviews-grid').innerHTML = `
+      <div class="reviews-group" role="list">${reviewCards()}</div>
+      <div class="reviews-group" aria-hidden="true">${reviewCards(true)}</div>`;
   } else {
     document.getElementById('reviews-section-header').innerHTML = sectionHeaderHTML({
       eyebrow: 'Customer Reviews',
@@ -757,6 +788,8 @@ document.addEventListener('DOMContentLoaded', () => {
 .google-badge-sub { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.25rem; font-size: 0.75rem; color: var(--color-muted); }
 .google-review-actions { display: flex; gap: 0.65rem; flex-wrap: wrap; margin-left: auto; }
 .google-review-actions .btn-primary, .google-review-actions .btn-outline { padding: 0.75rem 1rem; white-space: nowrap; }
+.google-review-actions .btn-outline { color: var(--color-navy); background: #fff; border-color: var(--color-slate-200); }
+.google-review-actions .btn-outline:hover { color: var(--color-primary); background: var(--color-slate-50); border-color: var(--color-primary); }
 @media (max-width: 639px) {
   .google-badge { align-items: flex-start; }
   .google-badge-text { min-width: calc(100% - 3rem); }
@@ -787,15 +820,44 @@ document.addEventListener('DOMContentLoaded', () => {
 .recent-work-cta-row { display: flex; justify-content: center; margin-top: 2.5rem; }
 .recent-work-cta-btn { border: none; }
 
+/* Showroom */
+.showroom-section { background: var(--color-secondary); color: #fff; }
+.showroom-card { display: grid; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+@media (min-width: 900px) { .showroom-card { grid-template-columns: minmax(0, 1.05fr) minmax(22rem, 0.95fr); } }
+.showroom-copy .section-eyebrow { color: #93c5fd; }
+.showroom-copy h2 { max-width: 44rem; color: #fff; }
+.showroom-intro { max-width: 42rem; margin-top: 1rem; color: rgba(255,255,255,0.76); font-size: 1.0625rem; line-height: 1.75; }
+.showroom-address { display: flex; align-items: flex-start; gap: 0.9rem; margin-top: 1.75rem; padding: 1rem 1.1rem; border: 1px solid rgba(255,255,255,0.16); border-radius: var(--radius-xl); background: rgba(255,255,255,0.06); max-width: 36rem; }
+.showroom-address svg { width: 1.5rem; height: 1.5rem; flex: 0 0 auto; color: #93c5fd; }
+.showroom-address strong, .showroom-address span { display: block; }
+.showroom-address span { margin-top: 0.25rem; color: rgba(255,255,255,0.72); line-height: 1.5; }
+.showroom-note { margin-top: 0.75rem; color: rgba(255,255,255,0.66); font-size: 0.8125rem; }
+.showroom-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 1.5rem; }
+.showroom-call { color: #fff; font-weight: 700; text-decoration: underline; text-underline-offset: 0.25em; }
+.showroom-highlights { display: grid; gap: 1px; overflow: hidden; border: 1px solid rgba(255,255,255,0.14); border-radius: var(--radius-2xl); background: rgba(255,255,255,0.14); box-shadow: var(--shadow-2xl); }
+.showroom-highlight { display: grid; grid-template-columns: auto 1fr; gap: 1rem; padding: 1.35rem; background: #fff; color: var(--color-navy); }
+.showroom-highlight > span { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border-radius: 9999px; background: #eff6ff; color: var(--color-primary); font-family: var(--font-display); font-size: 0.75rem; font-weight: 800; }
+.showroom-highlight strong { font-family: var(--font-display); }
+.showroom-highlight p { margin-top: 0.35rem; color: var(--color-muted); font-size: 0.875rem; line-height: 1.6; }
+
 /* Reviews */
-.reviews-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-@media (min-width: 768px) { .reviews-grid { grid-template-columns: repeat(2, 1fr); } }
-.review-card { background: var(--color-slate-50); border-radius: var(--radius-2xl); padding: 1.5rem; border: 1px solid var(--color-slate-200); }
+.reviews-marquee { overflow: hidden; -webkit-mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(to right, transparent, #000 5%, #000 95%, transparent); }
+.reviews-track { display: flex; width: max-content; animation: reviews-scroll 52s linear infinite; }
+.reviews-group { display: flex; gap: 1.25rem; padding-right: 1.25rem; }
+.reviews-marquee:hover .reviews-track, .reviews-marquee:focus-within .reviews-track { animation-play-state: paused; }
+.review-card { width: clamp(18rem, 36vw, 27rem); flex: 0 0 auto; background: var(--color-slate-50); border-radius: var(--radius-2xl); padding: 1.5rem; border: 1px solid var(--color-slate-200); }
 .review-text { margin-top: 0.75rem; color: var(--color-navy); font-weight: 500; line-height: 1.65; }
 .review-footer { margin-top: 1rem; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; flex-wrap: wrap; }
 .review-name { font-family: var(--font-display); font-weight: 600; color: var(--color-navy); }
 .review-location { font-size: 0.75rem; color: var(--color-muted); }
 .review-badge { font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 9999px; background: #fff; border: 1px solid var(--color-slate-200); color: var(--color-muted); white-space: nowrap; }
+@keyframes reviews-scroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .reviews-marquee { overflow-x: auto; mask-image: none; -webkit-mask-image: none; scroll-snap-type: x proximity; }
+  .reviews-track { animation: none; }
+  .reviews-group[aria-hidden="true"] { display: none; }
+  .review-card { scroll-snap-align: start; }
+}
 
 /* Differentiators */
 .bg-secondary { background-color: var(--color-secondary); }

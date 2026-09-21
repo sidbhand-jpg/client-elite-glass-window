@@ -23,8 +23,8 @@ const CONFIG = {
   },
   googleReviewsUrl: "https://search.google.com/local/writereview?placeid=ChIJg31wD_9tkFQRp-As1RijQDA",
   googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Elite+Glass+%26+Windows&query_place_id=ChIJg31wD_9tkFQRp-As1RijQDA",
-  rating: "",
-  reviewCount: 0,
+  rating: "4.8",
+  reviewCount: 42,
   yearsExperience: "",
   projectsCompleted: "",
   satisfactionRate: "",
@@ -37,7 +37,11 @@ const CONFIG = {
   },
   metaPixelId: "",
   clarityProjectId: "yae0ijptel",
-  maps: { mapEmbedUrl: "", mapSearchQuery: "Elite Glass & Windows Redmond WA", mapHeight: 420 },
+  maps: {
+    mapEmbedUrl: "https://www.google.com/maps?q=4028%20148th%20Ave%20NE%2C%20Redmond%2C%20WA%2098052&output=embed",
+    mapSearchQuery: "Elite Glass & Windows, 4028 148th Ave NE, Redmond, WA 98052",
+    mapHeight: 420,
+  },
   hero: {
     eyebrow: "Redmond Glass & Window Specialists",
     headline: "Custom Glass, Windows & Doors—Measured for Your Space",
@@ -251,7 +255,43 @@ const CONFIG = {
     { name: "South Seattle & South King County", cities: ["Renton", "Kent", "Auburn", "Tukwila", "Federal Way", "Burien", "SeaTac", "Des Moines"] },
     { name: "Seattle & Surrounding Areas", cities: ["Seattle", "West Seattle", "Ballard", "Queen Anne", "Capitol Hill", "Magnolia", "Green Lake", "University District", "Mercer Island", "Bainbridge Island"] }
   ],
-  testimonials: [],
+  testimonials: [
+    {
+      name: "Ting Cui",
+      location: "Google review",
+      service: "Custom Windows",
+      stars: 5,
+      text: "They did a fantastic job with our custom window order and installation. The team was professional, punctual, and left everything super clean. Highly recommend!",
+    },
+    {
+      name: "Cherie Gu",
+      location: "Google review",
+      service: "Interior Glass",
+      stars: 5,
+      text: "The overall experience was amazing. Communication was very smooth, the installation was detail oriented, and we were very happy with the new glass.",
+    },
+    {
+      name: "Pepper Jia Chen",
+      location: "Google review",
+      service: "Installation",
+      stars: 5,
+      text: "Very professional and knowledgeable team. The installation quality was excellent, with great attention to detail, and the project was completed on schedule.",
+    },
+    {
+      name: "An Weimeng",
+      location: "Google review",
+      service: "Sliding Glass Door",
+      stars: 5,
+      text: "They promptly came to measure, provided a clear and reasonable quote, and the installation workers were very diligent and responsible.",
+    },
+    {
+      name: "Charles Wang",
+      location: "Google review",
+      service: "Custom Glass",
+      stars: 5,
+      text: "This was my second time ordering here. The staff had a very accurate grasp of the custom sizing and clearly took their work seriously.",
+    },
+  ],
   processSteps: [
     { title: "Tell Us About Your Project", desc: "Share your goals and schedule a convenient consultation." },
     { title: "Receive a Clear Plan", desc: "We assess the work and provide a straightforward recommendation." },

@@ -786,14 +786,29 @@ function processStepsHTML(steps) {
 // ── MAP EMBED ─────────────────────────────────────────────────
 function mapEmbedHTML(query) {
   const mapQuery = query || `${CONFIG.businessName} ${CONFIG.address}`;
-  const href = CONFIG.googleMapsSearchUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
+  const configuredEmbedUrl = CONFIG.maps && CONFIG.maps.mapEmbedUrl ? CONFIG.maps.mapEmbedUrl.trim() : '';
+  const embedUrl = configuredEmbedUrl || `https://www.google.com/maps?q=${encodeURIComponent(mapQuery)}&output=embed`;
+  const href = CONFIG.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
+  const height = (CONFIG.maps && CONFIG.maps.mapHeight) || 420;
   return `
-  <div class="map-link-card">
-    <div>
-      <strong>Serving Greater Seattle from our Redmond showroom</strong>
-      <p>Confirm availability for your address and project type.</p>
+  <div class="map-wrap">
+    <iframe
+      class="map-iframe"
+      src="${embedUrl}"
+      title="Map showing ${CONFIG.businessName} at ${CONFIG.address}"
+      width="800"
+      height="${height}"
+      style="height:${height}px"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      allowfullscreen></iframe>
+    <div class="map-caption">
+      <div>
+        <strong>${CONFIG.address}</strong>
+        <span>Redmond showroom &middot; Contact the team before visiting to confirm current hours.</span>
+      </div>
+      <a href="${href}" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
     </div>
-    <a class="btn-outline" href="${href}" target="_blank" rel="noopener noreferrer">Open service area in Google Maps</a>
   </div>`;
 }
 
@@ -837,6 +852,31 @@ function initLeadCaptureMode() {
   });
 }
 
+function initScrollReveals() {
+  if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const revealTargets = Array.from(document.querySelectorAll('section, .trust-bar'))
+    .filter(element => !element.matches('.home-hero, .page-hero, .service-hero'));
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-revealed');
+      observer.unobserve(entry.target);
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+
+  revealTargets.forEach((element, index) => {
+    element.classList.add('scroll-reveal');
+    element.style.setProperty('--reveal-delay', `${Math.min(index % 3, 2) * 45}ms`);
+    if (element.getBoundingClientRect().top <= window.innerHeight * 0.92) {
+      element.classList.add('is-revealed');
+    } else {
+      observer.observe(element);
+    }
+  });
+}
+
 // ── INIT ALL ──────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   applyColorTokens();
@@ -844,4 +884,5 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFooter();
   renderProjectChat();
   initLeadCaptureMode();
+  requestAnimationFrame(() => requestAnimationFrame(initScrollReveals));
 });

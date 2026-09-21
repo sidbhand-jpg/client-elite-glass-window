@@ -446,19 +446,21 @@ h3 { font-size: 1.25rem; font-weight: 700; }
 .area-pill-sm:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
 .footer-license { margin-top: 1.5rem; font-size: 0.75rem; color: rgba(255,255,255,0.6); display: flex; flex-direction: column; gap: 0.25rem; }
 .footer-social-row { display: flex; gap: 0.625rem; margin-top: 1.25rem; flex-wrap: wrap; }
-.social-icon-link {
+.footer-social-icon {
   display: grid;
   place-items: center;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 0.5rem;
-  background: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.7);
-  border: 1px solid rgba(255,255,255,0.12);
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.28);
+  text-decoration: none;
+  transition: transform 0.15s, background 0.15s, color 0.15s, border-color 0.15s;
 }
-.social-icon-link:hover { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
-.social-svg { width: 1.125rem; height: 1.125rem; }
+.footer-social-icon:hover { transform: translateY(-2px); background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+.footer-social-icon:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.footer-social-icon svg { display: block; width: 1.25rem; height: 1.25rem; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); }
 .footer-attribution { padding-block: 0.5rem 1rem; text-align: center; font-size: 0.75rem; color: rgba(255,255,255,0.78); }
 .footer-attribution a { color: #fff; text-decoration: underline; text-underline-offset: 0.2em; }
@@ -766,10 +768,18 @@ h3 { font-size: 1.25rem; font-weight: 700; }
    ============================================================ */
 .map-wrap { border-radius: var(--radius-2xl); overflow: hidden; border: 1px solid var(--color-stone-200); box-shadow: var(--shadow-md); }
 .map-iframe { width: 100%; height: 420px; display: block; border: none; } /* height overridden by CONFIG.maps.mapHeight via inline style */
+.map-caption { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.25rem; background: #fff; border-top: 1px solid var(--color-slate-200); }
+.map-caption strong { display: block; color: var(--color-navy); font-size: 0.875rem; }
+.map-caption span { display: block; margin-top: 0.2rem; color: var(--color-muted); font-size: 0.75rem; line-height: 1.5; }
+.map-caption a { flex: 0 0 auto; color: var(--color-primary); font-size: 0.8125rem; font-weight: 700; text-decoration: underline; text-underline-offset: 0.2em; }
 .map-link-card { display:flex; align-items:center; justify-content:space-between; gap:1.25rem; padding:clamp(1.25rem,4vw,2.25rem); border:1px solid var(--color-slate-200); border-radius:var(--radius-2xl); background:var(--color-slate-50); }
 .map-link-card strong { display:block; color:var(--color-navy); font-family:var(--font-display); font-size:1.1rem; }
 .map-link-card p { margin-top:0.35rem; color:var(--color-muted); }
-@media (max-width: 639px) { .map-link-card { align-items:stretch; flex-direction:column; } .map-link-card .btn-outline { text-align:center; } }
+@media (max-width: 639px) {
+  .map-caption { align-items: flex-start; flex-direction: column; }
+  .map-link-card { align-items:stretch; flex-direction:column; }
+  .map-link-card .btn-outline { text-align:center; }
+}
 
 /* ============================================================
    STAR RATING
@@ -793,6 +803,18 @@ h3 { font-size: 1.25rem; font-weight: 700; }
   to   { opacity: 1; transform: translateY(0); }
 }
 .animate-fade-up { animation: fade-up 0.2s ease; }
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 600ms ease var(--reveal-delay, 0ms), transform 600ms cubic-bezier(.2,.7,.2,1) var(--reveal-delay, 0ms);
+}
+.scroll-reveal.is-revealed { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .scroll-reveal { opacity: 1; transform: none; transition: none; }
+}
 
 /* ============================================================
    HERO SECTION (shared base)
