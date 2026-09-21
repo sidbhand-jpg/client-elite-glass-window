@@ -112,8 +112,8 @@ function injectGeneratedSeo(html, pathname, schemas = []) {
   });
   const block = `<!-- GENERATED SEO START -->
   <link rel="canonical" href="${CONFIG.siteUrl}${pathname}" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=20260921-brand" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=20260921-brand" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   ${pathname === '/' ? '<link rel="preload" as="image" href="/public/optimized/window-redmond-960.webp" imagesrcset="/public/optimized/window-redmond-960.webp 960w, /public/optimized/window-redmond-1440.webp 1440w" imagesizes="100vw" fetchpriority="high" />' : ''}
@@ -476,7 +476,23 @@ indexHtml = indexHtml
   .replace('<div class="section-header text-center"><div class="section-eyebrow">Service areas</div>', '<div id="areas-section-header" class="section-header text-center"><div class="section-eyebrow">Service areas</div>')
   .replace('<div class="section-header text-center"><div class="section-eyebrow">FAQ</div>', '<div id="faq-section-header" class="section-header text-center"><div class="section-eyebrow">FAQ</div>')
   .replace(/<div class="services-grid-home" id="services-grid">[\s\S]*?<\/div>\s*(?=<\/div>\s*<\/section>)/, '<div class="services-grid-home" id="services-grid"></div>')
-  .replace(/<div class="portfolio-grid" id="recent-work-grid">[\s\S]*?<\/div>\s*(?=<\/div>\s*<\/div>\s*<div class="recent-work-cta-row">)/, '<div class="portfolio-grid" id="recent-work-grid"></div>')
+  .replace(/<div class="portfolio-gallery" id="recent-work-gallery">[\s\S]*?<\/div>\s*(?=<div class="recent-work-cta-row">)/, `<div class="portfolio-gallery" id="recent-work-gallery">
+      <div class="portfolio-gallery-viewport">
+        <div class="portfolio-grid" id="recent-work-grid"></div>
+      </div>
+      <div class="portfolio-gallery-controls">
+        <div class="portfolio-gallery-dots" id="recent-work-dots" aria-label="Home project gallery pagination"></div>
+        <div class="portfolio-gallery-nav">
+          <button type="button" class="portfolio-gallery-arrow" id="recent-work-prev" aria-label="Previous project slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <button type="button" class="portfolio-gallery-arrow" id="recent-work-next" aria-label="Next project slide">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    `)
   .replace(/<ol id="process-steps-container"[^>]*>[\s\S]*?<\/ol>/, '<div id="process-steps-container"></div>')
   .replace(/<div id="process-steps-container"><!-- GENERATED PROCESS START -->[\s\S]*?<!-- GENERATED PROCESS END --><\/div>/, '<div id="process-steps-container"></div>')
   .replace(/<div class="areas-chips" id="areas-chips">[\s\S]*?<\/div>\s*(?=<\/div>\s*<\/div>\s*<\/div>\s*<\/section>)/, '<div class="areas-chips" id="areas-chips"></div>')
@@ -497,7 +513,7 @@ indexHtml = indexHtml
   .replace('<div id="services-section-header"></div>', sectionHeader('Services', 'Glass, windows, and doors for the problem in front of you', 'Start with the symptom or project goal. Each service page explains choices, measurement readiness, and the next step.', 'services-section-header'))
   .replace('<div class="services-grid-home" id="services-grid"></div>', `<div class="services-grid-home" id="services-grid">${CONFIG.services.map(service => `<article class="service-card"><img src="${service.image}" alt="${escapeHtml(service.name)} example" width="960" height="640" loading="lazy" decoding="async"><div class="service-card-body"><h3>${escapeHtml(service.name)}</h3><p>${escapeHtml(service.desc)}</p><a href="/services/${service.slug}">Explore ${escapeHtml(service.name)}</a></div></article>`).join('')}</div>`)
   .replace('<div id="recent-work-header"></div>', sectionHeader('Our work', 'Verified Greater Seattle projects', 'Review documented project details and photography before planning your own scope.', 'recent-work-header'))
-  .replace('<div class="portfolio-grid" id="recent-work-grid"></div>', `<div class="portfolio-grid" id="recent-work-grid">${PROJECTS.slice(0, 6).map(project => `<article class="portfolio-item"><a href="/our-work#${project.id}"><img src="${project.img}" alt="${escapeHtml(project.alt)}" width="${project.width}" height="${project.height}" loading="lazy" decoding="async"><h3>${escapeHtml(project.title)}</h3></a></article>`).join('')}</div>`)
+  .replace('<div class="portfolio-grid" id="recent-work-grid"></div>', `<div class="portfolio-grid" id="recent-work-grid">${PROJECTS.slice(0, 6).map(project => `<article class="portfolio-item"><a href="/our-work#${project.id}" class="portfolio-img-btn portfolio-card" aria-label="${escapeHtml(project.category)}: ${escapeHtml(project.title)}. View project in our full portfolio"><img src="${project.img}" alt="${escapeHtml(project.alt)}" width="${project.width}" height="${project.height}" class="portfolio-img" loading="lazy" decoding="async"><span class="portfolio-overlay"><span class="portfolio-overlay-inner"><span class="portfolio-cat-badge">${escapeHtml(project.category)}</span><span class="portfolio-project-title">${escapeHtml(project.title)}</span></span></span></a></article>`).join('')}</div>`)
   .replace('<div id="process-section-header"></div>', sectionHeader('How it works', 'From the first photos to the final walkthrough', 'Custom work follows a measured sequence so the approved product fits the opening and the written scope.', 'process-section-header'))
   .replace('<div id="process-steps-container"></div>', `<div id="process-steps-container"><!-- GENERATED PROCESS START --><ol class="process-steps">${CONFIG.processSteps.map((step, index) => `<li><strong>${index + 1}. ${escapeHtml(step.title)}</strong><p>${escapeHtml(step.desc)}</p></li>`).join('')}</ol><!-- GENERATED PROCESS END --></div>`)
   .replace('<div id="areas-section-header"></div>', sectionHeader('Service areas', 'Serving Redmond and Greater Seattle', 'Use a city page for local planning notes, priority services, project proof where documented, and current authority links.', 'areas-section-header'))
