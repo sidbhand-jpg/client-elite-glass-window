@@ -17,12 +17,13 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', CONFIG.metaPixelId);
     fbq('track', 'PageView');
-    document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
+    document.write('<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
   })();
   </script>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The requested page could not be found." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <title>Page Not Found | 404</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -46,12 +47,12 @@
     <div class="notfound-code">404</div>
     <h1 class="notfound-title">Page Not Found</h1>
     <p class="notfound-sub">
-      Looks like this project hasn't been installed yet.<br/>
-      Let's get you back to solid ground.
+      The page may have moved or the address may be incorrect.<br/>
+      Choose a useful page below or tell us about your project.
     </p>
     <div class="notfound-btns">
       <a href="/" class="btn-primary btn-lg">Go to Homepage</a>
-      <a href="/contact.html" class="btn-outline btn-lg">Get a Free Quote</a>
+      <a href="/contact.html" class="btn-outline btn-lg" data-lead-cta data-original-href="/contact.html">Start Project Chat</a>
     </div>
     <!-- Quick links -->
     <div class="notfound-links">
@@ -70,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { label: 'Contact', href: '/pages/contact.html' },
   ];
   document.getElementById('notfound-quick-links').innerHTML = links.map(l =>
-    `<a href="${l.href}" class="notfound-link">${l.label}</a>`
+    `<a href="${l.href}" class="notfound-link"${l.label === 'Contact' ? ' data-lead-cta data-original-href="/contact.html"' : ''}>${l.label}</a>`
   ).join('');
 });
 </script>

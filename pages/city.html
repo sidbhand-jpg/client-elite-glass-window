@@ -17,7 +17,7 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', CONFIG.metaPixelId);
     fbq('track', 'PageView');
-    document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
+    document.write('<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
   })();
   </script>
 
@@ -62,7 +62,25 @@
 </section>
 
 <!-- ── MAP ───────────────────────────────────────────────────── -->
-<section class="section-y bg-slate-50">
+<section class="section-y bg-slate-50 city-planning-section">
+  <div class="container-wide" style="max-width:56rem;margin-inline:auto">
+    <div class="section-eyebrow">Local Project Planning</div>
+    <h2 class="section-title text-navy">Planning Glass or Window Work in %%CITY_NAME%%</h2>
+    <p class="city-local-copy">%%CITY_FOCUS%%</p>
+    <p class="city-local-copy">Elite Glass &amp; Windows serves %%CITY_NAME%% as part of its %%CITY_REGION%% service area. Product selection and final fabrication follow verified measurements and the written project scope.</p>
+    <a class="city-authority-link" href="%%CITY_AUTHORITY_URL%%" target="_blank" rel="noopener noreferrer">Check current project guidance from %%CITY_AUTHORITY%%</a>
+  </div>
+</section>
+
+<section class="section-y bg-white city-nearby-section">
+  <div class="container-wide" style="max-width:56rem;margin-inline:auto">
+    <div class="section-eyebrow">Nearby Service Areas</div>
+    <h2 class="section-title text-navy">Glass &amp; Window Service Near %%CITY_NAME%%</h2>
+    <nav class="city-nearby-links" aria-label="Nearby service areas">%%NEARBY_CITY_LINKS%%</nav>
+  </div>
+</section>
+
+<section class="section-y bg-white">
   <div class="container-wide" style="max-width: 56rem; margin-inline: auto;">
     <div id="city-map-header"></div>
     <div id="city-map"></div>
@@ -84,6 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Read slug from URL: /your-city.html -> your-city
   const slug = window.location.pathname.split('/').pop().replace('.html', '');
   const area = CONFIG.serviceAreas.find(a => a.slug === slug);
+  const profile = CONFIG.citySeo[slug];
 
   if (!area) {
     document.getElementById('city-hero').innerHTML = `
@@ -91,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <h1 style="font-family:var(--font-display);font-size:2rem;font-weight:700">Location Not Found</h1>
         <p style="margin-top:1rem;color:rgba(255,255,255,0.8)">
           We may still serve your area!
-          <a href="/contact.html" style="color:var(--color-primary);text-decoration:underline">Contact us</a> to find out.
+          <a href="/contact.html" data-lead-cta data-original-href="/contact.html" style="color:var(--color-primary);text-decoration:underline">Contact us</a> to find out.
         </p>
       </div>`;
     return;
@@ -162,6 +181,10 @@ document.addEventListener('DOMContentLoaded', () => {
       q: `How do I request an estimate in ${area.name}?`,
       a: `Share the address, product or glass type, approximate dimensions, photos, and any timeline constraints. Final custom fabrication requires verified measurements.`,
     },
+    {
+      q: `Where can I check permit requirements for a ${area.name} project?`,
+      a: `Requirements depend on the property and scope. Check current guidance from ${profile.authority} before work that changes an opening, egress, a guard, structure, or the exterior envelope.`,
+    },
   ];
 
   document.getElementById('city-faq-header').innerHTML = sectionHeaderHTML({
@@ -224,6 +247,11 @@ document.addEventListener('DOMContentLoaded', () => {
 }
 .city-why-item span { color: var(--color-navy); font-weight: 500; }
 .why-check { width: 1.25rem; height: 1.25rem; color: var(--color-primary); flex-shrink: 0; margin-top: 0.125rem; }
+.city-local-copy { color: var(--color-muted); font-size: 1.025rem; line-height: 1.75; margin-top: 1rem; }
+.city-authority-link { display: inline-flex; margin-top: 1.25rem; color: var(--color-primary); font-weight: 700; text-decoration: underline; text-underline-offset: 0.2em; }
+.city-nearby-links { display:flex; flex-wrap:wrap; gap:0.75rem; margin-top:1.25rem; }
+.city-nearby-links a { min-height:44px; display:inline-flex; align-items:center; padding:0.65rem 1rem; border:1px solid var(--color-slate-200); border-radius:999px; color:var(--color-navy); font-weight:700; text-decoration:none; }
+.city-nearby-links a:hover, .city-nearby-links a:focus-visible { border-color:var(--color-primary); color:var(--color-primary); }
 </style>
 
 </body>

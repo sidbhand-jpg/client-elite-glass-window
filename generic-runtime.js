@@ -13,10 +13,6 @@
     if (document.getElementById('hero-headline')) {
       document.title = `Glass Replacement & Window Company in Redmond, WA | ${CONFIG.businessName}`;
       document.querySelector('meta[name="description"]').setAttribute('content', `${CONFIG.businessName} provides windows, shower doors, custom glass, railings, mirrors, doors, and storefront glass throughout Greater Seattle.`);
-      const ogTitle = document.querySelector('meta[property="og:title"]');
-      const ogDescription = document.querySelector('meta[property="og:description"]');
-      if (ogTitle) ogTitle.setAttribute('content', `${CONFIG.businessName} | ${niche}`);
-      if (ogDescription) ogDescription.setAttribute('content', `Professional ${niche.toLowerCase()} in ${CONFIG.city}.`);
       const heroImage = document.getElementById('hero-img');
       if (heroImage) heroImage.alt = `Modern home featuring custom windows and glass doors`;
       document.querySelector('.hero-bullets').innerHTML = [
@@ -46,19 +42,21 @@
       return CONFIG.serviceAreas.find(item => item.slug === slug);
     })();
     if (area && document.getElementById('city-headline')) {
-      document.title = `${niche} in ${area.name}, ${CONFIG.stateShort} | ${CONFIG.businessName}`;
-      document.querySelector('meta[name="description"]').setAttribute('content', `${CONFIG.businessName} provides ${niche.toLowerCase()} services in ${area.name}, ${CONFIG.stateShort}. Request a free estimate today.`);
-      document.getElementById('city-headline').innerHTML = `${niche} in <span style="color:var(--color-primary)">${area.name}</span>`;
-      document.getElementById('city-sub').innerHTML = `Professional ${niche.toLowerCase()} for ${area.name} homeowners and businesses. Clear communication, dependable scheduling, and a team that respects your property.`;
+      const profile = CONFIG.citySeo[area.slug];
+      document.title = `Glass & Window Services in ${area.name}, WA | ${CONFIG.businessName}`;
+      document.querySelector('meta[name="description"]').setAttribute('content', `Custom windows, shower doors, glass replacement, railings, mirrors, doors, and storefront glass for ${area.name}, WA. Free project consultations.`);
+      document.getElementById('city-headline').innerHTML = `Glass &amp; Window Services in <span style="color:var(--color-primary)">${area.name}</span>`;
+      document.getElementById('city-sub').innerHTML = `Custom-measured glass, windows, doors, showers, mirrors, railings, and commercial solutions for ${area.name} homes and businesses.`;
       document.getElementById('city-why-grid').innerHTML = [
         `Redmond-based team serving ${area.name}`, 'Residential and commercial glass expertise', 'Clear estimates and practical recommendations', 'Custom measurement and product guidance', 'Professional installation and final walkthrough',
       ].map(item => `<div class="city-why-item"><span>${item}</span></div>`).join('');
       document.getElementById('city-map').innerHTML = mapEmbedHTML(`${area.name} ${CONFIG.stateShort} ${niche}`);
       const faqs = [
-        { q: `Do you serve ${area.name}?`, a: `Yes. ${CONFIG.businessName} serves ${area.name} and the surrounding area.` },
-        { q: `Which services are available?`, a: `We provide ${serviceNames()} and can recommend the right option for your project.` },
-        { q: 'How do I get an estimate?', a: `Contact us to discuss your project and schedule a convenient estimate.` },
-        { q: 'What should I expect?', a: 'You can expect a clear scope, professional communication, and a final walkthrough.' },
+        { q: `Do you serve ${area.name}?`, a: `Yes. ${area.name} is within the listed Greater Seattle service area. Availability depends on the project type, address, and schedule.` },
+        { q: `Which services are available in ${area.name}?`, a: `Services include ${serviceNames()} for residential and commercial properties.` },
+        { q: `How do I request an estimate in ${area.name}?`, a: `Share the address, product or glass type, approximate dimensions, photos, and any timeline constraints. Final custom fabrication requires verified measurements.` },
+        { q: 'Where is the showroom?', a: `The showroom is at ${CONFIG.address}. Contact the team before visiting to confirm current hours.` },
+        { q: `Where can I check permit requirements for a ${area.name} project?`, a: `Requirements depend on the property and scope. Check current guidance from ${profile.authority} before work that changes an opening, egress, a guard, structure, or the exterior envelope.` },
       ];
       setHeader('city-faq-header', `${area.name} FAQ`, `${niche} questions from ${area.name} customers`);
       renderFAQs('city-faq-container', faqs);

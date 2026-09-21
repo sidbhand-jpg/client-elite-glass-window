@@ -17,7 +17,7 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', CONFIG.metaPixelId);
     fbq('track', 'PageView');
-    document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
+    document.write('<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
   })();
   </script>
 
@@ -105,12 +105,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Meta
-  document.title = `${service.name} in ${CONFIG.city} | ${CONFIG.businessName}`;
-  document.querySelector('meta[name="description"]').setAttribute('content', service.longDesc.slice(0, 155));
+  document.title = `${service.name} in Greater Seattle | ${CONFIG.businessName}`;
+  document.querySelector('meta[name="description"]').setAttribute('content', `${service.desc} Serving Redmond, Seattle, the Eastside, and nearby communities.`);
 
   // Hero
   document.getElementById('service-hero-img').src = service.image;
-  document.getElementById('service-hero-img').alt = service.name;
+  document.getElementById('service-hero-img').alt = `${service.name} project by ${CONFIG.businessName}`;
   document.getElementById('service-title').textContent = service.name;
   document.getElementById('service-desc').textContent = service.desc;
 

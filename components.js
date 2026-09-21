@@ -3,13 +3,19 @@
 // Included on every page via <script src="../components.js">
 // ============================================================
 
-// Microsoft Clarity loads only when a real project ID is configured.
+// Load Clarity after the visitor interacts so analytics does not delay the
+// initial render or create third-party storage during a no-interaction visit.
 if (CONFIG.clarityProjectId) {
-  (function(c,l,a,r,i,t,y){
-    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", CONFIG.clarityProjectId);
+  const loadClarity = () => {
+    if (window.clarity) return;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", CONFIG.clarityProjectId);
+  };
+  addEventListener('pointerdown', loadClarity, { once: true, passive: true });
+  addEventListener('keydown', loadClarity, { once: true, passive: true });
 }
 
 // ── ATTRIBUTION CAPTURE (Meta CAPI) ───────────────────────────
@@ -48,6 +54,8 @@ const HouzflowAttribution = (function () {
       fbp: getCookie('_fbp'),
       fbc: getCookie('_fbc') || (fbclid ? `fb.1.${Date.now()}.${fbclid}` : ''),
       source_url: window.location.href,
+      page_path: window.location.pathname,
+      referrer_url: document.referrer || '',
       user_agent: navigator.userAgent,
       lead_event_id: generateEventId(),
     };
@@ -77,6 +85,54 @@ const HouzflowAttribution = (function () {
 
   return { get, capture, current };
 })();
+
+function isChatOnlyMode() {
+  return CONFIG.leadCaptureMode !== 'all_forms';
+}
+
+function getSubmissionId() {
+  const key = 'elite_glass_submission_id';
+  let id = sessionStorage.getItem(key);
+  if (!id) {
+    id = typeof crypto.randomUUID === 'function'
+      ? crypto.randomUUID()
+      : `00000000-0000-4000-8000-${Date.now().toString(16).padStart(12, '0').slice(-12)}`;
+    sessionStorage.setItem(key, id);
+  }
+  return id;
+}
+
+function consentDisclosureHTML(idPrefix) {
+  return `
+    <label class="consent-label" for="${idPrefix}-sms-consent">
+      <input type="checkbox" id="${idPrefix}-sms-consent" name="sms_consent" value="true" class="consent-checkbox" />
+      <span class="consent-text">
+        By checking this box, I agree to receive project-related SMS messages from ${CONFIG.businessName}.
+        Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help.
+        Consent is not a condition of purchase. See our
+        <a href="/privacy-policy.html" class="consent-link">Privacy Policy</a> and
+        <a href="/terms.html" class="consent-link">Terms &amp; Conditions</a>.
+      </span>
+    </label>`;
+}
+
+async function postLead(payload) {
+  const response = await fetch(CONFIG.leadCapture.endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'same-origin',
+    body: JSON.stringify(payload),
+  });
+  let result = {};
+  try { result = await response.json(); } catch { /* generic error below */ }
+  if (!response.ok || !result.ok) {
+    const error = new Error(result.message || 'Unable to submit your request.');
+    error.code = result.code || 'submission_failed';
+    error.fields = result.fields || {};
+    throw error;
+  }
+  return result;
+}
 
 
 // ── Apply CSS design tokens from CONFIG ──────────────────────
@@ -163,16 +219,16 @@ function renderHeader() {
 
         <a href="/our-work.html" class="nav-link">Our Work</a>
         <a href="/about.html" class="nav-link">About</a>
-        <a href="/contact.html" class="nav-link">Contact</a>
+        <a href="/contact.html" class="nav-link" data-lead-cta data-original-href="/contact.html">Contact</a>
       </nav>
 
       <!-- Desktop CTA -->
       <div class="header-cta">
-        <a href="tel:${CONFIG.phoneRaw}" class="btn-phone">
+        <a href="tel:${CONFIG.phoneRaw}" class="btn-phone" data-lead-cta data-original-href="tel:${CONFIG.phoneRaw}">
           <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12a19.79 19.79 0 01-3-8.63A2 2 0 012.11 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.27a16 16 0 006.29 6.29l1.45-1.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15.36z"/></svg>
           ${CONFIG.phone}
         </a>
-        <a href="/contact.html" class="btn-primary-sm">Free Quote</a>
+        <a href="/contact.html" class="btn-primary-sm" data-lead-cta data-original-href="/contact.html">Free Quote</a>
       </div>
 
       <!-- Mobile hamburger -->
@@ -205,14 +261,14 @@ function renderHeader() {
 
         <a href="/our-work.html" class="mobile-nav-link border-top">Our Work</a>
         <a href="/about.html" class="mobile-nav-link border-top">About</a>
-        <a href="/contact.html" class="mobile-nav-link border-top">Contact</a>
+        <a href="/contact.html" class="mobile-nav-link border-top" data-lead-cta data-original-href="/contact.html">Contact</a>
 
         <div class="mobile-cta-row">
-          <a href="tel:${CONFIG.phoneRaw}" class="btn-phone w-full justify-center">
+          <a href="tel:${CONFIG.phoneRaw}" class="btn-phone w-full justify-center" data-lead-cta data-original-href="tel:${CONFIG.phoneRaw}">
             <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12a19.79 19.79 0 01-3-8.63A2 2 0 012.11 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.27a16 16 0 006.29 6.29l1.45-1.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15.36z"/></svg>
             ${CONFIG.phone}
           </a>
-          <a href="/contact.html" class="btn-primary w-full text-center">Get Free Quote</a>
+          <a href="/contact.html" class="btn-primary w-full text-center" data-lead-cta data-original-href="/contact.html">Get Free Quote</a>
         </div>
       </div>
     </div>
@@ -300,6 +356,7 @@ function renderFooter() {
   const SOCIAL_ICONS = {
     facebook:  { label: 'Facebook',  svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>' },
     instagram: { label: 'Instagram', svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>' },
+    googleBusiness: { label: 'Google Business Profile', svg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1116 0z"/><circle cx="12" cy="10" r="2.5"/></svg>' },
     youtube:   { label: 'YouTube',   svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon fill="#fff" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>' },
     tiktok:    { label: 'TikTok',    svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.77a4.85 4.85 0 01-1.01-.08z"/></svg>' },
     linkedin:  { label: 'LinkedIn',  svg: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>' },
@@ -351,7 +408,7 @@ function renderFooter() {
         <div class="footer-col-title">Service Areas</div>
         <div class="footer-area-regions">${areaLinks}</div>
         <div class="footer-license">
-          <div>License #${CONFIG.licenseNumber}</div>
+          ${CONFIG.licenseNumber ? `<div>License #${CONFIG.licenseNumber}</div>` : ''}
           <div>Licensed &amp; Insured in ${CONFIG.state}</div>
         </div>
       </div>
@@ -362,7 +419,7 @@ function renderFooter() {
         <ul class="footer-links">
           <li><a href="/about.html">About Us</a></li>
           <li><a href="/our-work.html">Our Work</a></li>
-          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/contact.html" data-lead-cta data-original-href="/contact.html">Contact</a></li>
           <li><a href="/privacy-policy.html">Privacy Policy</a></li>
           <li><a href="/terms.html">Terms &amp; Conditions</a></li>
         </ul>
@@ -375,8 +432,8 @@ function renderFooter() {
         <div>&copy; <span id="footer-year"></span> ${CONFIG.businessName}. All rights reserved.</div>
         <div>${CONFIG.niche || 'Glass, Windows & Doors'} &middot; ${CONFIG.state}.</div>
       </div>
-      <div class="container-wide" style="padding-block: 0.5rem 1rem; text-align: center; font-size: 0.7rem; color: rgba(255,255,255,0.4);">
-        Website Design &amp; Marketing by <a href="https://houzflow.com" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.55); text-decoration: none;">HouzFlow</a>
+      <div class="container-wide footer-attribution">
+        Website Design &amp; Marketing by <a href="https://houzflow.com" target="_blank" rel="noopener">HouzFlow</a>
       </div>
     </div>
   </footer>`;
@@ -385,43 +442,55 @@ function renderFooter() {
   document.getElementById('footer-year').textContent = new Date().getFullYear();
 }
 
-// ── CHAT WIDGET ───────────────────────────────────────────────
-function renderChatWidget() {
-  const html = `
-  <!-- CHAT WIDGET -->
-  <div class="chat-widget" id="chat-widget">
-    <div class="chat-panel" id="chat-panel" style="display:none">
-      <div class="chat-header">
-        <div>
-          <div class="chat-header-title">Chat with Us</div>
-          <div class="chat-header-sub">Tell us about your project</div>
+// ── LEAD FORM BUILDER ─────────────────────────────────────────
+// Hidden fields carrying Meta CAPI attribution data, injected into
+// every lead form. Populated at submit time from HouzflowAttribution.
+// Accessible, multi-step chat used as the only active form while A2P is pending.
+function renderProjectChat() {
+  const serviceOptions = CONFIG.services.map(service => `<option value="${service.slug}">${service.name}</option>`).join('');
+  const turnstile = CONFIG.leadCapture.turnstileSiteKey ? `<div class="cf-turnstile" data-sitekey="${CONFIG.leadCapture.turnstileSiteKey}" data-theme="light"></div>` : '';
+  document.body.insertAdjacentHTML('beforeend', `
+    <div class="chat-widget" id="chat-widget">
+      <div class="chat-panel" id="chat-panel" role="dialog" aria-modal="true" aria-labelledby="chat-dialog-title" aria-describedby="chat-dialog-description" hidden>
+        <div class="chat-header">
+          <div><div class="chat-header-title" id="chat-dialog-title">Tell Us About Your Project</div><div class="chat-header-sub">Free project consultation</div></div>
+          <button class="chat-close" id="chat-close-btn" type="button" aria-label="Close project chat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-md"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
         </div>
-        <button class="chat-close" id="chat-close-btn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-md"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
+        <div class="chat-body" id="chat-body">
+          <form id="chat-form" class="chat-form" novalidate>
+            <p class="chat-intro" id="chat-dialog-description">Share a few details so the right glass specialist can follow up.</p>
+            <div class="chat-progress" aria-label="Form progress"><span id="chat-progress-text">Step 1 of 3</span><div class="chat-progress-track" aria-hidden="true"><span id="chat-progress-bar"></span></div></div>
+            <fieldset class="chat-step" data-chat-step="0">
+              <legend>How can we reach you?</legend>
+              <label class="form-label" for="chat-full-name">Full name <span aria-hidden="true">*</span></label><input required id="chat-full-name" name="full_name" autocomplete="name" maxlength="100" class="form-input" />
+              <label class="form-label" for="chat-phone">Phone number <span aria-hidden="true">*</span></label><input required id="chat-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" class="form-input" aria-describedby="chat-phone-help" /><small id="chat-phone-help" class="form-help">Use a US phone number, including area code.</small>
+              <label class="form-label" for="chat-email">Email address <span class="form-optional">optional</span></label><input id="chat-email" name="email" type="email" autocomplete="email" maxlength="254" class="form-input" />
+            </fieldset>
+            <fieldset class="chat-step" data-chat-step="1" hidden>
+              <legend>What are you planning?</legend>
+              <label class="form-label" for="chat-postal-code">Project ZIP code <span aria-hidden="true">*</span></label><input required id="chat-postal-code" name="postal_code" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" maxlength="10" class="form-input" />
+              <label class="form-label" for="chat-project-type">Project type <span aria-hidden="true">*</span></label><select required id="chat-project-type" name="project_type" class="form-select"><option value="">Choose a project</option>${serviceOptions}<option value="other">Not sure yet</option></select>
+              <label class="form-label" for="chat-property-type">Property type <span aria-hidden="true">*</span></label><select required id="chat-property-type" name="property_type" class="form-select"><option value="">Choose a property type</option><option value="residential">Residential</option><option value="commercial">Commercial</option><option value="other">Other / not sure</option></select>
+              <label class="form-label" for="chat-timeline">Timeline <span aria-hidden="true">*</span></label><select required id="chat-timeline" name="timeline" class="form-select"><option value="">Choose a timeline</option><option value="as-soon-as-practical">As soon as practical</option><option value="one-to-three-months">1–3 months</option><option value="three-plus-months">3+ months</option><option value="researching">Researching options</option></select>
+            </fieldset>
+            <fieldset class="chat-step" data-chat-step="2" hidden>
+              <legend>Project details and contact consent</legend>
+              <label class="form-label" for="chat-project-summary">Tell us about the project <span aria-hidden="true">*</span></label><textarea required id="chat-project-summary" name="project_summary" rows="4" minlength="10" maxlength="2000" class="form-textarea" placeholder="What needs to be repaired, replaced, or created?"></textarea>
+              ${consentDisclosureHTML('chat')}
+              <div class="form-honeypot" aria-hidden="true"><label for="chat-company-website">Company website</label><input id="chat-company-website" name="company_website" tabindex="-1" autocomplete="off" /></div>
+              <input type="hidden" name="form_started_at" value="${Date.now()}" />${turnstile}
+            </fieldset>
+            <div id="chat-error" class="form-error" role="alert" aria-live="assertive" hidden></div><div id="chat-status" class="sr-only" role="status" aria-live="polite"></div>
+            <div class="chat-actions"><button type="button" class="chat-back" id="chat-back-btn" hidden>Back</button><button type="button" class="btn-primary w-full" id="chat-next-btn">Continue</button><button type="submit" class="btn-primary w-full" id="chat-submit-btn" hidden>Send My Project Details</button></div>
+          </form>
+        </div>
       </div>
-      <div class="chat-body" id="chat-body">
-        <form id="chat-form" class="chat-form">
-          <p class="chat-intro">Hi! Tell us about your project and we'll get right back to you.</p>
-          <input required name="name" placeholder="Your Name" class="form-input" />
-          <input required name="phone" type="tel" placeholder="Phone Number" class="form-input" />
-          <textarea required name="message" rows="3" placeholder="How can we help?" class="form-textarea"></textarea>
-          <div id="chat-error" class="form-error" style="display:none">Something went wrong. Please call us instead.</div>
-          <button type="submit" class="btn-primary w-full" id="chat-submit-btn">Send Message</button>
-        </form>
-      </div>
-    </div>
-    <button class="chat-fab" id="chat-fab" aria-label="Open chat">
-      <svg id="chat-icon-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-lg"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-      <svg id="chat-icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-lg" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-  </div>`;
-
-  document.body.insertAdjacentHTML('beforeend', html);
-  initChatWidget();
+      <button class="chat-fab" id="chat-fab" type="button" aria-label="Open project chat" aria-haspopup="dialog" aria-controls="chat-panel" aria-expanded="false"><svg id="chat-icon-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-lg"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><svg id="chat-icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-lg" hidden><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>`);
+  initProjectChat();
 }
 
-function initChatWidget() {
+function initProjectChat() {
   const fab = document.getElementById('chat-fab');
   const panel = document.getElementById('chat-panel');
   const closeBtn = document.getElementById('chat-close-btn');
@@ -431,95 +500,63 @@ function initChatWidget() {
   const submitBtn = document.getElementById('chat-submit-btn');
   const chatBody = document.getElementById('chat-body');
   const chatError = document.getElementById('chat-error');
-
-  // Bounce animation on load
-  setTimeout(() => {
-    fab.classList.add('chat-bounce');
-    setTimeout(() => fab.classList.remove('chat-bounce'), 1100);
-  }, 2000);
-
-  // Check if already submitted
-  if (localStorage.getItem('gcr_chat_submitted') === '1') {
-    form.innerHTML = '<p class="text-center text-muted" style="padding:1rem">We already have your message. We\'ll be in touch shortly!</p>';
+  const status = document.getElementById('chat-status');
+  const nextBtn = document.getElementById('chat-next-btn');
+  const backBtn = document.getElementById('chat-back-btn');
+  const steps = Array.from(form.querySelectorAll('[data-chat-step]'));
+  const progressText = document.getElementById('chat-progress-text');
+  const progressBar = document.getElementById('chat-progress-bar');
+  let currentStep = 0;
+  let returnFocus = fab;
+  if (localStorage.getItem('elite_glass_chat_submitted') === '1') form.innerHTML = '<p class="text-center text-muted" style="padding:1rem">We already have your project details. A team member will follow up.</p>';
+  function setStep(index) {
+    if (!steps.length) return;
+    currentStep = Math.max(0, Math.min(index, steps.length - 1));
+    steps.forEach((step, stepIndex) => { step.hidden = stepIndex !== currentStep; });
+    progressText.textContent = `Step ${currentStep + 1} of ${steps.length}`; progressBar.style.width = `${((currentStep + 1) / steps.length) * 100}%`;
+    backBtn.hidden = currentStep === 0; nextBtn.hidden = currentStep === steps.length - 1; submitBtn.hidden = currentStep !== steps.length - 1;
+    const firstField = steps[currentStep].querySelector('input:not([type="hidden"]), select, textarea'); if (!panel.hidden && firstField) firstField.focus();
   }
-
-  function togglePanel() {
-    const isOpen = panel.style.display !== 'none';
-    panel.style.display = isOpen ? 'none' : 'block';
-    iconMsg.style.display = isOpen ? 'block' : 'none';
-    iconX.style.display = isOpen ? 'none' : 'block';
+  function openPanel(trigger = document.activeElement) {
+    returnFocus = trigger instanceof HTMLElement ? trigger : fab; panel.hidden = false; fab.setAttribute('aria-expanded', 'true'); iconMsg.hidden = true; iconX.hidden = false; document.body.classList.add('chat-open'); setStep(currentStep);
   }
-
-  fab.addEventListener('click', togglePanel);
-  closeBtn.addEventListener('click', () => {
-    panel.style.display = 'none';
-    iconMsg.style.display = 'block';
-    iconX.style.display = 'none';
+  function closePanel() {
+    panel.hidden = true; fab.setAttribute('aria-expanded', 'false'); iconMsg.hidden = false; iconX.hidden = true; document.body.classList.remove('chat-open'); if (returnFocus && document.contains(returnFocus)) returnFocus.focus();
+  }
+  window.openLeadChat = openPanel;
+  fab.addEventListener('click', () => panel.hidden ? openPanel(fab) : closePanel()); closeBtn.addEventListener('click', closePanel);
+  document.addEventListener('mousedown', event => { if (!panel.hidden && !document.getElementById('chat-widget').contains(event.target)) closePanel(); });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !panel.hidden) closePanel();
+    if (event.key !== 'Tab' || panel.hidden) return;
+    const focusable = Array.from(panel.querySelectorAll('button:not([hidden]), input:not([type="hidden"]), select, textarea, a[href]')).filter(element => !element.disabled && element.offsetParent !== null);
+    if (!focusable.length) return; const first = focusable[0]; const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); } else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   });
-
-  // Close on outside click
-  document.addEventListener('mousedown', (e) => {
-    const widget = document.getElementById('chat-widget');
-    if (!widget.contains(e.target)) {
-      panel.style.display = 'none';
-      iconMsg.style.display = 'block';
-      iconX.style.display = 'none';
-    }
+  nextBtn.addEventListener('click', () => {
+    const invalid = Array.from(steps[currentStep].querySelectorAll('input, select, textarea')).find(field => field.type !== 'hidden' && !field.checkValidity());
+    if (invalid) { invalid.reportValidity(); invalid.focus(); return; } setStep(currentStep + 1);
   });
-
-  // Close on Escape
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      panel.style.display = 'none';
-      iconMsg.style.display = 'block';
-      iconX.style.display = 'none';
-    }
-  });
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!CONFIG.webhookUrl) {
-      chatError.innerHTML = `Online requests are not connected yet. Please call <a href="tel:${CONFIG.phoneRaw}">${CONFIG.phone}</a> or email <a href="mailto:${CONFIG.email}">${CONFIG.email}</a>.`;
-      chatError.style.display = 'block';
-      return;
-    }
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Sending...';
-    chatError.style.display = 'none';
-    const data = Object.fromEntries(new FormData(form).entries());
-    const attribution = HouzflowAttribution.get();
+  backBtn.addEventListener('click', () => setStep(currentStep - 1));
+  form.addEventListener('submit', async event => {
+    event.preventDefault(); if (!form.checkValidity()) { form.reportValidity(); return; }
+    submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; chatError.hidden = true; status.textContent = 'Sending your project details.';
+    const data = Object.fromEntries(new FormData(form).entries()); const attribution = HouzflowAttribution.get();
     try {
-      await fetch(CONFIG.webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        mode: 'no-cors',
-        body: JSON.stringify({ source: 'chat', ...data, ...attribution }),
-      });
-      if (typeof fbq !== 'undefined' && CONFIG.metaPixelId) {
-        fbq('track', 'Lead', {}, { eventID: attribution.lead_event_id });
-      }
-      localStorage.setItem('gcr_chat_submitted', '1');
-      chatBody.innerHTML = `
-        <div class="chat-thanks">
-          <div class="chat-thanks-emoji">🎉</div>
-          <div class="chat-thanks-title">Thanks — we'll be in touch shortly.</div>
-        </div>`;
-      setTimeout(() => {
-        panel.style.display = 'none';
-        iconMsg.style.display = 'block';
-        iconX.style.display = 'none';
-      }, 3000);
+      await postLead({ source: 'website_chat', submission_id: getSubmissionId(), full_name: data.full_name, phone: data.phone, email: data.email || '', postal_code: data.postal_code, project_type: data.project_type, property_type: data.property_type, project_summary: data.project_summary, timeline: data.timeline, sms_consent: form.elements.sms_consent.checked, company_website: data.company_website || '', form_started_at: Number(data.form_started_at), turnstile_token: data['cf-turnstile-response'] || '', ...attribution });
+      if (typeof fbq !== 'undefined' && CONFIG.metaPixelId) fbq('track', 'Lead', {}, { eventID: attribution.lead_event_id });
+      localStorage.setItem('elite_glass_chat_submitted', '1'); sessionStorage.removeItem('elite_glass_submission_id');
+      chatBody.innerHTML = '<div class="chat-thanks"><svg class="chat-thanks-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div class="chat-thanks-title">Thanks — your project details were received.</div><p class="chat-intro">A team member will review the information and follow up.</p></div>';
+      setTimeout(closePanel, 4500);
     } catch {
-      chatError.style.display = 'block';
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Send Message';
+      chatError.innerHTML = `We could not send this request. Please try again or call <a href="tel:${CONFIG.phoneRaw}">${CONFIG.phone}</a>.`; chatError.hidden = false; status.textContent = 'Your request was not sent.'; submitBtn.disabled = false; submitBtn.textContent = 'Send My Project Details';
     }
   });
+  setStep(0);
+  if (CONFIG.leadCapture.turnstileSiteKey) { const script = document.createElement('script'); script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'; script.async = true; script.defer = true; script.dataset.turnstileLoader = 'true'; document.head.appendChild(script); }
+  setTimeout(() => { fab.classList.add('chat-bounce'); setTimeout(() => fab.classList.remove('chat-bounce'), 1100); }, 2000);
 }
 
-// ── LEAD FORM BUILDER ─────────────────────────────────────────
-// Hidden fields carrying Meta CAPI attribution data, injected into
-// every lead form. Populated at submit time from HouzflowAttribution.
 function attributionHiddenFieldsHTML() {
   return `
       <input type="hidden" name="utm_source" />
@@ -540,6 +577,17 @@ function attributionHiddenFieldsHTML() {
 
 // opts: { variant, defaultService, showMessage, showEmail, showCity }
 function buildLeadForm(containerId, opts = {}) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  if (isChatOnlyMode()) {
+    container.innerHTML = `
+      <div class="inline-estimate-cta">
+        <a href="/contact.html" class="btn-primary btn-lg" data-lead-cta data-original-href="/contact.html">Get Free Estimate</a>
+      </div>`;
+    return;
+  }
+
   const {
     variant = 'card',
     defaultService = '',
@@ -559,7 +607,6 @@ function buildLeadForm(containerId, opts = {}) {
   const wrapClass = variant === 'card'
     ? 'lead-form-card'
     : 'lead-form-full';
-
   const html = `
   <div class="${wrapClass}" id="lead-form-wrap-${containerId}">
     <div class="lead-form-header">
@@ -571,27 +618,21 @@ function buildLeadForm(containerId, opts = {}) {
       <div class="lead-form-success-title">Quote request received!</div>
       <p class="lead-form-success-sub">A ${CONFIG.niche || 'service'} specialist will be in touch shortly.</p>
     </div>
-    <form id="lead-form-${containerId}" class="lead-form-fields">
-      <input required name="name" placeholder="Full Name" class="form-input" />
-      <input required name="phone" type="tel" placeholder="Phone Number" class="form-input" />
-      ${showEmail ? `<input required name="email" type="email" placeholder="Email Address" class="form-input" />` : ''}
-      <select required name="service" class="form-select">
+    <form id="lead-form-${containerId}" class="lead-form-fields" novalidate>
+      <label class="sr-only" for="${containerId}-name">Full name</label><input required id="${containerId}-name" name="name" autocomplete="name" maxlength="100" placeholder="Full Name" class="form-input" />
+      <label class="sr-only" for="${containerId}-phone">Phone number</label><input required id="${containerId}-phone" name="phone" type="tel" autocomplete="tel" maxlength="30" placeholder="Phone Number" class="form-input" />
+      ${showEmail ? `<label class="sr-only" for="${containerId}-email">Email address</label><input id="${containerId}-email" name="email" type="email" autocomplete="email" maxlength="254" placeholder="Email Address (optional)" class="form-input" />` : ''}
+      <label class="sr-only" for="${containerId}-service">Type of project</label><select required id="${containerId}-service" name="service" class="form-select">
         <option value="" disabled ${!defaultService ? 'selected' : ''}>Type of Project</option>
         ${serviceOptions}
         <option value="other">Not Sure — Need Advice</option>
       </select>
-      ${showCity ? `<select required name="city" class="form-select"><option value="" disabled selected>Your City</option>${cityOptions}</select>` : ''}
+      <label class="sr-only" for="${containerId}-postal-code">Project ZIP code</label><input required id="${containerId}-postal-code" name="postal_code" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" maxlength="10" placeholder="Project ZIP Code" class="form-input" />
+      ${showCity ? `<label class="sr-only" for="${containerId}-city">Service area</label><select id="${containerId}-city" name="city" class="form-select"><option value="" selected>Service Area (optional)</option>${cityOptions}</select>` : ''}
+      <label class="sr-only" for="${containerId}-property-type">Property type</label><select required id="${containerId}-property-type" name="property_type" class="form-select"><option value="">Property Type</option><option value="residential">Residential</option><option value="commercial">Commercial</option><option value="other">Other / not sure</option></select>
       <input name="project_details" placeholder="Project details (optional)" class="form-input" />
       ${showMessage ? `<textarea name="message" rows="3" placeholder="Tell us about your project (optional)" class="form-textarea"></textarea>` : ''}
-      <!-- A2P SMS consent -->
-      <label class="consent-label">
-        <input type="checkbox" name="smsConsent" value="yes" class="consent-checkbox" />
-        <span class="consent-text">
-          I agree to receive SMS messages from ${CONFIG.businessName} about my quote and project.
-          Message &amp; data rates may apply. Reply STOP to opt out. See our
-          <a href="/privacy-policy.html" class="consent-link">Privacy Policy</a>.
-        </span>
-      </label>
+      ${consentDisclosureHTML(containerId)}
       ${attributionHiddenFieldsHTML()}
       <div id="lead-form-error-${containerId}" class="form-error" style="display:none">Something went wrong. Please call us instead.</div>
       <button type="submit" class="btn-primary w-full" id="lead-submit-${containerId}">
@@ -601,11 +642,8 @@ function buildLeadForm(containerId, opts = {}) {
     </form>
   </div>`;
 
-  const container = document.getElementById(containerId);
-  if (container) {
-    container.innerHTML = html;
-    initLeadForm(containerId);
-  }
+  container.innerHTML = html;
+  initLeadForm(containerId);
 }
 
 function initLeadForm(id) {
@@ -617,11 +655,7 @@ function initLeadForm(id) {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!CONFIG.webhookUrl) {
-      errorDiv.innerHTML = `Online requests are not connected yet. Please call <a href="tel:${CONFIG.phoneRaw}">${CONFIG.phone}</a> or email <a href="mailto:${CONFIG.email}">${CONFIG.email}</a>.`;
-      errorDiv.style.display = 'block';
-      return;
-    }
+    if (!form.checkValidity()) { form.reportValidity(); return; }
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
     errorDiv.style.display = 'none';
@@ -635,11 +669,20 @@ function initLeadForm(id) {
 
     const data = Object.fromEntries(new FormData(form).entries());
     try {
-      await fetch(CONFIG.webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        mode: 'no-cors',
-        body: JSON.stringify({ source: 'lead-form', ...data }),
+      await postLead({
+        source: 'website_form',
+        submission_id: getSubmissionId(),
+        full_name: data.name,
+        phone: data.phone,
+        email: data.email || '',
+        postal_code: data.postal_code,
+        project_type: data.service,
+        property_type: data.property_type,
+        project_summary: data.message || data.project_details || 'Website quote request',
+        timeline: 'not-provided',
+        sms_consent: form.elements.sms_consent.checked,
+        form_started_at: Date.now() - 3000,
+        ...attribution,
       });
       // Fire Meta Pixel Lead event, deduplicated against the server-side
       // CAPI Lead event via the shared lead_event_id.
@@ -716,8 +759,8 @@ function ctaSectionHTML({ title, subtitle }) {
       <h2 class="cta-title">${title}</h2>
       ${subtitle ? `<p class="cta-subtitle">${subtitle}</p>` : ''}
       <div class="cta-btns">
-        <a href="/contact.html" class="btn-primary btn-lg">Get My Free Quote</a>
-        <a href="tel:${CONFIG.phoneRaw}" class="btn-outline btn-lg">
+        <a href="/contact.html" class="btn-primary btn-lg" data-lead-cta data-original-href="/contact.html">Get My Free Quote</a>
+        <a href="tel:${CONFIG.phoneRaw}" class="btn-outline btn-lg" data-lead-cta data-original-href="tel:${CONFIG.phoneRaw}">
           <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12a19.79 19.79 0 01-3-8.63A2 2 0 012.11 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.27a16 16 0 006.29 6.29l1.45-1.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15.36z"/></svg>
           Call ${CONFIG.phone}
         </a>
@@ -742,29 +785,25 @@ function processStepsHTML(steps) {
 
 // ── MAP EMBED ─────────────────────────────────────────────────
 function mapEmbedHTML(query) {
-  // Use the explicit embed URL from CONFIG if provided, otherwise fall back to query-based embed
-  const src = (CONFIG.googleMapsEmbedUrl && CONFIG.googleMapsEmbedUrl.trim())
-    ? CONFIG.googleMapsEmbedUrl
-    : `https://www.google.com/maps?q=${encodeURIComponent(query || CONFIG.city)}&output=embed`;
+  const mapQuery = query || `${CONFIG.businessName} ${CONFIG.address}`;
+  const href = CONFIG.googleMapsSearchUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
   return `
-  <div class="map-wrap">
-    <iframe
-      title="Service area map"
-      src="${src}"
-      class="map-iframe"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      allowfullscreen
-    ></iframe>
+  <div class="map-link-card">
+    <div>
+      <strong>Serving Greater Seattle from our Redmond showroom</strong>
+      <p>Confirm availability for your address and project type.</p>
+    </div>
+    <a class="btn-outline" href="${href}" target="_blank" rel="noopener noreferrer">Open service area in Google Maps</a>
   </div>`;
 }
 
 // ── SERVICE CARD HTML ─────────────────────────────────────────
 function serviceCardHTML(service) {
+  const image640 = service.image.replace('-960.webp', '-640.webp');
   return `
   <a href="/services/${service.slug}.html" class="service-card">
     <div class="service-card-img-wrap">
-      <img src="${service.image}" alt="${service.name}" class="service-card-img" loading="lazy" />
+      <img src="${service.image}" srcset="${image640} 640w, ${service.image} 960w" sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw" width="960" height="640" alt="${service.name} project by ${CONFIG.businessName}" class="service-card-img" loading="lazy" decoding="async" />
       <div class="service-card-overlay"></div>
     </div>
     <div class="service-card-body">
@@ -786,10 +825,23 @@ function gridOverlayHTML() {
 // ── SCROLL TO TOP on page load ────────────────────────────────
 window.scrollTo(0, 0);
 
+function initLeadCaptureMode() {
+  document.documentElement.dataset.leadCaptureMode = CONFIG.leadCaptureMode;
+  document.addEventListener('click', event => {
+    const trigger = event.target.closest('[data-lead-cta]');
+    if (!trigger || !isChatOnlyMode()) return;
+    event.preventDefault();
+    const drawer = document.getElementById('mobile-drawer');
+    if (drawer) drawer.style.display = 'none';
+    window.openLeadChat?.(trigger);
+  });
+}
+
 // ── INIT ALL ──────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   applyColorTokens();
   renderHeader();
   renderFooter();
-  renderChatWidget();
+  renderProjectChat();
+  initLeadCaptureMode();
 });

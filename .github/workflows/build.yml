@@ -4,6 +4,17 @@ on:
   push:
     paths:
       - 'CONFIG.js'
+      - 'PROJECTS.js'
+      - 'components.js'
+      - 'generic-runtime.js'
+      - 'styles.css'
+      - 'generate-pages.js'
+      - 'pages/**'
+      - 'scripts/**'
+      - 'public/projects/**'
+      - 'public/social/elite-glass-og-base.png'
+      - 'package.json'
+      - 'package-lock.json'
 
 jobs:
   build:
@@ -23,13 +34,19 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Run page generator
-        run: node generate-pages.js
+      - name: Install build dependencies
+        run: npm ci
+
+      - name: Optimize assets and generate pages
+        run: |
+          npm run assets
+          npm run build
+          npm run check
 
       - name: Commit generated pages
         run: |
           git config user.email "bot@houzflow.com"
           git config user.name "Houzflow Bot"
-          git add services/ cities/ about.html contact.html our-work.html privacy-policy.html terms.html 404.html
+          git add services/ cities/ about.html contact.html our-work.html privacy-policy.html terms.html 404.html index.html sitemap.xml robots.txt public/optimized/ public/projects-optimized/ public/social/elite-glass-og.jpg favicon-32x32.png apple-touch-icon.png
           git diff --staged --quiet || git commit -m "Auto-build: generate pages from CONFIG.js"
           git push

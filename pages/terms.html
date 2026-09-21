@@ -17,7 +17,7 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', CONFIG.metaPixelId);
     fbq('track', 'PageView');
-    document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
+    document.write('<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
   })();
   </script>
 
@@ -70,14 +70,15 @@
 
     <div class="prose prose-section">
       <h2 class="section-title text-navy" style="font-size:1.5rem; margin-bottom:0.75rem;">3. SMS Consent and Communications</h2>
-      <p>By submitting a form on this website and checking the SMS consent checkbox, you expressly consent to receive text messages from us at the phone number you provide. These messages may include:</p>
+      <p>If you voluntarily check the optional SMS consent checkbox, you expressly consent to receive project-related text messages from Elite Glass &amp; Windows at the phone number you provide. You may submit a project request without checking the box. Messages may include:</p>
       <ul>
         <li>Quote follow-up and scheduling information</li>
         <li>Project updates and reminders</li>
         <li>Post-installation follow-up</li>
       </ul>
-      <p>Message frequency varies by project stage. Message and data rates may apply. You can opt out at any time by replying <strong>STOP</strong>.</p>
+      <p>Message frequency varies. Message and data rates may apply. Reply <strong>STOP</strong> to opt out or <strong>HELP</strong> for assistance.</p>
       <p><strong>SMS consent is not a condition of purchase.</strong> You are not required to agree to SMS communications to receive a quote or have work performed.</p>
+      <p>Recording your consent does not itself activate automated SMS or automated calls. Those features remain disabled until separately authorized and configured.</p>
     </div>
 
     <div class="prose prose-section">
@@ -125,11 +126,11 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('terms-date').textContent = `Effective date: ${CONFIG.legal.termsDate}`;
   document.getElementById('terms-intro').textContent =
     `These Terms and Conditions govern your use of the ${CONFIG.businessName} website (the "Site") and any interactions with our business, including requesting quotes and consenting to SMS communications. By accessing or using the Site, you agree to be bound by these terms.`;
-  document.getElementById('terms-biz-name').textContent = CONFIG.businessName;
+  document.getElementById('terms-biz-name').textContent = `${CONFIG.legalBusinessName} d/b/a ${CONFIG.businessName}`;
   document.getElementById('terms-governing-law').textContent =
     `These terms are governed by the laws of the State of ${CONFIG.state}. Any disputes arising from the use of this website or our services shall be resolved in the courts of ${CONFIG.state}.`;
   document.getElementById('terms-contact-box').innerHTML = `
-    <strong>${CONFIG.businessName}</strong><br/>
+    <strong>${CONFIG.legalBusinessName} d/b/a ${CONFIG.businessName}</strong><br/>
     ${CONFIG.address}<br/>
     Phone: <a href="tel:${CONFIG.phoneRaw}" style="color:var(--color-primary)">${CONFIG.phone}</a><br/>
     Email: <a href="mailto:${CONFIG.email}" style="color:var(--color-primary)">${CONFIG.email}</a>

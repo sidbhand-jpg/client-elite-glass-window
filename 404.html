@@ -17,21 +17,37 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', CONFIG.metaPixelId);
     fbq('track', 'PageView');
-    document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
+    document.write('<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
   })();
   </script>
 
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <title>Page Not Found | Elite Glass & Window</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=optional" rel="stylesheet" />
+  <meta name="description" content="The requested Elite Glass & Windows page could not be found." />
+  <title>Page Not Found | Elite Glass & Windows</title>
   <link rel="stylesheet" href="styles.css" />
 <!-- GENERATED SEO START -->
   <link rel="canonical" href="https://eliteglassandwindow.com/404.html" />
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":["LocalBusiness","HomeAndConstructionBusiness"],"@id":"https://eliteglassandwindow.com/#business","name":"Elite Glass & Window","url":"https://eliteglassandwindow.com","logo":"https://eliteglassandwindow.com/logo.svg","telephone":"+14258908233","email":"sales@eliteglassandwindow.com","address":{"@type":"PostalAddress","streetAddress":"4028 148th Ave NE","addressLocality":"Redmond","addressRegion":"WA","postalCode":"98052","addressCountry":"US"},"areaServed":[{"@type":"City","name":"Redmond, Washington"},{"@type":"City","name":"Bellevue, Washington"},{"@type":"City","name":"Kirkland, Washington"},{"@type":"City","name":"Sammamish, Washington"},{"@type":"City","name":"Issaquah, Washington"},{"@type":"City","name":"Mercer Island, Washington"},{"@type":"City","name":"Newcastle, Washington"},{"@type":"City","name":"Woodinville, Washington"},{"@type":"City","name":"Bothell, Washington"},{"@type":"City","name":"Kenmore, Washington"},{"@type":"City","name":"Duvall, Washington"},{"@type":"City","name":"Snoqualmie, Washington"},{"@type":"City","name":"North Bend, Washington"},{"@type":"City","name":"Shoreline, Washington"},{"@type":"City","name":"Edmonds, Washington"},{"@type":"City","name":"Lynnwood, Washington"},{"@type":"City","name":"Mountlake Terrace, Washington"},{"@type":"City","name":"Mill Creek, Washington"},{"@type":"City","name":"Everett, Washington"},{"@type":"City","name":"Mukilteo, Washington"},{"@type":"City","name":"Renton, Washington"},{"@type":"City","name":"Kent, Washington"},{"@type":"City","name":"Auburn, Washington"},{"@type":"City","name":"Tukwila, Washington"},{"@type":"City","name":"Federal Way, Washington"},{"@type":"City","name":"Burien, Washington"},{"@type":"City","name":"SeaTac, Washington"},{"@type":"City","name":"Des Moines, Washington"},{"@type":"City","name":"Seattle, Washington"},{"@type":"City","name":"West Seattle, Washington"},{"@type":"City","name":"Ballard, Washington"},{"@type":"City","name":"Queen Anne, Washington"},{"@type":"City","name":"Capitol Hill, Washington"},{"@type":"City","name":"Magnolia, Washington"},{"@type":"City","name":"Green Lake, Washington"},{"@type":"City","name":"University District, Washington"},{"@type":"City","name":"Bainbridge Island, Washington"}]}</script>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <meta name="robots" content="noindex, follow" />
+  <meta property="og:title" content="Page Not Found | Elite Glass &amp; Windows" />
+  <meta property="og:description" content="The requested Elite Glass &amp; Windows page could not be found." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Elite Glass &amp; Windows" />
+  <meta property="og:url" content="https://eliteglassandwindow.com/404.html" />
+  <meta property="og:image" content="https://eliteglassandwindow.com/public/social/elite-glass-og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Elite Glass &amp; Windows custom glass, windows, and doors in Greater Seattle" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Page Not Found | Elite Glass &amp; Windows" />
+  <meta name="twitter:description" content="The requested Elite Glass &amp; Windows page could not be found." />
+  <meta name="twitter:image" content="https://eliteglassandwindow.com/public/social/elite-glass-og.jpg" />
+
   <!-- GENERATED SEO END -->
 </head>
 <body>
@@ -50,12 +66,12 @@
     <div class="notfound-code">404</div>
     <h1 class="notfound-title">Page Not Found</h1>
     <p class="notfound-sub">
-      Looks like this project hasn't been installed yet.<br/>
-      Let's get you back to solid ground.
+      The page may have moved or the address may be incorrect.<br/>
+      Choose a useful page below or tell us about your project.
     </p>
     <div class="notfound-btns">
       <a href="/" class="btn-primary btn-lg">Go to Homepage</a>
-      <a href="/contact.html" class="btn-outline btn-lg">Get a Free Quote</a>
+      <a href="/contact.html" class="btn-outline btn-lg" data-lead-cta data-original-href="/contact.html">Start Project Chat</a>
     </div>
     <!-- Quick links -->
     <div class="notfound-links">
@@ -74,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { label: 'Contact', href: '/pages/contact.html' },
   ];
   document.getElementById('notfound-quick-links').innerHTML = links.map(l =>
-    `<a href="${l.href}" class="notfound-link">${l.label}</a>`
+    `<a href="${l.href}" class="notfound-link"${l.label === 'Contact' ? ' data-lead-cta data-original-href="/contact.html"' : ''}>${l.label}</a>`
   ).join('');
 });
 </script>

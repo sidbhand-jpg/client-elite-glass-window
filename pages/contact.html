@@ -17,7 +17,7 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', CONFIG.metaPixelId);
     fbq('track', 'PageView');
-    document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
+    document.write('<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
   })();
   </script>
 
@@ -25,7 +25,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <title>Contact | Get a Free Quote</title>
-  <meta name="description" content="Request a free glass, window, door, shower, railing, mirror, or storefront estimate from Elite Glass & Window." />
+  <meta name="description" content="Request a free glass, window, door, shower, railing, mirror, or storefront estimate from Elite Glass & Windows." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700;800&family=Inter:wght@400;500;600&display=optional" rel="stylesheet" />
@@ -56,26 +56,26 @@
 
       <div class="contact-cards">
         <!-- Phone -->
-        <a href="#" class="contact-card" id="contact-phone-card">
+        <a href="#" class="contact-card" id="contact-phone-card" data-lead-cta data-original-href="tel:+14258908233">
           <div class="contact-card-icon-wrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="contact-card-icon"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12a19.79 19.79 0 01-3-8.63A2 2 0 012.11 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.27a16 16 0 006.29 6.29l1.45-1.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15.36z"/></svg>
           </div>
           <div>
             <div class="contact-card-label">Call Us</div>
             <div class="contact-card-value" id="contact-phone-display"></div>
-            <div class="contact-card-note">Mon–Sat 7am–7pm</div>
+            <div class="contact-card-note">Use the project chat or call the team</div>
           </div>
         </a>
 
         <!-- Email -->
-        <a href="#" class="contact-card" id="contact-email-card">
+        <a href="#" class="contact-card" id="contact-email-card" data-lead-cta data-original-href="mailto:sales@eliteglassandwindow.com">
           <div class="contact-card-icon-wrap">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="contact-card-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           </div>
           <div>
             <div class="contact-card-label">Email Us</div>
             <div class="contact-card-value" id="contact-email-display"></div>
-            <div class="contact-card-note">Replies within a few hours</div>
+            <div class="contact-card-note">Share photos and project details by email</div>
           </div>
         </a>
 
@@ -104,11 +104,11 @@
         </div>
         <div class="contact-trust-item">
           <svg class="contact-trust-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          Licensed, insured, background-checked crew
+          Licensed and insured business
         </div>
         <div class="contact-trust-item">
           <svg class="contact-trust-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          Written workmanship warranty
+          Project-specific warranty details in writing
         </div>
       </div>
     </div>
@@ -141,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('contact-email-display').textContent = CONFIG.email;
 
   document.getElementById('contact-city-display').textContent = CONFIG.city;
-  document.getElementById('contact-license-display').textContent = `License #${CONFIG.licenseNumber}`;
+  document.getElementById('contact-license-display').textContent = CONFIG.licenseNumber ? `License #${CONFIG.licenseNumber}` : 'Redmond showroom — contact us before visiting';
 
   // Form
   buildLeadForm('contact-lead-form', {

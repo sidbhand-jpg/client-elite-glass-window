@@ -1,11 +1,14 @@
-# Elite Glass & Window — Houzflow Website Template
+# Elite Glass & Windows — Houzflow Website
 
-This project keeps the original Houzflow config-driven HTML/CSS/JavaScript website structure. Client information from the previous Elite Glass & Window website has been adapted into the template rather than copying the previous site’s design.
+This project keeps the original Houzflow config-driven HTML/CSS/JavaScript website structure. Verified client information has been adapted into the Elite Glass & Windows site without copying the previous site’s design.
 
 ## Generate the site
 
 ```powershell
-node generate-pages.js
+npm ci
+npm run assets
+npm run build
+npm run check
 ```
 
 The generator creates:
@@ -18,19 +21,20 @@ The generator creates:
 
 `CONFIG.js` is the source of truth for business details, products, service areas, FAQs, and tracking configuration.
 
-## Tracking activation
+## Lead capture and tracking
 
-Meta Pixel/CAPI attribution and Microsoft Clarity are wired but disabled until real production values are added:
+`CONFIG.js` controls the A2P staging switch:
 
 ```js
-webhookUrl: "HTTPS_SERVER_SIDE_LEAD_ENDPOINT",
-metaPixelId: "ACTUAL_META_PIXEL_ID",
-clarityProjectId: "ACTUAL_CLARITY_PROJECT_ID",
+leadCaptureMode: "chat_only", // change to "all_forms" after A2P approval
+leadCapture: { endpoint: "/api/chat-lead", turnstileSiteKey: "PUBLIC_SITE_KEY" },
 ```
 
-The website captures UTMs, Meta click identifiers, `_fbp`, `_fbc`, and a shared `lead_event_id`. The server-side endpoint must validate the request, send it to the CRM, hash customer information, and forward the corresponding Conversions API event to Meta. Never place a Meta CAPI access token in browser code.
+In `chat_only`, each inline page form is replaced with a single **Get Free Estimate** button that opens the accessible project chat; the form markup is never inserted or initialized. In `all_forms`, the preserved forms and their original CTA destinations return while the chat stays available. The homepage hero always uses exactly two actions: **Get Free Estimate** (chat) and the phone number (direct call).
 
-When no webhook is configured, the existing forms retain the template’s honest call/email fallback rather than reporting a false successful submission.
+The browser posts only to the same-origin Pages Function at `/api/chat-lead`. Configure `TURNSTILE_SECRET_KEY` and `MAKE_WEBSITE_CHAT_WEBHOOK_URL` as Cloudflare Pages environment secrets. Never place Make, Supabase, Worker, Retell, or Meta CAPI credentials in `CONFIG.js`, HTML, client-side JavaScript, logs, or analytics.
+
+The site captures page/referrer, UTMs, campaign identifiers, `_fbp`, `_fbc`, and a stable submission UUID. The Function validates and sanitizes the request, verifies Turnstile, and sends a flat payload to the private Make webhook. It fails closed when required server configuration is absent.
 
 ## Content rules
 

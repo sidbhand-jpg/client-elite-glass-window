@@ -45,11 +45,13 @@ There is no Phase 5 code injection step for new clients. Setup is:
    - Generate CAPI access token
    - Note the Pixel ID (16 digits)
 
-2. **CONFIG.js** (the only file edited per client):
+2. **CONFIG.js** (public configuration only):
    ```js
-   webhookUrl:  "https://hook.make.com/your-webhook-id",
+   leadCapture: { endpoint: "/api/chat-lead", turnstileSiteKey: "PUBLIC_SITE_KEY" },
    metaPixelId: "1234567890123456",
    ```
+
+   Store the private Make webhook as `MAKE_WEBSITE_CHAT_WEBHOOK_URL` in the Cloudflare Pages environment. Never expose it in browser code.
 
 3. **GHL automation** — run v2's `setup:v2` script against this client's
    location (custom fields, hashing utils, three workflows). This is
@@ -104,9 +106,9 @@ inputs (one per attribution field above) via `attributionHiddenFieldsHTML()`.
 
 On submit:
 1. Hidden fields populated from `HouzflowAttribution.get()`
-2. Full payload (visible + hidden fields) POSTed to `CONFIG.webhookUrl`
-   (`fetch`, `mode: 'no-cors'`, no CORS setup needed)
-3. `fbq('track', 'Lead', {}, { eventID: lead_event_id })` fires — **same
+2. Full payload (visible + attribution fields) POSTed to the same-origin `/api/chat-lead` Pages Function
+3. The Function validates origin, JSON, field lengths, timing, honeypot, and Turnstile before forwarding to the private Make webhook
+4. `fbq('track', 'Lead', {}, { eventID: lead_event_id })` fires — **same
    `lead_event_id`** as sent in the webhook payload, enabling Pixel↔CAPI
    deduplication on Meta's side
 
@@ -177,7 +179,7 @@ When building a new niche template from this architecture:
    `attributionHiddenFieldsHTML()`, `buildLeadForm()`, `initLeadForm()`, and
    the chat widget's submit handler are niche-agnostic. No changes needed.
 
-2. **Add `metaPixelId: ""` to `CONFIG.js`** alongside `webhookUrl`.
+2. **Add public IDs only to `CONFIG.js`**. Keep Make, database, Worker, Retell, and Meta CAPI secrets in server-side environment bindings.
 
 3. **Inject the `<head>` Pixel snippet into every HTML file**:
    - Move the existing `<script src="CONFIG.js">` tag from bottom-of-body
@@ -220,7 +222,8 @@ When building a new niche template from this architecture:
 
 ## File Manifest (per template)
 
-- `CONFIG.js` — per-client config, including `webhookUrl` and `metaPixelId`
+- `CONFIG.js` — public per-client configuration, including capture mode, the same-origin endpoint, and public analytics IDs
+- `functions/api/chat-lead.js` — validation, Turnstile verification, and private Make forwarding
 - `components.js` — shared logic: header, footer, chat widget, lead forms,
   `HouzflowAttribution`, Pixel-aware submit handlers
 - `*.html` (all pages) — `<head>` contains CONFIG.js load + Pixel snippet

@@ -1,4 +1,4 @@
-// Verified Elite Glass & Window case studies and photography.
+// Verified Elite Glass & Windows case studies and photography.
 // Keep this file as the single content source for the home-page teaser and
 // the full Our Work page. Every image is stored locally under /public/projects.
 const PROJECTS = [
@@ -8,10 +8,9 @@ const PROJECTS = [
     category: "Commercial Glass",
     location: "Bothell, WA",
     completed: "May 2024",
-    duration: "2 Hours",
     tagline: "Fast Service. Clear Results.",
     summary: "We replaced one broken storefront glass panel with new tempered glass to restore safety, security, and the professional appearance of the business.",
-    overview: "A customer's storefront glass panel was accidentally damaged. We responded the same day, removed the broken glass, and installed a new tempered glass panel to restore the safety and appearance of the storefront.",
+    overview: "A customer's storefront glass panel was accidentally damaged. We removed the broken glass and installed a new tempered glass panel to restore the safety and appearance of the storefront.",
     benefitHeading: "Benefits for the Business",
     benefits: ["Restores safety and security", "Improves curb appeal", "Clear visibility for customers", "Minimizes business interruption"],
     details: [
@@ -20,9 +19,8 @@ const PROJECTS = [
       { label: "Color", value: "Clear" },
       { label: "Location", value: "Bothell, WA" },
       { label: "Scope", value: "Glass replacement, 1 panel" },
-      { label: "Warranty", value: "1-year workmanship warranty" },
     ],
-    features: ["1/2-inch tempered glass for safety", "Matches the existing storefront system", "Professional installation completed the same day", "Clean and secure finish"],
+    features: ["1/2-inch tempered glass for safety", "Matches the existing storefront system", "Professional installation", "Clean and secure finish"],
     img: "/public/projects/storefront.jpg",
     alt: "Damaged storefront glass before replacement in Bothell, Washington",
     width: 1392,
@@ -47,7 +45,6 @@ const PROJECTS = [
     category: "Shower Doors",
     location: "Bellevue, WA",
     completed: "April 2024",
-    duration: "1 Day",
     tagline: "Modern. Clean. Custom.",
     summary: "This Bellevue homeowner upgraded an outdated bathroom with a custom frameless shower enclosure, premium hardware, and 3/8-inch tempered glass.",
     overview: "We removed the old framed shower enclosure and installed a custom frameless glass shower door with matte black hardware. The new design opened up the space, improved functionality, and gave the bathroom a modern, luxurious look.",
@@ -59,7 +56,6 @@ const PROJECTS = [
       { label: "Door Style", value: "Frameless hinged door" },
       { label: "Glass Thickness", value: "3/8 inch (10 mm)" },
       { label: "Installation Type", value: "Recessed shower enclosure" },
-      { label: "Warranty", value: "1-year installation warranty" },
     ],
     features: ["3/8-inch tempered safety glass", "Premium matte black hinges and handle", "Custom towel bar", "Waterproof silicone seal", "Precision measurements for a perfect fit"],
     img: "/public/projects/project_1.jpg",
@@ -86,7 +82,6 @@ const PROJECTS = [
     category: "Entry Doors",
     location: "Bothell, WA",
     completed: "March 2024",
-    duration: "1 Day",
     tagline: "Simple Upgrade. Better Protection. Instant Curb Appeal.",
     summary: "We replaced an old front door with a fiberglass entry door featuring decorative glass and a modern handle set for better security, efficiency, and curb appeal.",
     overview: "The original front door was worn and outdated. We removed it and installed a new fiberglass entry door with decorative glass sidelights. This upgrade enhances the home's security, energy efficiency, and overall appearance.",
@@ -99,9 +94,8 @@ const PROJECTS = [
       { label: "Sidelights", value: "Yes" },
       { label: "Hardware", value: "Modern handle set" },
       { label: "Location", value: "Bothell, WA" },
-      { label: "Warranty", value: "Lifetime limited warranty" },
     ],
-    features: ["Fiberglass door for durability", "Decorative glass with sidelights", "Energy-efficient and secure", "Professional installation completed in one day"],
+    features: ["Fiberglass door for durability", "Decorative glass with sidelights", "Energy-efficient and secure", "Professional installation"],
     img: "/public/projects/frontdoor_main.jpg",
     alt: "Completed fiberglass front door replacement in Bothell, Washington",
     width: 1376,
@@ -126,7 +120,6 @@ const PROJECTS = [
     category: "Glass Railings",
     location: "Medina, WA",
     completed: "May 2024",
-    duration: "1 Day",
     tagline: "Modern Upgrade. Same Layout. A More Open, Elegant Space.",
     summary: "We replaced the existing wood railing with clear glass panels and stainless steel hardware while preserving the original staircase layout.",
     overview: "The homeowner wanted a more modern and open look without changing the staircase layout. We removed the existing wood railing and installed 1/2-inch tempered clear glass panels with stainless steel standoffs and a stainless steel handrail, instantly transforming the space with more light and visibility.",
@@ -139,7 +132,6 @@ const PROJECTS = [
       { label: "Handrail", value: "Stainless steel round" },
       { label: "Location", value: "Interior staircase and upstairs landing" },
       { label: "Scope", value: "Railing replacement, no layout change" },
-      { label: "Warranty", value: "10-year limited warranty" },
     ],
     features: ["1/2-inch tempered glass for safety", "Stainless steel standoff mounting system", "Stainless steel handrail for a clean finish", "Maintains the existing staircase layout", "Meets safety and building code requirements", "Professional installation"],
     img: "/public/projects/stair_medina_main.jpg",
@@ -166,7 +158,6 @@ const PROJECTS = [
     category: "Windows",
     location: "Redmond, WA",
     completed: "May 2024",
-    duration: "2 Days",
     tagline: "Milgard Tuscany Series - Style Line",
     summary: "We replaced 14 old vinyl windows with Milgard Tuscany Series windows to improve energy efficiency, reduce outside noise, and refresh the home's appearance.",
     overview: "These outdated, inefficient windows were difficult to open and allowed noise and drafts. We installed Milgard Tuscany Series windows with Low-E glass to improve comfort, energy efficiency, and the overall look of the home.",
@@ -181,7 +172,6 @@ const PROJECTS = [
       { label: "Exterior Color", value: "White" },
       { label: "Grid Style", value: "None" },
       { label: "Total Windows", value: "14" },
-      { label: "Warranty", value: "Lifetime limited warranty" },
     ],
     features: ["Energy-efficient Low-E glass", "Fusion-welded frame and sash", "Smooth, easy operation", "Strong and durable vinyl frame", "Custom sized for a perfect fit", "Professional installation"],
     img: "/public/projects/window_redmond_main.jpg",
@@ -208,7 +198,6 @@ const PROJECTS = [
     category: "Mirrors",
     location: "Kirkland, WA",
     completed: "April 2024",
-    duration: "1 Day",
     tagline: "Custom Fit. Elegant. High Quality.",
     summary: "We custom measured, fabricated, and installed a full wall mirror with polished edges to reflect natural light and create a more open living room.",
     overview: "We installed a custom full wall mirror to enhance the living room's natural light, create an open and spacious feel, and add a modern, elegant touch. The mirror was custom cut to fit the wall perfectly with polished edges for a clean, seamless look.",
@@ -221,7 +210,6 @@ const PROJECTS = [
       { label: "Installation Type", value: "Wall mounted" },
       { label: "Size", value: "Approximately 12 ft W x 8 ft H" },
       { label: "Location", value: "Living room" },
-      { label: "Warranty", value: "1-year installation warranty" },
     ],
     features: ["Custom measured for a perfect fit", "High-quality clear mirror", "Polished edges for safety and beauty", "Seamless installation", "Enhances natural light and space"],
     img: "/public/projects/mirror_kirkland_main.jpg",
@@ -248,7 +236,6 @@ const PROJECTS = [
     category: "Patio Doors",
     location: "Redmond, WA",
     completed: "May 2024",
-    duration: "1 Day",
     tagline: "Smooth Operation. Modern Design. Beautiful Views.",
     summary: "We installed a premium vinyl sliding patio door with Low-E glass to add natural light, improve energy efficiency, and connect the home to its outdoor living space.",
     overview: "The homeowner wanted to upgrade their old patio door with a modern, easy-to-operate sliding door that would improve energy efficiency and provide better access to their backyard deck. We installed a premium vinyl sliding patio door with Low-E glass for maximum comfort and efficiency.",
@@ -265,7 +252,6 @@ const PROJECTS = [
       { label: "Hardware", value: "Standard handle set" },
       { label: "Size", value: "72 in W x 80 in H" },
       { label: "Location", value: "Living room" },
-      { label: "Warranty", value: "Lifetime limited warranty" },
     ],
     features: ["Large glass area for maximum natural light", "Low-E glass for energy efficiency", "Smooth-glide, easy-to-use system", "Strong, durable vinyl frame", "Secure multi-point lock", "Professional installation"],
     img: "/public/projects/patiodoor_redmond_main.jpg",
@@ -287,3 +273,15 @@ const PROJECTS = [
     ],
   },
 ];
+
+// Keep the original verified photographs as source assets while serving the
+// deterministic WebP derivatives produced by scripts/optimize-assets.mjs.
+const optimizedProjectImage = source => source
+  .replace('/public/projects/', '/public/projects-optimized/')
+  .replace(/\.(jpe?g|png)$/i, '.webp');
+
+for (const project of PROJECTS) {
+  project.img = optimizedProjectImage(project.img);
+  for (const image of project.process) image.img = optimizedProjectImage(image.img);
+  for (const image of project.related) image.img = optimizedProjectImage(image.img);
+}

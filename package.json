@@ -1,0 +1,16 @@
+{
+  "name": "elite-glass-windows-site",
+  "private": true,
+  "scripts": {
+    "build": "node generate-pages.js",
+    "check": "node scripts/check-site.mjs",
+    "assets": "node scripts/optimize-assets.mjs",
+    "serve": "npx wrangler pages dev . --port 4173"
+  },
+  "devDependencies": {
+    "sharp": "0.35.4"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

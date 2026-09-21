@@ -1,5 +1,6 @@
 const CONFIG = {
-  businessName: "Elite Glass & Window",
+  businessName: "Elite Glass & Windows",
+  legalBusinessName: "Five Star Glass Solutions LLC",
   siteUrl: "https://eliteglassandwindow.com",
   niche: "Glass & Window",
   tagline: "Custom Glass, Windows & Doors for Greater Seattle",
@@ -12,25 +13,37 @@ const CONFIG = {
   address: "4028 148th Ave NE, Redmond, WA 98052",
   licenseNumber: "",
   colors: { primary: "#004080", secondary: "#1C2333" },
-  social: { facebook: "", instagram: "", youtube: "", yelp: "", nextdoor: "" },
+  social: {
+    facebook: "https://www.facebook.com/UnikooShowerDoor",
+    instagram: "https://www.instagram.com/eliteglass_and_windows/",
+    googleBusiness: "https://share.google/CXdZnPYmdI78YSttm",
+    youtube: "",
+    yelp: "",
+    nextdoor: "",
+  },
   googleReviewsUrl: "https://search.google.com/local/writereview?placeid=ChIJg31wD_9tkFQRp-As1RijQDA",
-  googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Elite+Glass+%26+Window&query_place_id=ChIJg31wD_9tkFQRp-As1RijQDA",
+  googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Elite+Glass+%26+Windows&query_place_id=ChIJg31wD_9tkFQRp-As1RijQDA",
   rating: "",
   reviewCount: 0,
   yearsExperience: "",
   projectsCompleted: "",
   satisfactionRate: "",
-  webhookUrl: "",
+  // A2P staging switch. Keep chat_only until carrier approval, then change
+  // only this value to all_forms to restore the preserved page forms.
+  leadCaptureMode: "chat_only",
+  leadCapture: {
+    endpoint: "/api/chat-lead",
+    turnstileSiteKey: "0x4AAAAAAE7E54DBfycoeKkF",
+  },
   metaPixelId: "",
   clarityProjectId: "yae0ijptel",
-  maps: { mapEmbedUrl: "", mapSearchQuery: "Elite Glass & Window Redmond WA", mapHeight: 420 },
+  maps: { mapEmbedUrl: "", mapSearchQuery: "Elite Glass & Windows Redmond WA", mapHeight: 420 },
   hero: {
     eyebrow: "Redmond Glass & Window Specialists",
     headline: "Custom Glass, Windows & Doors—Measured for Your Space",
     subheadline: "Residential and commercial glass solutions from a local Redmond showroom serving the Greater Seattle area.",
-    ctaPrimary: "Get a Free Estimate",
-    ctaSecondary: "Explore Services",
-    heroImage: "https://images.unsplash.com/photo-1775466145653-a47a853428d2?w=1800&q=84&auto=format&fit=crop",
+    ctaPrimary: "Get Free Estimate",
+    heroImage: "/public/optimized/window-redmond-1440.webp",
   },
   services: [
     {
@@ -41,10 +54,12 @@ const CONFIG = {
       products: ["Single-hung windows", "Double-hung windows", "Casement windows", "Sliding windows", "Picture windows", "Awning windows", "Custom window configurations"],
       benefits: ["Increased energy efficiency", "Reduced noise pollution", "Improved home comfort", "Modernized appearance", "Custom fit and finish"],
       faqs: [
-        { q: "How long does window replacement take?", a: "The timeline depends on the number and type of windows, but most residential projects are completed within a few days." },
-        { q: "What types of windows do you install?", a: "We install a wide range of window types, including single-hung, double-hung, casement, awning, picture, slider, bay, and bow windows." }
+        { q: "Should I replace the glass or the entire window?", a: "If the frame, sash, and hardware are sound, replacing a failed insulated glass unit may be enough. Full-window replacement is usually considered when frames are damaged, operation is poor, water is entering around the assembly, or a different style or performance level is needed." },
+        { q: "Why is there fog between the panes?", a: "Fog or moisture between panes usually indicates that the insulated glass seal has failed. The opening and frame condition should be inspected before deciding between a replacement glass unit and a complete window." },
+        { q: "Which performance details should I compare?", a: "Compare frame material, operating style, glass package, U-factor, solar heat-gain coefficient, air leakage, installation method, and the written manufacturer warranty for the exact product quoted." },
+        { q: "How long does window replacement take?", a: "Timing depends on product availability, verified measurements, access, opening condition, permit requirements, and the number of windows. The written proposal should state the expected ordering and installation sequence." }
       ],
-      image: "https://images.unsplash.com/photo-1758448756207-54505680d130?w=1200&q=82&auto=format&fit=crop",
+      image: "/public/service-luxury/window-replacement-960.webp",
     },
     {
       slug: "shower-doors",
@@ -55,9 +70,11 @@ const CONFIG = {
       benefits: ["Modern aesthetic", "Custom design options", "Enhanced bathroom functionality", "Durable, high-quality glass", "Easy to clean"],
       faqs: [
         { q: "What types of shower doors do you offer?", a: "We specialize in frameless, semi-frameless, and sliding shower doors, available in various glass thicknesses and finishes." },
-        { q: "Can you install a custom-sized shower door?", a: "Yes, all our shower doors are custom measured and installed to perfectly fit your unique shower opening." }
+        { q: "Can you install a custom-sized shower door?", a: "Yes. The opening is measured after the surrounding surfaces are ready so the glass, hinges, panels, and clearances can be specified for the actual space." },
+        { q: "What should be ready before measurement?", a: "Tile, curbs, walls, and other finished surfaces should normally be complete and stable before final measurement. The team can confirm project-specific readiness before visiting." },
+        { q: "How do I reduce water escaping from a frameless enclosure?", a: "Door swing, curb slope, shower-head position, panel layout, gaps, seals, and sweeps all affect water control. Frameless systems are not aquariums, so layout decisions matter." }
       ],
-      image: "https://images.unsplash.com/photo-1771929662486-f793e08f0f16?w=1200&q=82&auto=format&fit=crop",
+      image: "/public/service-luxury/shower-doors-960.webp",
     },
     {
       slug: "entry-patio-doors",
@@ -67,10 +84,12 @@ const CONFIG = {
       products: ["Fiberglass entry doors", "Steel entry doors", "Decorative-glass doors", "Sliding patio doors", "French patio doors", "Multi-panel and folding doors"],
       benefits: ["Improved home security", "Enhanced energy efficiency", "Boosted curb appeal", "Variety of styles and materials", "Professional installation"],
       faqs: [
-        { q: "Can you help me choose the right door for my home?", a: "Absolutely! Our experts will guide you through the selection process, considering your home's style, budget, and functional needs." },
-        { q: "Do you install interior doors as well?", a: "While our primary focus is exterior entry and patio doors, we can discuss interior door projects based on your specific needs." }
+        { q: "Can you help me choose the right entry or patio door?", a: "Yes. Selection should account for opening size, exposure, security, glass, operation, threshold, frame condition, exterior finish, and the written product specifications." },
+        { q: "When is a full frame replacement appropriate?", a: "A full-frame approach may be appropriate when the frame is damaged, the opening needs correction, water intrusion is present, or the new system requires a different configuration. The existing opening must be assessed first." },
+        { q: "What should I compare in patio doors?", a: "Compare operating style, frame material, glass package, sill and drainage details, locking hardware, screen options, accessibility needs, and manufacturer documentation." },
+        { q: "Do door projects ever require permits?", a: "Requirements vary by jurisdiction and scope. Changes to structural openings, egress, or exterior-envelope details may require review, so confirm with the local permitting authority." }
       ],
-      image: "https://images.unsplash.com/photo-1721134111286-b3c4a5772ea9?w=1200&q=82&auto=format&fit=crop",
+      image: "/public/service-luxury/entry-patio-doors-960.webp",
     },
     {
       slug: "glass-railings",
@@ -80,10 +99,12 @@ const CONFIG = {
       products: ["Deck glass railings", "Balcony glass railings", "Interior stair railings", "Clear, tinted, or frosted glass", "Post, standoff, and base-shoe systems"],
       benefits: ["Unobstructed views", "Modern aesthetic", "Enhanced safety and durability", "Low maintenance", "Increases property value"],
       faqs: [
-        { q: "Are glass railings safe?", a: "Yes, our glass railings are constructed with tempered safety glass and robust hardware, meeting all local building codes for safety and structural integrity." },
-        { q: "What is the maintenance for glass railings?", a: "Glass railings are relatively low maintenance. Regular cleaning with glass cleaner is usually sufficient to keep them looking pristine." }
+        { q: "What glass is used for railings?", a: "The glass type and makeup depend on the location, mounting system, guard design, and applicable code. Tempered or laminated safety-glass configurations may be specified by the project documents or design professional." },
+        { q: "Does a glass railing need engineering or permits?", a: "It may. Guard height, loads, anchorage, edge conditions, and supporting structure can require permit or engineering review. Confirm the requirements for the property and scope before fabrication." },
+        { q: "Which mounting systems are available?", a: "Common approaches include posts, standoffs, and base-shoe systems. The right option depends on the structure, waterproofing, desired sightlines, glass specification, and access." },
+        { q: "How are glass railings maintained?", a: "Use a non-abrasive glass cleaner and inspect exposed hardware and seals periodically. Follow the hardware and glass-care instructions supplied for the installed system." }
       ],
-      image: "https://images.unsplash.com/photo-1767555026364-b2b17d7dc455?w=1200&q=82&auto=format&fit=crop",
+      image: "/public/service-luxury/glass-railings-960.webp",
     },
     {
       slug: "custom-mirrors",
@@ -94,9 +115,11 @@ const CONFIG = {
       benefits: ["Custom-fit to any space", "Enhances room brightness", "Creates illusion of space", "Variety of edge finishes", "Professional installation"],
       faqs: [
         { q: "Can you install a large mirror?", a: "Yes, we specialize in installing large wall mirrors for homes, gyms, and commercial applications, ensuring secure and precise placement." },
-        { q: "What types of mirror edges do you offer?", a: "We offer various edge finishes, including polished, beveled, and seamed edges, to complement your design aesthetic." }
+        { q: "What mirror edges are available?", a: "Common options include polished, beveled, and seamed edges. The exposed-edge condition, design, and handling requirements determine which finish is appropriate." },
+        { q: "What details are needed for a custom mirror?", a: "Provide wall dimensions, intended location, edge preference, outlet or fixture cutouts, mounting expectations, and photos. Final fabrication follows verified measurements." },
+        { q: "Can mirrors be installed on every wall?", a: "The wall condition, flatness, substrate, trim, outlets, access, and mirror size all affect the mounting plan. The installation surface should be reviewed before fabrication." }
       ],
-      image: "https://images.unsplash.com/photo-1666372488758-8cc57b6ff4a7?w=1200&q=82&auto=format&fit=crop",
+      image: "/public/service-luxury/custom-mirrors-960.webp",
     },
     {
       slug: "storefront-glass",
@@ -107,9 +130,11 @@ const CONFIG = {
       benefits: ["Improved business aesthetic", "Enhanced security", "Custom design options", "Quick repair services", "Energy-efficient solutions"],
       faqs: [
         { q: "Do you replace broken storefront glass?", a: "Yes. Contact the team with the address, approximate dimensions, photos if available, and whether the opening is secure. Timing depends on the glass specification and availability." },
-        { q: "Can you install custom logos or branding on storefront glass?", a: "We can work with your design specifications for custom branding or signage integration on your storefront glass." }
+        { q: "What information helps with a storefront request?", a: "Share the address, photos, approximate opening dimensions, frame condition, glass markings if visible, access limitations, and whether the opening is currently secure." },
+        { q: "Which safety glass might be required?", a: "Tempered or laminated glass may be required depending on the door, opening, location, and applicable code. The replacement should match the documented safety and performance requirements." },
+        { q: "Can you coordinate custom graphics or branding?", a: "The team can discuss glass and opening requirements alongside a separate graphics or signage plan. Final compatibility depends on the selected materials and installer specifications." }
       ],
-      image: "https://images.unsplash.com/photo-1776918780862-7997f9923408?w=1200&q=82&auto=format&fit=crop",
+      image: "/public/service-luxury/storefront-glass-960.webp",
     },
     {
       slug: "glass-replacement",
@@ -120,9 +145,11 @@ const CONFIG = {
       benefits: ["Restores clarity and integrity", "Prevents further damage", "Energy efficiency improvement", "Professional, timely service", "Cost-effective solution"],
       faqs: [
         { q: "Can you replace just one pane of glass in a double-pane window?", a: "Yes, in most cases, we can replace just the insulated glass unit (IGU) without needing to replace the entire window frame." },
-        { q: "What types of glass can you replace?", a: "We replace various types of glass, including single-pane, double-pane (IGUs), tempered, laminated, and specialty glass for residential and commercial applications." }
+        { q: "What types of glass can you replace?", a: "Options can include single-pane glass, insulated glass units, tempered glass, laminated glass, Low-E glass, and specialty products, subject to the opening and safety requirements." },
+        { q: "Can replacement glass match the existing appearance?", a: "The team will review thickness, tint, coating, pattern, spacer, safety markings, and surrounding units. An exact visual match is not always possible when existing glass has aged or a product has changed." },
+        { q: "What should I send with a glass-replacement request?", a: "Photos of the full opening and damage, approximate dimensions, address, glass markings, frame material, and access information help determine the next measurement step." }
       ],
-      image: "https://images.unsplash.com/photo-1546012112-142c81b59a42?w=1200&q=82&auto=format&fit=crop",
+      image: "/public/service-luxury/glass-replacement-960.webp",
     },
     {
       slug: "custom-glass-products",
@@ -133,9 +160,11 @@ const CONFIG = {
       benefits: ["Custom sizes and edgework", "Cabinet and display glass", "Glass tabletops and shelving", "Tempered and specialty glass options", "Professional measurement and installation"],
       faqs: [
         { q: "Can you make a custom glass tabletop?", a: "Yes. We can help specify dimensions, thickness, edgework, corners, and safety-glass options for the furniture and intended use." },
-        { q: "What glass is available for cabinets and shelves?", a: "Common choices include clear, frosted, textured, patterned, tempered, and specialty glass. Availability depends on size and application." }
+        { q: "What glass is available for cabinets and shelves?", a: "Common choices include clear, frosted, textured, patterned, tempered, and specialty glass. Availability depends on size and application." },
+        { q: "How is tabletop thickness selected?", a: "Thickness depends on whether the glass protects a supported surface or spans between supports, plus overall size, edge treatment, loading, and safety considerations." },
+        { q: "What measurements are needed for shelves?", a: "Provide clear opening dimensions, desired depth, support locations, intended load, exposed edges, and any notches or cutouts. Final fabrication follows verified measurements." }
       ],
-      image: "https://images.unsplash.com/photo-1646592474163-cbef6e0b3b39?w=1200&q=82&auto=format&fit=crop",
+      image: "/public/service-luxury/custom-glass-products-960.webp",
     },
   ],
   serviceAreas: [
@@ -177,6 +206,45 @@ const CONFIG = {
     { slug: "university-district", name: "University District", county: "" },
     { slug: "bainbridge-island", name: "Bainbridge Island", county: "" }
   ],
+  citySeo: {
+    "redmond": { region: "Eastside", authority: "City of Redmond", authorityUrl: "https://www.redmond.gov/", focus: "Compare failed insulated-glass replacement with full-window replacement, and bring frame-condition photos before scheduling final measurements." },
+    "bellevue": { region: "Eastside", authority: "City of Bellevue", authorityUrl: "https://bellevuewa.gov/", focus: "Plan shower enclosures and large glass panels around finished openings, access, hardware clearances, and verified site measurements." },
+    "kirkland": { region: "Eastside", authority: "City of Kirkland", authorityUrl: "https://www.kirklandwa.gov/", focus: "For mirrors and shower glass, identify outlet cutouts, wall condition, door swing, and exposed-edge preferences before fabrication." },
+    "sammamish": { region: "Eastside", authority: "City of Sammamish", authorityUrl: "https://www.sammamish.us/", focus: "Window, patio-door, and railing projects benefit from early review of opening condition, drainage, mounting, and any structural changes." },
+    "issaquah": { region: "Eastside", authority: "City of Issaquah", authorityUrl: "https://www.issaquahwa.gov/", focus: "For window and exterior-door work, document water intrusion, surrounding trim, access, and the exact product performance being considered." },
+    "mercer-island": { region: "Eastside", authority: "City of Mercer Island", authorityUrl: "https://www.mercerisland.gov/", focus: "Glass railing and large-panel projects should establish supporting structure, edge conditions, mounting details, and permit or engineering needs before fabrication." },
+    "newcastle": { region: "Eastside", authority: "City of Newcastle", authorityUrl: "https://www.newcastlewa.gov/", focus: "Start window and door planning with full-opening photos, operation concerns, frame condition, and whether the configuration will change." },
+    "woodinville": { region: "Eastside", authority: "City of Woodinville", authorityUrl: "https://www.ci.woodinville.wa.us/", focus: "Custom door, window, and glass requests are easier to evaluate with opening dimensions, material preferences, access notes, and project photos." },
+    "bothell": { region: "Eastside and south Snohomish County", authority: "City of Bothell", authorityUrl: "https://www.bothellwa.gov/", focus: "For storefront and residential replacements, first identify the glass markings, frame system, opening security, and whether an exact visual match is required." },
+    "kenmore": { region: "north King County", authority: "City of Kenmore", authorityUrl: "https://www.kenmorewa.gov/", focus: "Window and patio-door decisions should compare glass-only repair, full replacement, frame condition, drainage, and the written product specifications." },
+    "duvall": { region: "Snoqualmie Valley", authority: "City of Duvall", authorityUrl: "https://www.duvallwa.gov/", focus: "For custom glass outside the immediate showroom area, send clear photos, approximate dimensions, access details, and timeline constraints before measurement." },
+    "snoqualmie": { region: "Snoqualmie Valley", authority: "City of Snoqualmie", authorityUrl: "https://www.snoqualmiewa.gov/", focus: "Exterior openings should be reviewed for frame condition, drainage, glass performance, access, and any change that could trigger permit review." },
+    "north-bend": { region: "Snoqualmie Valley", authority: "City of North Bend", authorityUrl: "https://northbendwa.gov/", focus: "Window and door projects should document exposure, opening condition, operation issues, product goals, and site access before a final scope is prepared." },
+    "shoreline": { region: "north King County", authority: "City of Shoreline", authorityUrl: "https://www.shorelinewa.gov/", focus: "For older window openings and failed insulated glass, compare frame condition, glass-only replacement, full replacement, and any egress considerations." },
+    "edmonds": { region: "south Snohomish County", authority: "City of Edmonds", authorityUrl: "https://www.edmondswa.gov/", focus: "Window and exterior-door planning should address exposure, glass performance, operation, frame condition, and how the new work meets surrounding finishes." },
+    "lynnwood": { region: "south Snohomish County", authority: "City of Lynnwood", authorityUrl: "https://www.lynnwoodwa.gov/", focus: "Residential and commercial glass requests should include full-opening photos, approximate dimensions, safety markings, access, and urgency." },
+    "mountlake-terrace": { region: "south Snohomish County", authority: "City of Mountlake Terrace", authorityUrl: "https://www.cityofmlt.com/", focus: "For replacement windows and doors, note operational problems, frame damage, water concerns, desired performance, and whether the opening will change." },
+    "mill-creek": { region: "south Snohomish County", authority: "City of Mill Creek", authorityUrl: "https://www.cityofmillcreek.com/", focus: "Shower, window, and entry projects benefit from early product comparison followed by verified measurements after surrounding surfaces are ready." },
+    "everett": { region: "Snohomish County", authority: "City of Everett", authorityUrl: "https://www.everettwa.gov/", focus: "For storefront and residential glass, identify the frame system, glass markings, opening security, access, and any safety-glass requirement." },
+    "mukilteo": { region: "Snohomish County", authority: "City of Mukilteo", authorityUrl: "https://mukilteowa.gov/", focus: "Exterior window, door, and railing work should account for exposure, drainage, mounting, supporting conditions, and current local requirements." },
+    "renton": { region: "south King County", authority: "City of Renton", authorityUrl: "https://www.rentonwa.gov/", focus: "For windows and glass replacement, bring photos of the full opening, glass markings, frame condition, and any operation or moisture problem." },
+    "kent": { region: "south King County", authority: "City of Kent", authorityUrl: "https://www.kentwa.gov/", focus: "Residential and commercial requests can be scoped faster when the address, access, dimensions, frame system, and safety concerns are clear." },
+    "auburn": { region: "south King County", authority: "City of Auburn", authorityUrl: "https://www.auburnwa.gov/", focus: "Before ordering glass or openings, verify measurements, edge and safety requirements, supporting surfaces, access, and applicable permit guidance." },
+    "tukwila": { region: "south King County", authority: "City of Tukwila", authorityUrl: "https://www.tukwilawa.gov/", focus: "Storefront and commercial interior glass projects should document the framing system, glass type, access, business-hours constraints, and opening security." },
+    "federal-way": { region: "south King County", authority: "City of Federal Way", authorityUrl: "https://www.federalwaywa.gov/", focus: "Window and patio-door decisions should compare existing-frame condition, glass performance, operation, drainage, and the scope of any opening change." },
+    "burien": { region: "south King County", authority: "City of Burien", authorityUrl: "https://www.burienwa.gov/", focus: "For older windows, first determine whether the problem is isolated glass failure, sash or hardware operation, frame deterioration, or water entry." },
+    "seatac": { region: "south King County", authority: "City of SeaTac", authorityUrl: "https://www.seatacwa.gov/", focus: "Window and door planning can include glass and frame performance, operation, noise goals, opening condition, and installation details." },
+    "des-moines": { region: "south King County", authority: "City of Des Moines", authorityUrl: "https://www.desmoineswa.gov/", focus: "Exterior openings and railings should be reviewed for exposure, drainage, safety glass, attachment conditions, and jurisdiction requirements." },
+    "seattle": { region: "Seattle", authority: "Seattle Department of Construction and Inspections", authorityUrl: "https://www.seattle.gov/sdci/permits", focus: "Seattle projects should distinguish in-kind repair from changes to openings, egress, guards, or the exterior envelope and confirm requirements with SDCI." },
+    "west-seattle": { region: "Seattle", authority: "Seattle Department of Construction and Inspections", authorityUrl: "https://www.seattle.gov/sdci/permits", focus: "For West Seattle windows, doors, and railings, document exposure, water-management details, opening changes, and any guard or egress considerations." },
+    "ballard": { region: "Seattle", authority: "Seattle Department of Construction and Inspections", authorityUrl: "https://www.seattle.gov/sdci/permits", focus: "For Ballard homes and storefronts, identify frame condition, safety markings, opening security, access, and whether the proposed work changes the opening." },
+    "queen-anne": { region: "Seattle", authority: "Seattle Department of Construction and Inspections", authorityUrl: "https://www.seattle.gov/sdci/permits", focus: "Window and custom-glass work should account for opening condition, access, surrounding finishes, visual matching, and any applicable alteration review." },
+    "capitol-hill": { region: "Seattle", authority: "Seattle Department of Construction and Inspections", authorityUrl: "https://www.seattle.gov/sdci/permits", focus: "For multifamily, storefront, and residential glass, clarify property access, building coordination, frame systems, safety glass, and opening changes." },
+    "magnolia": { region: "Seattle", authority: "Seattle Department of Construction and Inspections", authorityUrl: "https://www.seattle.gov/sdci/permits", focus: "Exterior glass, window, and railing projects should document exposure, supporting conditions, drainage, attachment, and any guard or egress requirements." },
+    "green-lake": { region: "Seattle", authority: "Seattle Department of Construction and Inspections", authorityUrl: "https://www.seattle.gov/sdci/permits", focus: "For existing windows, compare failed-glass replacement with full-window work by checking frames, operation, water entry, and performance goals." },
+    "university-district": { region: "Seattle", authority: "Seattle Department of Construction and Inspections", authorityUrl: "https://www.seattle.gov/sdci/permits", focus: "Multifamily and commercial glass requests should identify site access, building contacts, framing, safety markings, dimensions, and scheduling constraints." },
+    "bainbridge-island": { region: "Kitsap County", authority: "City of Bainbridge Island", authorityUrl: "https://www.bainbridgewa.gov/", focus: "For island projects, send detailed photos, approximate measurements, product goals, access notes, and timing constraints before arranging verified measurements." }
+  },
   serviceRegions: [
     { name: "Eastside", cities: ["Redmond", "Bellevue", "Kirkland", "Sammamish", "Issaquah", "Mercer Island", "Newcastle", "Woodinville", "Bothell", "Kenmore", "Duvall", "Snoqualmie", "North Bend"] },
     { name: "North Seattle & Snohomish County", cities: ["Shoreline", "Edmonds", "Lynnwood", "Mountlake Terrace", "Mill Creek", "Everett", "Mukilteo"] },
@@ -193,13 +261,13 @@ const CONFIG = {
   faqs: [
     { q: "What areas do you serve?", a: "We serve Redmond, the Eastside, Seattle, Snohomish County, South King County, and nearby Greater Seattle communities listed in our service areas." },
     { q: "Do you offer free estimates?", a: "Yes, we provide free, no-obligation estimates for all our glass and window services. Contact us to schedule an appointment." },
-    { q: "How long does a typical installation take?", a: "Installation times vary depending on the scope of the project. A single window replacement might take a few hours, while a full home window replacement or custom shower door could take a day or more. We'll provide an estimated timeline during your consultation." },
+    { q: "How long does a typical installation take?", a: "Timing varies with verified measurements, product availability, access, site conditions, permits, and project scope. The written proposal will describe the expected ordering and installation sequence for the specific project." },
     { q: "What kind of warranty do you offer on your work?", a: "We stand by the quality of our workmanship and the products we install. Warranties vary by product and service; please ask for specific details during your consultation." },
-    { q: "Do you handle both residential and commercial projects?", a: "Yes, Elite Glass & Window is equipped to handle both residential and commercial glass and window projects, from home window replacements to storefront installations." },
+    { q: "Do you handle both residential and commercial projects?", a: "Yes, Elite Glass & Windows works on residential and commercial glass and window projects, from home window replacements to storefront installations." },
     { q: "Where is your showroom?", a: "Our showroom is at 4028 148th Ave NE, Redmond, WA 98052. Please contact the team before visiting to confirm current showroom hours." },
     { q: "Can you help with custom glass projects?", a: "Absolutely! We specialize in custom glass solutions, including unique mirror designs, glass tabletops, and specialty glass installations. Bring us your vision!" },
     { q: "Do you work with contractors and designers?", a: "Yes. We work directly with homeowners and also coordinate with contractors, builders, architects, designers, and property managers." }
   ],
   portfolioProjects: [],
-  legal: { privacyPolicyDate: "May 1, 2025", termsDate: "May 1, 2025" },
+  legal: { privacyPolicyDate: "September 17, 2026", termsDate: "September 17, 2026" },
 };

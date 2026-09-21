@@ -13,8 +13,8 @@
   --color-slate-100: #f1f5f9;
   --color-slate-200: #e2e8f0;
   --color-stone-200: #e7e5e4;
-  --font-display: 'Space Grotesk', system-ui, sans-serif;
-  --font-body: 'Inter', system-ui, sans-serif;
+  --font-display: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --radius-lg: 1rem;
   --radius-xl: 1.25rem;
   --radius-2xl: 1.5rem;
@@ -26,6 +26,7 @@
 
 /* ── Reset ───────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-body);
@@ -41,6 +42,17 @@ img { display: block; max-width: 100%; }
 a { text-decoration: none; color: inherit; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
 ul { list-style: none; }
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
 
 /* ── Layout Utilities ────────────────────────────────────────── */
 .container-wide {
@@ -418,7 +430,7 @@ h3 { font-size: 1.25rem; font-weight: 700; }
 .footer-area-regions { display: grid; gap: 1rem; }
 .footer-region-title { color: #fff; font-size: 0.8125rem; font-weight: 700; line-height: 1.35; margin-bottom: 0.35rem; }
 .footer-region-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.45rem; }
-.footer-region-links a { color: rgba(255,255,255,0.78); font-size: 0.75rem; line-height: 1.5; text-decoration: none; }
+.footer-region-links a { min-height: 24px; display:inline-flex; align-items:center; color: rgba(255,255,255,0.78); font-size: 0.75rem; line-height: 1.5; text-decoration: none; }
 .footer-region-links a:hover { color: #fff; text-decoration: underline; text-underline-offset: 0.2em; }
 .footer-region-links span { color: rgba(255,255,255,0.35); font-size: 0.65rem; }
 .area-pill-sm {
@@ -448,6 +460,8 @@ h3 { font-size: 1.25rem; font-weight: 700; }
 .social-icon-link:hover { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
 .social-svg { width: 1.125rem; height: 1.125rem; }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); }
+.footer-attribution { padding-block: 0.5rem 1rem; text-align: center; font-size: 0.75rem; color: rgba(255,255,255,0.78); }
+.footer-attribution a { color: #fff; text-decoration: underline; text-underline-offset: 0.2em; }
 .footer-bottom-inner {
   padding-block: 1.25rem;
   font-size: 0.75rem;
@@ -473,6 +487,7 @@ h3 { font-size: 1.25rem; font-weight: 700; }
   overflow: hidden;
   animation: fade-up 0.2s ease;
 }
+.chat-panel:focus-within { outline: 2px solid rgba(255,255,255,0.9); outline-offset: 2px; }
 .chat-header {
   padding: 1rem 1.25rem;
   background-color: var(--color-secondary);
@@ -485,12 +500,24 @@ h3 { font-size: 1.25rem; font-weight: 700; }
 .chat-header-sub { font-size: 0.75rem; color: rgba(255,255,255,0.7); }
 .chat-close { color: rgba(255,255,255,0.7); transition: color 0.15s; }
 .chat-close:hover { color: #fff; }
-.chat-body { padding: 1.25rem; }
+.chat-body { padding: 1.25rem; max-height: min(72vh, 38rem); overflow-y: auto; }
 .chat-form { display: flex; flex-direction: column; gap: 0.75rem; }
 .chat-intro { font-size: 0.875rem; color: var(--color-muted); }
+.chat-step { display: flex; flex-direction: column; gap: 0.65rem; border: 0; min-width: 0; }
+.chat-step legend { font-family: var(--font-display); font-weight: 700; color: var(--color-navy); margin-bottom: 0.75rem; }
+.form-label { color: var(--color-navy); font-size: 0.8125rem; font-weight: 650; }
+.form-optional { color: var(--color-muted); font-weight: 400; }
+.form-help { color: var(--color-muted); font-size: 0.75rem; margin-top: -0.35rem; }
+.chat-progress { display: grid; gap: 0.35rem; color: var(--color-muted); font-size: 0.75rem; font-weight: 600; }
+.chat-progress-track { height: 0.3rem; overflow: hidden; border-radius: 999px; background: var(--color-slate-200); }
+.chat-progress-track span { display: block; width: 33.333%; height: 100%; border-radius: inherit; background: var(--color-primary); transition: width 0.2s ease; }
+.chat-actions { display: flex; align-items: center; gap: 0.75rem; }
+.chat-back { min-height: 2.75rem; padding: 0 0.75rem; color: var(--color-navy); font-weight: 650; text-decoration: underline; text-underline-offset: 0.2em; }
+.form-honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .chat-thanks { text-align: center; padding: 1.5rem 0; }
 .chat-thanks-emoji { font-size: 2rem; margin-bottom: 0.5rem; }
 .chat-thanks-title { font-family: var(--font-display); font-weight: 600; color: var(--color-navy); }
+.chat-thanks-icon { width: 3rem; height: 3rem; color: #15803d; margin: 0 auto 0.75rem; }
 .chat-fab {
   width: 3.5rem;
   height: 3.5rem;
@@ -550,10 +577,29 @@ h3 { font-size: 1.25rem; font-weight: 700; }
   padding: 1.5rem;
 }
 @media (min-width: 768px) { .lead-form-full { padding: 2rem; } }
+.inline-estimate-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 7rem;
+  padding: 1.5rem;
+}
+.inline-estimate-cta .btn-primary {
+  width: 100%;
+  justify-content: center;
+  text-align: center;
+}
 .lead-form-header { margin-bottom: 1.25rem; }
 .lead-form-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--color-navy); }
 .lead-form-sub { font-size: 0.875rem; color: var(--color-muted); margin-top: 0.25rem; }
 .lead-form-fields { display: flex; flex-direction: column; gap: 0.75rem; }
+
+@media (max-width: 520px) {
+  .chat-widget { left: 0.75rem; right: 0.75rem; bottom: 0.75rem; }
+  .chat-panel { width: 100%; max-height: calc(100dvh - 6rem); }
+  .chat-fab { margin-left: auto; }
+  body.chat-open { overflow: hidden; }
+}
 .lead-form-success { text-align: center; padding: 1.5rem 0; }
 .lead-form-success-icon { font-size: 2rem; margin-bottom: 0.5rem; }
 .lead-form-success-title { font-family: var(--font-display); font-weight: 600; color: var(--color-navy); font-size: 1.125rem; }
@@ -720,6 +766,10 @@ h3 { font-size: 1.25rem; font-weight: 700; }
    ============================================================ */
 .map-wrap { border-radius: var(--radius-2xl); overflow: hidden; border: 1px solid var(--color-stone-200); box-shadow: var(--shadow-md); }
 .map-iframe { width: 100%; height: 420px; display: block; border: none; } /* height overridden by CONFIG.maps.mapHeight via inline style */
+.map-link-card { display:flex; align-items:center; justify-content:space-between; gap:1.25rem; padding:clamp(1.25rem,4vw,2.25rem); border:1px solid var(--color-slate-200); border-radius:var(--radius-2xl); background:var(--color-slate-50); }
+.map-link-card strong { display:block; color:var(--color-navy); font-family:var(--font-display); font-size:1.1rem; }
+.map-link-card p { margin-top:0.35rem; color:var(--color-muted); }
+@media (max-width: 639px) { .map-link-card { align-items:stretch; flex-direction:column; } .map-link-card .btn-outline { text-align:center; } }
 
 /* ============================================================
    STAR RATING
@@ -959,8 +1009,8 @@ h3 { font-size: 1.25rem; font-weight: 700; }
   min-width: 0;
 }
 .portfolio-gallery-dot {
-  width: 0.72rem;
-  height: 0.72rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 9999px;
   background: #cbd5e1;
   transition: width 0.2s, background-color 0.2s;

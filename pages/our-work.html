@@ -19,7 +19,7 @@
     'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', CONFIG.metaPixelId);
     fbq('track', 'PageView');
-    document.write('<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
+    document.write('<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=' + CONFIG.metaPixelId + '&ev=PageView&noscript=1"/></noscript>');
   })();
   </script>
 
@@ -27,9 +27,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <title>Our Work | Portfolio</title>
-  <meta name="description" content="See glass, window, shower door, railing, mirror, door, and storefront projects from Elite Glass & Window." />
+  <meta name="description" content="See glass, window, shower door, railing, mirror, door, and storefront projects from Elite Glass & Windows." />
   <meta property="og:title" content="Our Work | Portfolio" />
-  <meta property="og:description" content="See glass, window, shower door, railing, mirror, door, and storefront projects from Elite Glass & Window." />
+  <meta property="og:description" content="See glass, window, shower door, railing, mirror, door, and storefront projects from Elite Glass & Windows." />
   <meta property="og:type" content="website" />
   <!-- og:image / twitter:image filled in by generate-pages.js from the top featured PROJECTS entry -->
   <meta property="og:image" content="" />
@@ -191,7 +191,7 @@ false && document.addEventListener('DOMContentLoaded', () => {
   // CTA
   document.getElementById('portfolio-cta').innerHTML = ctaSectionHTML({
     title: "Want a Project Like These?",
-    subtitle: "Free site visit and written quote. Most installs completed in one day."
+    subtitle: "Share your project details and we’ll help plan the next step."
   });
 });
 
@@ -230,7 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="project-meta" aria-label="Project information">
               <span>${escapeHTML(project.location)}</span>
               <span>${escapeHTML(project.completed)}</span>
-              <span>${escapeHTML(project.duration)}</span>
             </div>
             <p class="project-summary">${escapeHTML(project.summary)}</p>
           </div>
