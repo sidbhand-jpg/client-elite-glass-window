@@ -13,6 +13,7 @@ function loadConst(source, name) {
 }
 
 const config = loadConst(await read('CONFIG.js'), 'CONFIG');
+const canonicalOrigin = config.siteUrl.replace(/\/$/, '');
 assert.equal(config.leadCaptureMode, 'chat_only');
 assert.equal(config.services.length, 8);
 assert.equal(config.serviceAreas.length, 37);
@@ -56,7 +57,7 @@ for (const relative of generated) {
   const visibleHtml = stripExecutable(html);
   assert.match(html, /<title>[^<]+<\/title>/, `${relative}: missing title`);
   assert.match(html, /<meta name="description" content="[^"]+"/, `${relative}: missing description`);
-  assert.match(html, /<link rel="canonical" href="https:\/\/eliteglassandwindow\.com\//, `${relative}: missing canonical`);
+  assert.ok(html.includes(`<link rel="canonical" href="${canonicalOrigin}/`), `${relative}: missing canonical`);
   assert.match(html, /property="og:image"/, `${relative}: missing social image`);
   assert.match(html, /name="twitter:card" content="summary_large_image"/, `${relative}: missing Twitter metadata`);
   assert.ok(!/%%[A-Z_]+%%/.test(html), `${relative}: unresolved generator token`);
@@ -65,7 +66,7 @@ for (const relative of generated) {
     const description = html.match(/<meta name="description" content="([^"]+)"/)[1];
     const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)[1];
     const expectedPath = relative === 'index.html' ? '/' : `/${relative.replace(/\.html$/, '')}`;
-    assert.equal(canonical, `https://eliteglassandwindow.com${expectedPath}`, `${relative}: canonical must match its 200 route`);
+    assert.equal(canonical, `${canonicalOrigin}${expectedPath}`, `${relative}: canonical must match its 200 route`);
     assert.ok(!titles.has(title), `${relative}: duplicate title ${title}`);
     assert.ok(!descriptions.has(description), `${relative}: duplicate description`);
     assert.ok(!canonicals.has(canonical), `${relative}: duplicate canonical`);
@@ -134,7 +135,7 @@ for (const service of config.services) {
 
 const robots = await read('robots.txt');
 for (const agent of ['*', 'Googlebot', 'Bingbot', 'OAI-SearchBot']) assert.match(robots, new RegExp(`User-agent: ${agent === '*' ? '\\*' : agent}\\nAllow: /`));
-assert.match(robots, /Sitemap: https:\/\/eliteglassandwindow\.com\/sitemap\.xml/);
+assert.ok(robots.includes(`Sitemap: ${canonicalOrigin}/sitemap.xml`));
 const redirects = await read('_redirects');
 for (const legacy of ['/elite/about-us/', '/elite/contact/', '/elite/installation-process/', '/elite/product/windows/', '/elite/projects/window-replacement/']) assert.ok(redirects.includes(legacy), `Missing redirect for ${legacy}`);
 for (const project of loadConst(await read('PROJECTS.js'), 'PROJECTS')) assert.ok(redirects.includes(`#${project.id}`), `Missing legacy redirect to #${project.id}`);
@@ -173,11 +174,11 @@ const validPayload = {
   postal_code: '98052', project_type: 'window-replacement', property_type: 'residential',
   project_summary: 'TEST ONLY project information.', timeline: 'researching', sms_consent: false,
   company_website: '', form_started_at: Date.now() - 3000, turnstile_token: 'test-token',
-  source_url: 'https://eliteglassandwindow.com/contact.html', page_path: '/contact.html', utm_source: 'test',
+  source_url: `${canonicalOrigin}/contact.html`, page_path: '/contact.html', utm_source: 'test',
 };
-const makeRequest = (body = validPayload, options = {}) => new Request(options.url || 'https://eliteglassandwindow.com/api/chat-lead', {
+const makeRequest = (body = validPayload, options = {}) => new Request(options.url || `${canonicalOrigin}/api/chat-lead`, {
   method: options.method || 'POST',
-  headers: { Origin: options.origin || 'https://eliteglassandwindow.com', 'Content-Type': options.contentType || 'application/json' },
+  headers: { Origin: options.origin || canonicalOrigin, 'Content-Type': options.contentType || 'application/json' },
   body: options.method === 'GET' ? undefined : JSON.stringify(body),
 });
 

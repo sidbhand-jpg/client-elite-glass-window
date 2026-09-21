@@ -10,4 +10,4 @@ Allow: /
 User-agent: OAI-SearchBot
 Allow: /
 
-Sitemap: https://eliteglassandwindow.com/sitemap.xml
+Sitemap: https://www.eliteglassandwindow.com/sitemap.xml

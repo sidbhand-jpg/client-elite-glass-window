@@ -1,7 +1,7 @@
 const CONFIG = {
   businessName: "Elite Glass & Windows",
   legalBusinessName: "Five Star Glass Solutions LLC",
-  siteUrl: "https://eliteglassandwindow.com",
+  siteUrl: "https://www.eliteglassandwindow.com",
   niche: "Glass & Window",
   tagline: "Custom Glass, Windows & Doors for Greater Seattle",
   phone: "(425) 890-8233",
