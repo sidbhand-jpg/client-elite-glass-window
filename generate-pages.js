@@ -10,6 +10,7 @@
 const fs   = require('fs');
 const path = require('path');
 const vm   = require('vm');
+const RUNTIME_ASSET_VERSION = '20260921-hero1';
 
 // ── Load CONFIG ──────────────────────────────────────────────
 const configSrc = fs.readFileSync(path.join(__dirname, 'CONFIG.js'), 'utf8');
@@ -48,9 +49,13 @@ function moveInlineStylesToHead(html) {
   return withoutStyles.replace('</head>', `${styleBlocks.join('\n')}\n</head>`);
 }
 
+function cacheBustRuntimeAssets(html) {
+  return html.replace(/components\.js\?v=[^"']+/g, `components.js?v=${RUNTIME_ASSET_VERSION}`);
+}
+
 function writeFile(outPath, content) {
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
-  fs.writeFileSync(outPath, moveInlineStylesToHead(content), 'utf8');
+  fs.writeFileSync(outPath, moveInlineStylesToHead(cacheBustRuntimeAssets(content)), 'utf8');
   console.log('  ✓  ' + path.relative(__dirname, outPath));
 }
 
@@ -116,7 +121,7 @@ function injectGeneratedSeo(html, pathname, schemas = []) {
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=20260921-transparent" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
-  ${pathname === '/' ? '<link rel="preload" as="image" href="/public/optimized/window-redmond-960.webp" imagesrcset="/public/optimized/window-redmond-960.webp 960w, /public/optimized/window-redmond-1440.webp 1440w" imagesizes="100vw" fetchpriority="high" />' : ''}
+  ${pathname === '/' ? `<link rel="preload" as="image" href="${CONFIG.hero.heroImage}" imagesrcset="${CONFIG.hero.heroImageSrcset}" imagesizes="100vw" fetchpriority="high" />` : ''}
   ${pathname === '/404.html' ? '<meta name="robots" content="noindex, follow" />' : ''}
   <meta property="og:title" content="${escapeHtml(title)}" />
   <meta property="og:description" content="${escapeHtml(description)}" />
@@ -503,6 +508,7 @@ indexHtml = setMeta(
   CONFIG.seo.home.description
 );
 indexHtml = indexHtml
+  .replace(/<img id="hero-img"[^>]*\/>/, `<img id="hero-img" src="${CONFIG.hero.heroImage}" srcset="${CONFIG.hero.heroImageSrcset}" sizes="100vw" width="1920" height="1080" alt="${escapeHtml(CONFIG.hero.heroImageAlt)}" class="hero-bg-img" loading="eager" fetchpriority="high" decoding="async" />`)
   .replace(/<div class="stars" id="hero-stars">[\s\S]*?<\/div>/, `<div class="stars" id="hero-stars" aria-hidden="true">${staticStarsHtml(5)}</div>`)
   .replace(/<span id="hero-proof-text">[\s\S]*?<\/span>/, `<span id="hero-proof-text">${escapeHtml(CONFIG.rating)} stars &middot; ${escapeHtml(CONFIG.reviewCount)} verified reviews</span>`)
   .replace(/(<a[^>]*id="hero-cta-primary"[^>]*>)[\s\S]*?(<\/a>)/, `$1${escapeHtml(CONFIG.hero.ctaPrimary)}$2`)
@@ -524,6 +530,7 @@ indexHtml = indexHtml
 indexHtml = injectGeneratedSeo(indexHtml, '/', [localBusinessSchema(), websiteSchema(), webPageSchema('/', CONFIG.seo.home.title, CONFIG.seo.home.description, 'WebPage', CONFIG.seo.home.featuredImage), faqSchema(CONFIG.faqs)]);
 indexHtml = injectStaticNavigation(indexHtml);
 indexHtml = canonicalizeInternalLinks(indexHtml);
+indexHtml = cacheBustRuntimeAssets(indexHtml);
 indexHtml = moveInlineStylesToHead(indexHtml);
 fs.writeFileSync(path.join(__dirname, 'index.html'), indexHtml, 'utf8');
 

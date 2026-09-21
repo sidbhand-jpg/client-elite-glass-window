@@ -157,7 +157,11 @@ const homepage = await read('index.html');
 assert.ok(!homepage.includes('hero-lead-form'), 'Homepage hero must not contain an inline form.');
 assert.ok(!homepage.includes('hero-cta-secondary'), 'Homepage hero must contain only estimate and phone CTAs.');
 assert.match(homepage, /id="hero-cta-primary"[^>]*data-lead-cta/);
-assert.match(homepage, /id="hero-cta-call"/);
+assert.match(homepage, /href="tel:\+14258908233"[^>]*class="btn-outline btn-lg hero-call-btn"[^>]*id="hero-cta-call"[^>]*data-direct-call/);
+assert.doesNotMatch(homepage, /id="hero-cta-call"[^>]*data-lead-cta/, 'Homepage call CTA must not open chat.');
+assert.match(homepage, /src="\/public\/hero\/elite-glass-blue-hour-1920\.webp"/);
+assert.match(homepage, /class="bullet-check"/);
+assert.match(homepage, /\.bullet-check \{[^}]*color: #fff;/);
 assert.match(homepage, /href="\/favicon\.svg\?v=20260921-transparent"/, 'Homepage must use the cache-busted transparent favicon.');
 for (const id of ['recent-work-gallery', 'recent-work-grid', 'recent-work-dots', 'recent-work-prev', 'recent-work-next']) {
   assert.ok(homepage.includes(`id="${id}"`), `Homepage project gallery is missing ${id}.`);
@@ -168,6 +172,12 @@ const favicon = await read('favicon.svg');
 assert.match(favicon, /Elite Glass &amp; Windows/);
 assert.match(favicon, /#306C9E/);
 assert.doesNotMatch(favicon, /<rect\b/, 'Favicon must not contain a background rectangle.');
+const heroLogo = await read('logo-hero.svg');
+assert.match(heroLogo, /Elite Glass &amp; Window/);
+assert.match(heroLogo, /fill="#ffffff"/);
+assert.match(components, /logo-hero\.svg\?v=20260921/);
+assert.doesNotMatch(components, /class="btn-phone" data-lead-cta/, 'Phone buttons must initiate calls instead of opening chat.');
+assert.match(homepage, /components\.js\?v=20260921-hero1/, 'Homepage must load the cache-busted hero runtime.');
 for (const service of config.services) {
   assert.match(service.image, /^\/public\/service-luxury\/.+-960\.webp$/);
   await fs.access(path.join(root, service.image.slice(1)));

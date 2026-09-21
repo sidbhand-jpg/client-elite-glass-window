@@ -47,7 +47,9 @@ const CONFIG = {
     headline: "A Redmond Glass Company for Windows, Doors & Custom Glass",
     subheadline: "Tell us what is broken, foggy, hard to operate, or ready to change. Our in-house team helps narrow the options before final measurement and installation.",
     ctaPrimary: "Get Free Estimate",
-    heroImage: "/public/optimized/window-redmond-1440.webp",
+    heroImage: "/public/hero/elite-glass-blue-hour-1920.webp",
+    heroImageSrcset: "/public/hero/elite-glass-blue-hour-960.webp 960w, /public/hero/elite-glass-blue-hour-1440.webp 1440w, /public/hero/elite-glass-blue-hour-1920.webp 1920w",
+    heroImageAlt: "Contemporary Pacific Northwest home with illuminated windows and glass doors at blue hour",
   },
   services: [
     {
@@ -321,7 +323,7 @@ CONFIG.seo = {
     primaryIntent: "glass company in Redmond",
     title: "Glass Company in Redmond, WA | Elite Glass & Windows",
     description: "Redmond glass company for replacement windows, glass replacement, shower doors, entry and patio doors, railings, mirrors, and storefront glass across Greater Seattle.",
-    featuredImage: "/public/optimized/window-redmond-1440.webp",
+    featuredImage: "/public/hero/elite-glass-blue-hour-1920.webp",
     updatedAt: "2026-09-21",
   },
   pages: {

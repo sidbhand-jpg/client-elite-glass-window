@@ -152,8 +152,11 @@ function renderStars(count = 5) {
 
 // ── Logo SVG ─────────────────────────────────────────────────
 function logoHTML() {
+  const isHomepage = window.location.pathname === '/' || window.location.pathname === '/index.html';
+  const logoSrc = isHomepage ? '/logo-hero.svg?v=20260921' : '/logo.svg';
+  const logoAlt = isHomepage ? 'Elite Glass & Window' : CONFIG.businessName;
   return `<a href="/" class="logo-link" aria-label="${CONFIG.businessName} home">
-    <img src="/logo.svg" alt="${CONFIG.businessName}" class="brand-logo-img" />
+    <img src="${logoSrc}" alt="${logoAlt}" class="brand-logo-img" />
   </a>`;
 }
 
@@ -224,7 +227,7 @@ function renderHeader() {
 
       <!-- Desktop CTA -->
       <div class="header-cta">
-        <a href="tel:${CONFIG.phoneRaw}" class="btn-phone" data-lead-cta data-original-href="tel:${CONFIG.phoneRaw}">
+        <a href="tel:${CONFIG.phoneRaw}" class="btn-phone" data-direct-call>
           <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12a19.79 19.79 0 01-3-8.63A2 2 0 012.11 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.27a16 16 0 006.29 6.29l1.45-1.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15.36z"/></svg>
           ${CONFIG.phone}
         </a>
@@ -264,7 +267,7 @@ function renderHeader() {
         <a href="/about" class="mobile-nav-link border-top">About</a>
 
         <div class="mobile-cta-row">
-          <a href="tel:${CONFIG.phoneRaw}" class="btn-phone w-full justify-center" data-lead-cta data-original-href="tel:${CONFIG.phoneRaw}">
+          <a href="tel:${CONFIG.phoneRaw}" class="btn-phone w-full justify-center" data-direct-call>
             <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12a19.79 19.79 0 01-3-8.63A2 2 0 012.11 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.27a16 16 0 006.29 6.29l1.45-1.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15.36z"/></svg>
             ${CONFIG.phone}
           </a>
@@ -861,6 +864,7 @@ function initLeadCaptureMode() {
   document.addEventListener('click', event => {
     const trigger = event.target.closest('[data-lead-cta]');
     if (!trigger || !isChatOnlyMode()) return;
+    if (trigger.matches('[data-direct-call], [href^="tel:"]')) return;
     event.preventDefault();
     const drawer = document.getElementById('mobile-drawer');
     if (drawer) drawer.style.display = 'none';
