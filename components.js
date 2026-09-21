@@ -875,7 +875,9 @@ function initLeadCaptureMode() {
 function initScrollReveals() {
   if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  const revealTargets = Array.from(document.querySelectorAll('section, .trust-bar'))
+  // Animate content sections, but never move structural boundaries such as the
+  // trust bar away from the hero and expose the page background between them.
+  const revealTargets = Array.from(document.querySelectorAll('section'))
     .filter(element => !element.matches('.home-hero, .page-hero, .service-hero'));
 
   const observer = new IntersectionObserver(entries => {
