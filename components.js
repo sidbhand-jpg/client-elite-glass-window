@@ -218,8 +218,8 @@ function renderHeader() {
         </div>
 
         <a href="/our-work.html" class="nav-link">Our Work</a>
+        <a href="/installation-process.html" class="nav-link">Installation Process</a>
         <a href="/about.html" class="nav-link">About</a>
-        <a href="/contact.html" class="nav-link" data-lead-cta data-original-href="/contact.html">Contact</a>
       </nav>
 
       <!-- Desktop CTA -->
@@ -260,8 +260,8 @@ function renderHeader() {
         </div>
 
         <a href="/our-work.html" class="mobile-nav-link border-top">Our Work</a>
+        <a href="/installation-process.html" class="mobile-nav-link border-top">Installation Process</a>
         <a href="/about.html" class="mobile-nav-link border-top">About</a>
-        <a href="/contact.html" class="mobile-nav-link border-top" data-lead-cta data-original-href="/contact.html">Contact</a>
 
         <div class="mobile-cta-row">
           <a href="tel:${CONFIG.phoneRaw}" class="btn-phone w-full justify-center" data-lead-cta data-original-href="tel:${CONFIG.phoneRaw}">
@@ -418,6 +418,7 @@ function renderFooter() {
         <div class="footer-col-title">Company</div>
         <ul class="footer-links">
           <li><a href="/about.html">About Us</a></li>
+          <li><a href="/installation-process.html">Installation Process</a></li>
           <li><a href="/our-work.html">Our Work</a></li>
           <li><a href="/contact.html" data-lead-cta data-original-href="/contact.html">Contact</a></li>
           <li><a href="/privacy-policy.html">Privacy Policy</a></li>

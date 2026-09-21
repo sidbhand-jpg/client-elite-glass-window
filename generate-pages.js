@@ -309,6 +309,7 @@ CONFIG.serviceAreas.forEach(area => {
 console.log('\n📋 Copying canonical top-level pages…');
 const pagesToRoot = [
   ['pages/about.html',          'about.html'],
+  ['pages/installation-process.html', 'installation-process.html'],
   ['pages/contact.html',        'contact.html'],
   ['pages/our-work.html',       'our-work.html'],
   ['pages/privacy-policy.html', 'privacy-policy.html'],
@@ -317,6 +318,7 @@ const pagesToRoot = [
 ];
 const rootMeta = {
   'about.html': [`About ${CONFIG.businessName} | Redmond Glass Company`, `Learn about ${CONFIG.businessName}, a Redmond glass, window, and door company serving Greater Seattle.`],
+  'installation-process.html': [`Installation Process | ${CONFIG.businessName}`, `See the ${CONFIG.businessName} process from on-site measurement and design through fabrication, installation, and final inspection.`],
   'contact.html': [`Contact ${CONFIG.businessName} | Free Glass Estimate`, `Contact ${CONFIG.businessName} in Redmond for window, shower door, glass replacement, railing, mirror, door, or storefront service.`],
   'our-work.html': [`Glass, Window & Door Projects | ${CONFIG.businessName}`, `Explore glass, window, shower door, railing, mirror, door, and commercial projects from ${CONFIG.businessName}.`],
   'privacy-policy.html': [`Privacy Policy | ${CONFIG.businessName}`, `Privacy policy for the ${CONFIG.businessName} website, forms, analytics, and advertising measurement.`],
@@ -333,10 +335,10 @@ pagesToRoot.forEach(([src, dest]) => {
   html = setMeta(html, rootMeta[dest][0], rootMeta[dest][1]);
   // These pages are at root — update relative paths
   html = html
-    .replace(/(src|href)="\.\.\/styles\.css"/g,    'href="styles.css"')
+    .replace(/(src|href)="\.\.\/styles\.css(\?[^\"]*)?"/g, (_, attr, suffix = '') => `${attr}="styles.css${suffix}"`)
     .replace(/(src|href)="\.\.\/CONFIG\.js"/g,     'src="CONFIG.js"')
     .replace(/(src|href)="\.\.\/PROJECTS\.js"/g,   'src="PROJECTS.js"')
-    .replace(/(src|href)="\.\.\/components\.js"/g, 'src="components.js"');
+    .replace(/(src|href)="\.\.\/components\.js(\?[^\"]*)?"/g, (_, attr, suffix = '') => `${attr}="components.js${suffix}"`);
 
   // our-work.html: fill in og:image / twitter:image from the top
   // featured PROJECTS photo, so social shares show a real image.
@@ -385,7 +387,7 @@ indexHtml = injectGeneratedSeo(indexHtml, '/', [localBusinessSchema(), faqSchema
 fs.writeFileSync(path.join(__dirname, 'index.html'), indexHtml, 'utf8');
 
 const sitemapPaths = [
-  '/', '/about.html', '/contact.html', '/our-work.html', '/privacy-policy.html', '/terms.html',
+  '/', '/about.html', '/installation-process.html', '/contact.html', '/our-work.html', '/privacy-policy.html', '/terms.html',
   ...CONFIG.services.map(service => `/services/${service.slug}.html`),
   ...CONFIG.serviceAreas.map(area => `/cities/${area.slug}.html`),
 ];

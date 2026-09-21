@@ -21,16 +21,16 @@ assert.ok(!('webhookUrl' in config), 'A webhook URL must never be shipped in bro
 
 const sitemap = await read('sitemap.xml');
 const sitemapUrls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
-assert.equal(sitemapUrls.length, 51);
-assert.equal(new Set(sitemapUrls).size, 51);
+assert.equal(sitemapUrls.length, 52);
+assert.equal(new Set(sitemapUrls).size, 52);
 assert.ok(!sitemap.includes('/404.html'));
 
 const generated = [
-  'index.html', 'about.html', 'contact.html', 'our-work.html', 'privacy-policy.html', 'terms.html', '404.html',
+  'index.html', 'about.html', 'installation-process.html', 'contact.html', 'our-work.html', 'privacy-policy.html', 'terms.html', '404.html',
   ...config.services.map(service => `services/${service.slug}.html`),
   ...config.serviceAreas.map(area => `cities/${area.slug}.html`),
 ];
-assert.equal(generated.length, 52);
+assert.equal(generated.length, 53);
 
 for (const relative of generated) {
   const html = await read(relative);
