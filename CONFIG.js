@@ -457,7 +457,7 @@ for (const area of CONFIG.serviceAreas) {
   profile.serviceSlugs = serviceSlugs;
   profile.projectRefs = CITY_PROJECT_REFS[area.slug] || [];
   profile.supportingProjectRefs = CITY_SUPPORTING_PROJECT_REFS[area.slug] || [];
-  profile.intro = `${area.name} projects often begin with ${profile.focus.charAt(0).toLowerCase()}${profile.focus.slice(1)} Our Redmond-based team helps customers narrow the scope before products are ordered or custom glass is fabricated.`;
+  profile.intro = `${area.name} projects come with local planning details that should be clear before measurement. ${profile.focus} Our Redmond-based team helps customers narrow the scope before products are ordered or custom glass is fabricated.`;
   profile.estimateReady = `For a ${area.name} estimate, send the property address, photos of the full opening, approximate dimensions, the problem you want to solve, and any access or building-coordination notes. Final custom sizes require verified measurements.`;
   profile.faqs = [
     { q: `What should I send for a ${area.name} ${serviceNames[0].toLowerCase()} estimate?`, a: profile.estimateReady },
