@@ -32,15 +32,16 @@
   <link rel="stylesheet" href="../styles.css?v=20260921-install2" />
 </head>
 <body>
+<main>
 
 <!-- ── ABOUT HERO ─────────────────────────────────────────────── -->
 <section class="page-hero" style="background-color:var(--color-secondary)">
   <div class="grid-overlay"></div>
   <div class="container-wide" style="position:relative; max-width: 56rem;">
     <div class="page-hero-eyebrow">About Us</div>
-    <h1 class="about-headline" id="about-headline"></h1>
+    <h1 class="about-headline" id="about-headline">A Glass Company Built from a Real Renovation Problem</h1>
     <p class="about-hero-sub">
-      <span id="biz-name-hero"></span> helps homeowners, businesses, contractors, and designers plan custom glass projects with clear guidance, accurate measurement, and professional installation.
+      <span id="biz-name-hero">Elite Glass &amp; Windows</span> helps homeowners, businesses, contractors, and designers plan custom glass projects with clear guidance, accurate measurement, and professional installation.
     </p>
   </div>
 </section>
@@ -50,16 +51,16 @@
   <div class="container-wide" style="max-width: 48rem;">
     <div class="about-prose">
       <p>
-        Elite Glass &amp; Windows helps make custom glass decisions clearer for homes and businesses throughout Greater Seattle.
+        Elite Glass &amp; Windows began in 2020 after the owners had trouble finding the right shower door for their own renovation. That experience shaped a practical approach: explain the choices, measure the finished opening, and make the next step clear.
       </p>
       <p>
-        From windows and doors to shower enclosures, railings, mirrors, storefronts, and specialty glass, each project begins with the space, the intended use, and the right product specification.
+        The company expanded from shower enclosures into replacement windows, entry and patio doors, mirrors, railings, storefront glass, and specialty fabrication. The team works with established brands and Washington glass fabricators for projects across Greater Seattle.
       </p>
-      <p id="about-story-end"></p>
+      <p id="about-story-end">An in-house customer-service team coordinates questions and next steps. Repeat contractor and referral work remains an important part of the business, and an owner stays involved in job-site quality checks.</p>
     </div>
 
     <!-- Stats -->
-    <div class="about-stats" id="about-stats"></div>
+    <div class="about-stats" id="about-stats"><div class="about-stat"><div class="about-stat-value">2020</div><div class="about-stat-label">Founded</div></div><div class="about-stat"><div class="about-stat-value">Redmond</div><div class="about-stat-label">Local showroom</div></div><div class="about-stat"><div class="about-stat-value">In-house</div><div class="about-stat-label">Customer service</div></div><div class="about-stat"><div class="about-stat-value">Owner</div><div class="about-stat-label">Quality involvement</div></div></div>
   </div>
 </section>
 
@@ -104,25 +105,26 @@
 </section>
 
 <!-- ── CTA ────────────────────────────────────────────────────── -->
-<div id="about-cta"></div><script src="../components.js?v=20260921-install2"></script><script src="/generic-runtime.js"></script>
+<div id="about-cta"></div>
+</main>
+<script src="../components.js?v=20260921-install2"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  document.title = `About Us | ${CONFIG.businessName}`;
+  document.title = CONFIG.seo.pages.about.title;
   document.querySelector('meta[name="description"]').setAttribute('content',
-    `${CONFIG.businessName} is a Redmond glass, window, and door company serving residential and commercial customers throughout Greater Seattle.`
+    CONFIG.seo.pages.about.description
   );
 
   document.getElementById('biz-name-hero').textContent = CONFIG.businessName;
-  document.getElementById('about-headline').textContent = 'Built on Experience. Focused on Quality.';
-  document.getElementById('about-story-end').textContent =
-    `Visit our Redmond showroom to compare available products and discuss the right next step for your project.`;
+  document.getElementById('about-headline').textContent = 'A Glass Company Built from a Real Renovation Problem';
+  document.getElementById('about-story-end').textContent = 'An in-house customer-service team coordinates questions and next steps. Repeat contractor and referral work remains an important part of the business, and an owner stays involved in job-site quality checks.';
 
   // Stats
   const stats = [
+    { value: '2020', label: 'Founded' },
     { value: 'Redmond', label: 'Local Showroom' },
-    { value: 'Custom', label: 'Measured Solutions' },
-    { value: 'Homes', label: 'Residential Projects' },
-    { value: 'Business', label: 'Commercial Projects' },
+    { value: 'In-house', label: 'Customer Service' },
+    { value: 'Owner', label: 'Quality Involvement' },
   ];
   document.getElementById('about-stats').innerHTML = stats.map(s => `
     <div class="about-stat">

@@ -44,8 +44,8 @@ const CONFIG = {
   },
   hero: {
     eyebrow: "Redmond Glass & Window Specialists",
-    headline: "Custom Glass, Windows & Doors—Measured for Your Space",
-    subheadline: "Residential and commercial glass solutions from a local Redmond showroom serving the Greater Seattle area.",
+    headline: "A Redmond Glass Company for Windows, Doors & Custom Glass",
+    subheadline: "Tell us what is broken, foggy, hard to operate, or ready to change. Our in-house team helps narrow the options before final measurement and installation.",
     ctaPrimary: "Get Free Estimate",
     heroImage: "/public/optimized/window-redmond-1440.webp",
   },
@@ -69,7 +69,7 @@ const CONFIG = {
       slug: "shower-doors",
       name: "Shower Doors",
       desc: "Custom frameless and sliding shower doors for a modern bathroom.",
-      longDesc: "Transform your bathroom with our exquisite custom shower doors, including frameless, semi-frameless, and sliding options. We offer a variety of glass types and hardware finishes to match your style, ensuring a luxurious and functional upgrade.",
+      longDesc: "Choose frameless, semi-frameless, hinged, or sliding shower glass based on the finished opening, hardware clearances, door swing, and water-control details.",
       products: ["Frameless shower doors", "Sliding shower doors", "Hinged shower doors", "Clear tempered glass", "Frosted or textured glass", "Matte black, chrome, nickel, and brass hardware"],
       benefits: ["Modern aesthetic", "Custom design options", "Enhanced bathroom functionality", "Durable, high-quality glass", "Easy to clean"],
       faqs: [
@@ -83,10 +83,10 @@ const CONFIG = {
     {
       slug: "entry-patio-doors",
       name: "Entry & Patio Doors",
-      desc: "Enhance your home's curb appeal and security with our premium door installations.",
+      desc: "Replace an entry or patio door based on the opening, operation, glass, threshold, drainage, and hardware you need.",
       longDesc: "From elegant entry doors that make a statement to functional and beautiful patio doors that connect your indoor and outdoor spaces, we provide expert installation of a wide range of door styles and materials, including wood, fiberglass, and steel.",
       products: ["Fiberglass entry doors", "Steel entry doors", "Decorative-glass doors", "Sliding patio doors", "French patio doors", "Multi-panel and folding doors"],
-      benefits: ["Improved home security", "Enhanced energy efficiency", "Boosted curb appeal", "Variety of styles and materials", "Professional installation"],
+      benefits: ["Entry, sliding, French, and multi-panel choices", "Glass and frame performance documented in writing", "Threshold, drainage, and lock details reviewed", "Frame condition assessed before ordering", "Measured installation scope"],
       faqs: [
         { q: "Can you help me choose the right entry or patio door?", a: "Yes. Selection should account for opening size, exposure, security, glass, operation, threshold, frame condition, exterior finish, and the written product specifications." },
         { q: "When is a full frame replacement appropriate?", a: "A full-frame approach may be appropriate when the frame is damaged, the opening needs correction, water intrusion is present, or the new system requires a different configuration. The existing opening must be assessed first." },
@@ -101,7 +101,7 @@ const CONFIG = {
       desc: "Modern and elegant glass railings for decks, balconies, and staircases.",
       longDesc: "Our glass railing systems provide a contemporary and unobstructed view for your deck, balcony, or interior stairs. Engineered for safety and durability, these railings add a touch of sophistication while maximizing natural light and openness.",
       products: ["Deck glass railings", "Balcony glass railings", "Interior stair railings", "Clear, tinted, or frosted glass", "Post, standoff, and base-shoe systems"],
-      benefits: ["Unobstructed views", "Modern aesthetic", "Enhanced safety and durability", "Low maintenance", "Increases property value"],
+      benefits: ["Clear sightlines", "Interior and exterior system choices", "Glass and mounting selected for the application", "Supporting conditions reviewed", "Care instructions for installed glass and hardware"],
       faqs: [
         { q: "What glass is used for railings?", a: "The glass type and makeup depend on the location, mounting system, guard design, and applicable code. Tempered or laminated safety-glass configurations may be specified by the project documents or design professional." },
         { q: "Does a glass railing need engineering or permits?", a: "It may. Guard height, loads, anchorage, edge conditions, and supporting structure can require permit or engineering review. Confirm the requirements for the property and scope before fabrication." },
@@ -129,9 +129,9 @@ const CONFIG = {
       slug: "storefront-glass",
       name: "Storefront Glass",
       desc: "Professional storefront glass installation and repair for businesses.",
-      longDesc: "Make a lasting first impression with our high-quality storefront glass solutions. We provide expert installation, repair, and replacement of commercial glass, including impact-resistant options, to enhance your business's appearance and security.",
+      longDesc: "Storefront glass replacement and installation starts with the frame system, safety specification, opening condition, access, and business coordination needs.",
       products: ["Storefront glass replacement", "New storefront systems", "Commercial glass entrances", "Interior commercial glass", "Property-manager glass service"],
-      benefits: ["Improved business aesthetic", "Enhanced security", "Custom design options", "Quick repair services", "Energy-efficient solutions"],
+      benefits: ["Replacement panels and new storefront systems", "Commercial entrances and interior glass", "Safety markings and frame details reviewed", "Access and building coordination included in scope", "Clear written glass specification"],
       faqs: [
         { q: "Do you replace broken storefront glass?", a: "Yes. Contact the team with the address, approximate dimensions, photos if available, and whether the opening is secure. Timing depends on the glass specification and availability." },
         { q: "What information helps with a storefront request?", a: "Share the address, photos, approximate opening dimensions, frame condition, glass markings if visible, access limitations, and whether the opening is currently secure." },
@@ -293,10 +293,10 @@ const CONFIG = {
     },
   ],
   processSteps: [
-    { title: "Tell Us About Your Project", desc: "Share your goals and schedule a convenient consultation." },
-    { title: "Receive a Clear Plan", desc: "We assess the work and provide a straightforward recommendation." },
-    { title: "Professional Service", desc: "Our team completes the job with care and clear communication." },
-    { title: "Final Walkthrough", desc: "We make sure the completed work meets your expectations." },
+    { title: "Share the Problem", desc: "Send photos, the address, approximate dimensions, and what is not working or needs to change." },
+    { title: "Compare the Right Options", desc: "The in-house team helps distinguish glass-only repair, full replacement, custom fabrication, and product choices." },
+    { title: "Verify and Install", desc: "Final measurements and the approved written scope guide ordering, fabrication, and installation." },
+    { title: "Review the Finished Work", desc: "The team completes a walkthrough, with owner involvement in job-site quality checks." },
   ],
   faqs: [
     { q: "What areas do you serve?", a: "We serve Redmond, the Eastside, Seattle, Snohomish County, South King County, and nearby Greater Seattle communities listed in our service areas." },
@@ -311,3 +311,158 @@ const CONFIG = {
   portfolioProjects: [],
   legal: { privacyPolicyDate: "September 17, 2026", termsDate: "September 17, 2026" },
 };
+
+// Search, answer-engine, and static-rendering content. This is deliberately
+// part of the public content model so generated HTML and browser enhancement
+// read from the same verified source.
+CONFIG.seo = {
+  updatedAt: "2026-09-21",
+  home: {
+    primaryIntent: "glass company in Redmond",
+    title: "Glass Company in Redmond, WA | Elite Glass & Windows",
+    description: "Redmond glass company for replacement windows, glass replacement, shower doors, entry and patio doors, railings, mirrors, and storefront glass across Greater Seattle.",
+    featuredImage: "/public/optimized/window-redmond-1440.webp",
+    updatedAt: "2026-09-21",
+  },
+  pages: {
+    about: { title: "About Elite Glass & Windows | Redmond Glass Company", description: "Meet the Redmond team that grew from solving a shower-door sourcing problem into a Greater Seattle glass, window, and door company.", primaryIntent: "about Elite Glass and Windows", featuredImage: "/public/optimized/window-redmond-1440.webp", updatedAt: "2026-09-21" },
+    "installation-process": { title: "Glass & Window Installation Process | Elite Glass", description: "See how Elite Glass & Windows moves from project photos and product guidance to verified measurements, installation, and an owner-involved quality check.", primaryIntent: "glass and window installation process", featuredImage: "/public/service-luxury/window-replacement-960.webp", updatedAt: "2026-09-21" },
+    contact: { title: "Contact Elite Glass & Windows | Free Estimate", description: "Start a free glass, window, shower-door, railing, mirror, door, or storefront estimate with Elite Glass & Windows in Redmond.", primaryIntent: "contact Elite Glass and Windows", featuredImage: "/public/social/elite-glass-og.jpg", updatedAt: "2026-09-21" },
+    "our-work": { title: "Glass, Window & Door Projects | Elite Glass", description: "View verified Elite Glass & Windows projects in Redmond, Bellevue, Bothell, Kirkland, and nearby Greater Seattle communities.", primaryIntent: "Elite Glass and Windows projects", featuredImage: "/public/projects-optimized/window_redmond_main.webp", updatedAt: "2026-09-21" },
+    "privacy-policy": { title: "Privacy Policy | Elite Glass & Windows", description: "Privacy policy for the Elite Glass & Windows website, chat requests, analytics, and advertising measurement.", primaryIntent: "Elite Glass and Windows privacy policy", featuredImage: "/public/social/elite-glass-og.jpg", updatedAt: "2026-09-17" },
+    terms: { title: "Website Terms | Elite Glass & Windows", description: "Website terms for Elite Glass & Windows, including estimates, custom measurements, communications, and product information.", primaryIntent: "Elite Glass and Windows website terms", featuredImage: "/public/social/elite-glass-og.jpg", updatedAt: "2026-09-17" },
+  },
+};
+
+CONFIG.story = {
+  founded: "2020",
+  origin: "Elite Glass & Windows began in 2020 after the owners had trouble finding the right shower door for their own renovation. That experience shaped a practical approach: explain the choices, measure the finished opening, and make the next step clear.",
+  expansion: "The company expanded from shower enclosures into replacement windows, entry and patio doors, mirrors, railings, storefront glass, and specialty fabrication for homes and businesses across Greater Seattle.",
+  proofPoints: [
+    "Established window and door brands plus glass fabricated by Washington suppliers",
+    "An in-house customer-service team that coordinates questions and next steps",
+    "Repeat work from contractors and referrals from past customers",
+    "Owner involvement in job-site quality checks",
+  ],
+};
+
+const SERVICE_SEO = {
+  "window-replacement": {
+    primaryIntent: "replacement windows and new window installation",
+    title: "Replacement Windows & Installation in Greater Seattle",
+    description: "Compare replacement windows, new-window installation, and energy-efficient glass packages with verified measurements from Elite Glass & Windows.",
+    desc: "Replacement windows and new-window installation based on the opening, frame condition, operating style, and performance you need.",
+    longDesc: "Start by identifying what is actually failing: the insulated glass, sash or hardware, frame, installation, or the full opening. If the frame and operation are sound, glass-only replacement may solve a failed seal. When frames are damaged, difficult to operate, leaking, or no longer fit the project goals, full-window replacement may be the better path. We measure the opening and help compare frame materials, styles, Low-E glass packages, and installation details before a product is ordered.",
+    decisionGuide: ["Choose glass-only replacement when the frame and sash remain sound but the sealed glass unit is foggy or cracked.", "Consider full replacement when the frame is damaged, operation is poor, water is entering, or the opening or performance needs to change.", "Compare the exact U-factor, solar heat-gain coefficient, glass package, frame, and installation method in the written proposal."],
+  },
+  "glass-replacement": {
+    primaryIntent: "foggy window and insulated glass replacement",
+    title: "Foggy & Cracked Glass Replacement in Greater Seattle",
+    description: "Replace foggy insulated glass units, cracked window glass, door glass, and safety glass without replacing a sound frame when glass-only repair fits.",
+    desc: "Glass-only replacement for foggy insulated units, cracked panes, door glass, and other openings when the existing frame can remain.",
+    longDesc: "Fog between panes usually points to a failed insulated-glass seal, while cracks and impact damage may require a different safety-glass specification. We review the full opening, frame condition, glass markings, thickness, tint, coating, and access before recommending a replacement unit. When the sash and frame are still serviceable, replacing only the glass can preserve the existing window and avoid unnecessary full-frame work.",
+    decisionGuide: ["Send a photo of the full opening and a close-up of the damage or fogging.", "Include visible glass markings, approximate dimensions, frame material, and access notes.", "Final glass size and safety specification follow an on-site measurement, not customer dimensions alone."],
+  },
+  "shower-doors": {
+    primaryIntent: "custom frameless shower doors",
+    title: "Custom Frameless Shower Doors in Greater Seattle",
+    description: "Plan custom frameless, semi-frameless, hinged, and sliding shower enclosures measured for finished tile, curb, hardware, and water control.",
+    desc: "Custom frameless, semi-frameless, hinged, and sliding shower enclosures measured after finished surfaces are ready.",
+    longDesc: "A shower enclosure must fit the finished opening, hardware clearances, door swing, curb slope, and shower-head position. We help choose a frameless, semi-frameless, hinged, or sliding layout along with glass and hardware finishes. Final fabrication follows verified measurements after tile, curbs, and surrounding surfaces are complete and stable.",
+    decisionGuide: ["Finish tile, curbs, walls, and fixed surfaces before final measurement.", "Plan door swing, nearby fixtures, curb slope, and shower-head direction together.", "Choose glass and hardware after confirming the layout, mounting points, and water-control expectations."],
+  },
+  "entry-patio-doors": {
+    primaryIntent: "entry and patio door replacement",
+    title: "Entry & Patio Door Replacement in Greater Seattle",
+    description: "Compare front doors, sliding patio doors, French doors, and multi-panel replacements by opening condition, operation, glass, and installation scope.",
+    desc: "Front-door, sliding-patio-door, French-door, and multi-panel replacement planned around the existing opening and daily use.",
+    longDesc: "Door replacement starts with the opening, not a catalog. We review frame condition, threshold and drainage details, operation, security hardware, glass, exposure, and surrounding finishes before recommending an entry, sliding patio, French, or multi-panel system. The written scope should make clear whether the existing frame can remain or a full-frame replacement is needed.",
+    decisionGuide: ["Document sticking, drafts, water entry, damaged frames, lock problems, and threshold conditions.", "Compare operation, accessibility, glass package, screens, hardware, and drainage details.", "Confirm whether the opening or exterior envelope changes before ordering."],
+  },
+  "glass-railings": {
+    primaryIntent: "glass railing systems",
+    title: "Glass Railings for Decks, Stairs & Balconies",
+    description: "Plan interior and exterior glass railing systems for decks, balconies, and stairs with the mounting, glass, structure, and code review defined first.",
+    desc: "Interior and exterior glass railing systems for stairs, decks, and balconies, planned around structure, mounting, and sightlines.",
+    longDesc: "Glass railings depend on more than panel size. Guard height, loads, supporting structure, edge conditions, attachment, waterproofing, and the selected post, standoff, or base-shoe system all affect the design. We verify site conditions and coordinate the glass and hardware scope; permit or engineering review may also be required for the property.",
+    decisionGuide: ["Identify the supporting structure and finished edge conditions before selecting hardware.", "Choose between post, standoff, and base-shoe systems based on sightlines and attachment needs.", "Confirm current guard, engineering, and permit requirements before fabrication."],
+  },
+  "custom-mirrors": {
+    primaryIntent: "custom mirrors",
+    title: "Custom Mirrors for Bathrooms, Gyms & Walls",
+    description: "Custom bathroom, vanity, wall, gym, studio, and commercial mirrors measured for edges, cutouts, mounting, and the actual wall condition.",
+    desc: "Custom mirrors for bathrooms, vanities, walls, gyms, studios, and commercial spaces, measured around fixtures and finishes.",
+    longDesc: "A custom mirror is fabricated for the actual wall, exposed edges, outlets, fixtures, trim, and mounting plan. We measure the finished space and help select clear mirror, edge treatment, panel layout, and installation method for vanities, full walls, gyms, studios, and commercial interiors.",
+    decisionGuide: ["Share wall photos and note outlets, sconces, trim, switches, and other cutouts.", "Choose polished, beveled, or concealed edges based on which sides remain visible.", "Review wall flatness, substrate, access, panel size, and mounting before fabrication."],
+  },
+  "storefront-glass": {
+    primaryIntent: "commercial storefront glass replacement",
+    title: "Commercial Storefront Glass Replacement",
+    description: "Commercial storefront glass, entrances, replacement panels, and interior glass scoped from the frame system, safety markings, access, and opening condition.",
+    desc: "Commercial storefront glass, entrances, replacement panels, and interior glass for businesses and property teams.",
+    longDesc: "Storefront work begins by identifying the frame system, glass markings, opening size, safety requirements, access, and whether the opening is secure. We handle replacement panels, storefront systems, commercial entrances, and interior commercial glass, coordinating the written glass and installation scope with the business or property contact.",
+    decisionGuide: ["Send the site address, full-opening photos, approximate dimensions, and visible glass markings.", "Explain whether the opening is secure and note access or building-coordination constraints.", "Replacement glass must match the documented safety and performance requirements for its location."],
+  },
+  "custom-glass-products": {
+    primaryIntent: "custom glass fabrication",
+    title: "Custom Glass Tabletops, Shelves & Inserts",
+    description: "Custom glass for tabletops, shelves, cabinet inserts, skylights, and specialty applications, specified by size, support, edgework, cutouts, and safety needs.",
+    desc: "Custom tabletops, shelves, cabinet inserts, skylight glass, and specialty fabrication specified for the way the glass will be supported and used.",
+    longDesc: "Specialty glass needs more than length and width. We review the application, support points, expected load, thickness, glass type, edgework, corners, cutouts, and handling access before fabrication. Options include cabinet inserts, tabletop protectors and standalone tops, shelves, skylight glass, and other residential or commercial pieces.",
+    decisionGuide: ["Provide a sketch, photos, approximate dimensions, and the glass application.", "Identify support locations, exposed edges, loads, corners, holes, notches, and cutouts.", "Final fabrication follows verified dimensions and the safety specification for the intended use."],
+  },
+};
+
+for (const service of CONFIG.services) {
+  Object.assign(service, SERVICE_SEO[service.slug], {
+    featuredImage: service.image,
+    updatedAt: "2026-09-21",
+    process: [
+      "Share photos, the address, approximate dimensions, and what is not working.",
+      "Review practical options and receive a written scope for the selected product or glass.",
+      "Complete final measurement before custom fabrication or ordering.",
+      "Install the approved work and review the finished project.",
+    ],
+  });
+}
+
+const CITY_SERVICE_PRIORITIES = {
+  redmond:["glass-replacement","window-replacement","entry-patio-doors"], bellevue:["shower-doors","glass-railings","window-replacement"], kirkland:["custom-mirrors","shower-doors","window-replacement"], sammamish:["entry-patio-doors","glass-railings","shower-doors"], issaquah:["window-replacement","entry-patio-doors","custom-mirrors"], "mercer-island":["glass-railings","custom-glass-products","window-replacement"], newcastle:["window-replacement","entry-patio-doors","shower-doors"], woodinville:["entry-patio-doors","window-replacement","custom-glass-products"], bothell:["storefront-glass","entry-patio-doors","glass-replacement"], kenmore:["glass-replacement","window-replacement","entry-patio-doors"], duvall:["custom-glass-products","window-replacement","custom-mirrors"], snoqualmie:["window-replacement","entry-patio-doors","glass-railings"], "north-bend":["window-replacement","entry-patio-doors","glass-railings"], shoreline:["glass-replacement","window-replacement","entry-patio-doors"], edmonds:["glass-replacement","window-replacement","entry-patio-doors"], lynnwood:["storefront-glass","glass-replacement","window-replacement"], "mountlake-terrace":["window-replacement","entry-patio-doors","glass-replacement"], "mill-creek":["shower-doors","entry-patio-doors","window-replacement"], everett:["storefront-glass","glass-replacement","window-replacement"], mukilteo:["window-replacement","entry-patio-doors","glass-railings"], renton:["glass-replacement","storefront-glass","window-replacement"], kent:["storefront-glass","glass-replacement","custom-glass-products"], auburn:["custom-glass-products","glass-replacement","storefront-glass"], tukwila:["storefront-glass","glass-replacement","custom-mirrors"], "federal-way":["window-replacement","entry-patio-doors","glass-replacement"], burien:["glass-replacement","window-replacement","entry-patio-doors"], seatac:["window-replacement","entry-patio-doors","glass-replacement"], "des-moines":["glass-railings","window-replacement","entry-patio-doors"], seattle:["glass-replacement","window-replacement","storefront-glass"], "west-seattle":["window-replacement","entry-patio-doors","glass-railings"], ballard:["storefront-glass","glass-replacement","window-replacement"], "queen-anne":["custom-mirrors","shower-doors","glass-railings"], "capitol-hill":["storefront-glass","glass-replacement","custom-mirrors"], magnolia:["glass-railings","window-replacement","entry-patio-doors"], "green-lake":["glass-replacement","window-replacement","shower-doors"], "university-district":["storefront-glass","glass-replacement","custom-mirrors"], "bainbridge-island":["custom-glass-products","window-replacement","entry-patio-doors"],
+};
+
+const CITY_PROJECT_REFS = {
+  redmond:["window-replacement-redmond","sliding-patio-door-redmond"], bellevue:["frameless-shower-door-bellevue"], kirkland:["custom-wall-mirror-kirkland"], bothell:["storefront-glass-replacement-bothell","front-door-replacement-bothell"],
+};
+
+const CITY_SUPPORTING_PROJECT_REFS = {
+  redmond:["Frameless Shower Door in Redmond, WA","Glass Railing Replacement in Redmond, WA","Gym Wall Mirror Installation in Redmond, WA"],
+  bellevue:["Glass Railing Replacement in Bellevue, WA","Window Replacement in Bellevue, WA","Bathroom Mirror Installation in Bellevue, WA","Sliding Patio Door Installation in Bellevue, WA"],
+  kirkland:["Corner Shower Enclosure in Kirkland, WA","Modern Front Door Replacement in Kirkland, WA","Staircase Glass Railing Replacement in Kirkland, WA","Milgard Windows Installation in Kirkland, WA","Multi-Slide Patio Door Installation in Kirkland, WA"],
+  sammamish:["Sliding Shower Door in Sammamish, WA","Interior Glass Railing in Sammamish, WA","French Patio Door Installation in Sammamish, WA"],
+  issaquah:["Whole-Home Window Replacement in Issaquah, WA","Framed Bathroom Mirror in Issaquah, WA","Patio Door Replacement in Issaquah, WA"],
+  seattle:["Glass Replacement in Seattle, WA","Frameless Shower Door in Seattle, WA","Energy-Efficient Windows in Seattle, WA","Custom Mirror Wall in Seattle, WA"],
+  renton:["Glass Replacement in Renton, WA"],
+  lynnwood:["Glass Replacement in Lynnwood, WA"],
+};
+
+for (const area of CONFIG.serviceAreas) {
+  const profile = CONFIG.citySeo[area.slug];
+  const serviceSlugs = CITY_SERVICE_PRIORITIES[area.slug];
+  const serviceNames = serviceSlugs.map(slug => CONFIG.services.find(service => service.slug === slug).name);
+  profile.primaryIntent = profile.focus;
+  profile.title = `${serviceNames[0]} in ${area.name}, WA | Elite Glass`;
+  profile.description = `${serviceNames.join(", ")} for ${area.name} homes and businesses, with project guidance, verified measurements, and free estimates.`;
+  profile.featuredImage = CONFIG.services.find(service => service.slug === serviceSlugs[0]).image;
+  profile.updatedAt = "2026-09-21";
+  profile.serviceSlugs = serviceSlugs;
+  profile.projectRefs = CITY_PROJECT_REFS[area.slug] || [];
+  profile.supportingProjectRefs = CITY_SUPPORTING_PROJECT_REFS[area.slug] || [];
+  profile.intro = `${area.name} projects often begin with ${profile.focus.charAt(0).toLowerCase()}${profile.focus.slice(1)} Our Redmond-based team helps customers narrow the scope before products are ordered or custom glass is fabricated.`;
+  profile.estimateReady = `For a ${area.name} estimate, send the property address, photos of the full opening, approximate dimensions, the problem you want to solve, and any access or building-coordination notes. Final custom sizes require verified measurements.`;
+  profile.faqs = [
+    { q: `What should I send for a ${area.name} ${serviceNames[0].toLowerCase()} estimate?`, a: profile.estimateReady },
+    { q: `Which three services are most relevant for ${area.name} projects?`, a: `This page prioritizes ${serviceNames.join(", ")}. Elite Glass & Windows can also discuss the other listed glass and door services when they fit the project.` },
+    { q: `How should I plan measurements for custom work in ${area.name}?`, a: `${profile.focus} Customer measurements help with an initial conversation, but final fabrication follows verified site measurements.` },
+    { q: `Where can I check current ${area.name} permit or project guidance?`, a: `Requirements depend on the property and scope. Check current guidance from ${profile.authority}, especially for changes to openings, egress, guards, structure, or the exterior envelope.` },
+  ];
+}

@@ -110,8 +110,8 @@ function consentDisclosureHTML(idPrefix) {
         By checking this box, I agree to receive project-related SMS messages from ${CONFIG.businessName}.
         Message frequency varies. Message and data rates may apply. Reply STOP to opt out or HELP for help.
         Consent is not a condition of purchase. See our
-        <a href="/privacy-policy.html" class="consent-link">Privacy Policy</a> and
-        <a href="/terms.html" class="consent-link">Terms &amp; Conditions</a>.
+        <a href="/privacy-policy" class="consent-link">Privacy Policy</a> and
+        <a href="/terms" class="consent-link">Terms &amp; Conditions</a>.
       </span>
     </label>`;
 }
@@ -160,7 +160,7 @@ function logoHTML() {
 // ── HEADER ───────────────────────────────────────────────────
 function renderHeader() {
   const servicesDropdown = CONFIG.services.map(s => `
-    <a href="/services/${s.slug}.html" class="dropdown-item">
+    <a href="/services/${s.slug}" class="dropdown-item">
       <div class="dropdown-item-title">${s.name}</div>
       <div class="dropdown-item-desc">${s.desc}</div>
     </a>`).join('');
@@ -172,19 +172,19 @@ function renderHeader() {
       <div class="nav-area-region-title">${region.name}</div>
       <div class="nav-area-region-links">
         ${region.cities.map(name => areaByName.get(name)).filter(Boolean).map(area =>
-          `<a href="/cities/${area.slug}.html" class="area-pill">${area.name}</a>`).join('')}
+          `<a href="/cities/${area.slug}" class="area-pill">${area.name}</a>`).join('')}
       </div>
     </div>`).join('');
 
   const mobileServiceLinks = CONFIG.services.map(s => `
-    <a href="/services/${s.slug}.html" class="mobile-sub-link">${s.name}</a>`).join('');
+    <a href="/services/${s.slug}" class="mobile-sub-link">${s.name}</a>`).join('');
 
   const mobileAreaLinks = serviceRegions.map(region => `
     <div class="mobile-area-region">
       <div class="mobile-area-region-title">${region.name}</div>
       <div class="mobile-area-pills">
         ${region.cities.map(name => areaByName.get(name)).filter(Boolean).map(area =>
-          `<a href="/cities/${area.slug}.html" class="mobile-area-pill">${area.name}</a>`).join('')}
+          `<a href="/cities/${area.slug}" class="mobile-area-pill">${area.name}</a>`).join('')}
       </div>
     </div>`).join('');
 
@@ -197,7 +197,7 @@ function renderHeader() {
       <nav class="desktop-nav">
         <!-- Services dropdown -->
         <div class="nav-dropdown-wrap" id="services-dropdown-wrap">
-          <button class="nav-btn" id="services-btn">
+          <button class="nav-btn" id="services-btn" aria-expanded="false" aria-controls="services-panel">
             Services
             <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
@@ -208,7 +208,7 @@ function renderHeader() {
 
         <!-- Areas dropdown -->
         <div class="nav-dropdown-wrap" id="areas-dropdown-wrap">
-          <button class="nav-btn" id="areas-btn">
+          <button class="nav-btn" id="areas-btn" aria-expanded="false" aria-controls="areas-panel">
             Service Areas
             <svg class="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
@@ -217,9 +217,9 @@ function renderHeader() {
           </div>
         </div>
 
-        <a href="/our-work.html" class="nav-link">Our Work</a>
-        <a href="/installation-process.html" class="nav-link">Installation Process</a>
-        <a href="/about.html" class="nav-link">About</a>
+        <a href="/our-work" class="nav-link">Our Work</a>
+        <a href="/installation-process" class="nav-link">Installation Process</a>
+        <a href="/about" class="nav-link">About</a>
       </nav>
 
       <!-- Desktop CTA -->
@@ -228,11 +228,11 @@ function renderHeader() {
           <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12a19.79 19.79 0 01-3-8.63A2 2 0 012.11 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.27a16 16 0 006.29 6.29l1.45-1.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15.36z"/></svg>
           ${CONFIG.phone}
         </a>
-        <a href="/contact.html" class="btn-primary-sm" data-lead-cta data-original-href="/contact.html">Free Quote</a>
+        <a href="/contact" class="btn-primary-sm" data-lead-cta data-original-href="/contact">Free Quote</a>
       </div>
 
       <!-- Mobile hamburger -->
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-drawer">
         <svg id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-md"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
         <svg id="icon-x" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-md" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -242,7 +242,7 @@ function renderHeader() {
     <div class="mobile-drawer" id="mobile-drawer" style="display:none">
       <div class="container-wide mobile-nav-inner">
         <!-- Services accordion -->
-        <button class="mobile-acc-btn" id="mobile-services-btn">
+        <button class="mobile-acc-btn" id="mobile-services-btn" aria-expanded="false" aria-controls="mobile-services-panel">
           Services
           <svg class="chevron-icon" id="mobile-services-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
@@ -251,7 +251,7 @@ function renderHeader() {
         </div>
 
         <!-- Areas accordion -->
-        <button class="mobile-acc-btn border-top" id="mobile-areas-btn">
+        <button class="mobile-acc-btn border-top" id="mobile-areas-btn" aria-expanded="false" aria-controls="mobile-areas-panel">
           Service Areas
           <svg class="chevron-icon" id="mobile-areas-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
@@ -259,22 +259,23 @@ function renderHeader() {
           <div class="mobile-area-regions">${mobileAreaLinks}</div>
         </div>
 
-        <a href="/our-work.html" class="mobile-nav-link border-top">Our Work</a>
-        <a href="/installation-process.html" class="mobile-nav-link border-top">Installation Process</a>
-        <a href="/about.html" class="mobile-nav-link border-top">About</a>
+        <a href="/our-work" class="mobile-nav-link border-top">Our Work</a>
+        <a href="/installation-process" class="mobile-nav-link border-top">Installation Process</a>
+        <a href="/about" class="mobile-nav-link border-top">About</a>
 
         <div class="mobile-cta-row">
           <a href="tel:${CONFIG.phoneRaw}" class="btn-phone w-full justify-center" data-lead-cta data-original-href="tel:${CONFIG.phoneRaw}">
             <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12a19.79 19.79 0 01-3-8.63A2 2 0 012.11 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.27a16 16 0 006.29 6.29l1.45-1.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15.36z"/></svg>
             ${CONFIG.phone}
           </a>
-          <a href="/contact.html" class="btn-primary w-full text-center" data-lead-cta data-original-href="/contact.html">Get Free Quote</a>
+          <a href="/contact" class="btn-primary w-full text-center" data-lead-cta data-original-href="/contact">Get Free Quote</a>
         </div>
       </div>
     </div>
   </header>`;
 
   document.body.insertAdjacentHTML('afterbegin', html);
+  document.getElementById('static-navigation')?.remove();
   initHeader();
 }
 
@@ -302,6 +303,7 @@ function initHeader() {
     drawer.style.display = isOpen ? 'none' : 'block';
     iconMenu.style.display = isOpen ? 'block' : 'none';
     iconX.style.display = isOpen ? 'none' : 'block';
+    hamburger.setAttribute('aria-expanded', String(!isOpen));
   });
 
   // Desktop dropdowns - hover
@@ -309,8 +311,11 @@ function initHeader() {
     const wrap = document.getElementById(`${key}-dropdown-wrap`);
     const panel = document.getElementById(`${key}-panel`);
     if (!wrap || !panel) return;
-    wrap.addEventListener('mouseenter', () => panel.style.display = 'block');
-    wrap.addEventListener('mouseleave', () => panel.style.display = 'none');
+    const button = document.getElementById(`${key}-btn`);
+    const setOpen = open => { panel.style.display = open ? 'block' : 'none'; button?.setAttribute('aria-expanded', String(open)); };
+    wrap.addEventListener('mouseenter', () => setOpen(true));
+    wrap.addEventListener('mouseleave', () => setOpen(false));
+    button?.addEventListener('click', () => setOpen(panel.style.display === 'none'));
   });
 
   // Mobile accordions
@@ -323,6 +328,7 @@ function initHeader() {
       const isOpen = panel.style.display !== 'none';
       panel.style.display = isOpen ? 'none' : 'block';
       chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+      btn.setAttribute('aria-expanded', String(!isOpen));
     });
   });
 
@@ -332,6 +338,7 @@ function initHeader() {
       drawer.style.display = 'none';
       iconMenu.style.display = 'block';
       iconX.style.display = 'none';
+      hamburger.setAttribute('aria-expanded', 'false');
     });
   });
 }
@@ -339,7 +346,7 @@ function initHeader() {
 // ── FOOTER ───────────────────────────────────────────────────
 function renderFooter() {
   const serviceLinks = CONFIG.services.map(s =>
-    `<li><a href="/services/${s.slug}.html">${s.name}</a></li>`).join('');
+    `<li><a href="/services/${s.slug}">${s.name}</a></li>`).join('');
 
   const footerAreaByName = new Map(CONFIG.serviceAreas.map(area => [area.name, area]));
   const footerRegions = CONFIG.serviceRegions || [{ name: 'All Service Areas', cities: CONFIG.serviceAreas.map(area => area.name) }];
@@ -348,7 +355,7 @@ function renderFooter() {
       <div class="footer-region-title">${region.name}</div>
       <div class="footer-region-links">
         ${region.cities.map(name => footerAreaByName.get(name)).filter(Boolean).map(area =>
-          `<a href="/cities/${area.slug}.html">${area.name}</a>`).join('<span aria-hidden="true">&bull;</span>')}
+          `<a href="/cities/${area.slug}">${area.name}</a>`).join('<span aria-hidden="true">&bull;</span>')}
       </div>
     </div>`).join('');
 
@@ -417,12 +424,12 @@ function renderFooter() {
       <div class="footer-col">
         <div class="footer-col-title">Company</div>
         <ul class="footer-links">
-          <li><a href="/about.html">About Us</a></li>
-          <li><a href="/installation-process.html">Installation Process</a></li>
-          <li><a href="/our-work.html">Our Work</a></li>
-          <li><a href="/contact.html" data-lead-cta data-original-href="/contact.html">Contact</a></li>
-          <li><a href="/privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="/terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="/about">About Us</a></li>
+          <li><a href="/installation-process">Installation Process</a></li>
+          <li><a href="/our-work">Our Work</a></li>
+          <li><a href="/contact" data-lead-cta data-original-href="/contact">Contact</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms &amp; Conditions</a></li>
         </ul>
       </div>
     </div>
@@ -509,6 +516,15 @@ function initProjectChat() {
   const progressBar = document.getElementById('chat-progress-bar');
   let currentStep = 0;
   let returnFocus = fab;
+  function loadTurnstile() {
+    if (!CONFIG.leadCapture.turnstileSiteKey || document.querySelector('[data-turnstile-loader]')) return;
+    const script = document.createElement('script');
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+    script.async = true;
+    script.defer = true;
+    script.dataset.turnstileLoader = 'true';
+    document.head.appendChild(script);
+  }
   if (localStorage.getItem('elite_glass_chat_submitted') === '1') form.innerHTML = '<p class="text-center text-muted" style="padding:1rem">We already have your project details. A team member will follow up.</p>';
   function setStep(index) {
     if (!steps.length) return;
@@ -519,7 +535,7 @@ function initProjectChat() {
     const firstField = steps[currentStep].querySelector('input:not([type="hidden"]), select, textarea'); if (!panel.hidden && firstField) firstField.focus();
   }
   function openPanel(trigger = document.activeElement) {
-    returnFocus = trigger instanceof HTMLElement ? trigger : fab; panel.hidden = false; fab.setAttribute('aria-expanded', 'true'); iconMsg.hidden = true; iconX.hidden = false; document.body.classList.add('chat-open'); setStep(currentStep);
+    returnFocus = trigger instanceof HTMLElement ? trigger : fab; panel.hidden = false; fab.setAttribute('aria-expanded', 'true'); iconMsg.hidden = true; iconX.hidden = false; document.body.classList.add('chat-open'); loadTurnstile(); setStep(currentStep);
   }
   function closePanel() {
     panel.hidden = true; fab.setAttribute('aria-expanded', 'false'); iconMsg.hidden = false; iconX.hidden = true; document.body.classList.remove('chat-open'); if (returnFocus && document.contains(returnFocus)) returnFocus.focus();
@@ -554,7 +570,6 @@ function initProjectChat() {
     }
   });
   setStep(0);
-  if (CONFIG.leadCapture.turnstileSiteKey) { const script = document.createElement('script'); script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js'; script.async = true; script.defer = true; script.dataset.turnstileLoader = 'true'; document.head.appendChild(script); }
   setTimeout(() => { fab.classList.add('chat-bounce'); setTimeout(() => fab.classList.remove('chat-bounce'), 1100); }, 2000);
 }
 
@@ -584,7 +599,7 @@ function buildLeadForm(containerId, opts = {}) {
   if (isChatOnlyMode()) {
     container.innerHTML = `
       <div class="inline-estimate-cta">
-        <a href="/contact.html" class="btn-primary btn-lg" data-lead-cta data-original-href="/contact.html">Get Free Estimate</a>
+        <a href="/contact" class="btn-primary btn-lg" data-lead-cta data-original-href="/contact">Get Free Estimate</a>
       </div>`;
     return;
   }
@@ -760,7 +775,7 @@ function ctaSectionHTML({ title, subtitle }) {
       <h2 class="cta-title">${title}</h2>
       ${subtitle ? `<p class="cta-subtitle">${subtitle}</p>` : ''}
       <div class="cta-btns">
-        <a href="/contact.html" class="btn-primary btn-lg" data-lead-cta data-original-href="/contact.html">Get My Free Quote</a>
+        <a href="/contact" class="btn-primary btn-lg" data-lead-cta data-original-href="/contact">Get My Free Quote</a>
         <a href="tel:${CONFIG.phoneRaw}" class="btn-outline btn-lg" data-lead-cta data-original-href="tel:${CONFIG.phoneRaw}">
           <svg class="icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.09 12a19.79 19.79 0 01-3-8.63A2 2 0 012.11 1.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.27a16 16 0 006.29 6.29l1.45-1.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15.36z"/></svg>
           Call ${CONFIG.phone}
@@ -817,7 +832,7 @@ function mapEmbedHTML(query) {
 function serviceCardHTML(service) {
   const image640 = service.image.replace('-960.webp', '-640.webp');
   return `
-  <a href="/services/${service.slug}.html" class="service-card">
+  <a href="/services/${service.slug}" class="service-card">
     <div class="service-card-img-wrap">
       <img src="${service.image}" srcset="${image640} 640w, ${service.image} 960w" sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw" width="960" height="640" alt="${service.name} project by ${CONFIG.businessName}" class="service-card-img" loading="lazy" decoding="async" />
       <div class="service-card-overlay"></div>

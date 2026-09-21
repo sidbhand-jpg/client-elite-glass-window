@@ -41,6 +41,7 @@
   <link rel="stylesheet" href="styles.css?v=20260921-install2" />
 </head>
 <body>
+<main>
 
 <!-- ── PORTFOLIO HERO ─────────────────────────────────────────── -->
 <section class="page-hero" style="background-color:var(--color-secondary); padding-bottom: 5rem;">
@@ -79,6 +80,7 @@
 
 <!-- ── CTA ────────────────────────────────────────────────────── -->
 <div id="portfolio-cta"></div>
+</main>
 
 <!-- ── LIGHTBOX ──────────────────────────────────────────────── -->
 <div id="lightbox" class="lightbox" style="display:none">
@@ -196,7 +198,7 @@ false && document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  document.title = `Our Work | Portfolio | ${CONFIG.businessName}`;
+  document.title = CONFIG.seo.pages['our-work'].title;
   const escapeHTML = (value) => String(value ?? '').replace(/[&<>"']/g, char => ({
     '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
   })[char]);
@@ -279,28 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('portfolio-grid').innerHTML = projects.map(renderProject).join('');
   }
   renderGrid('all');
-
-  const portfolioJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "itemListElement": PROJECTS.map((project, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "item": {
-        "@type": "CreativeWork",
-        "url": `${CONFIG.siteUrl}/our-work.html#${project.id}`,
-        "name": project.title,
-        "description": project.summary,
-        "dateCreated": project.completed,
-        "locationCreated": { "@type": "Place", "name": project.location },
-        "image": [project, ...project.process, ...project.related].map(image => absoluteImageUrl(image.img))
-      }
-    }))
-  };
-  const ldScript = document.createElement('script');
-  ldScript.type = 'application/ld+json';
-  ldScript.textContent = JSON.stringify(portfolioJsonLd);
-  document.head.appendChild(ldScript);
 
   document.querySelector('.portfolio-filter-inner').addEventListener('click', (event) => {
     const button = event.target.closest('.filter-btn');

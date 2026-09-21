@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="../styles.css?v=20260921-install2" />
 </head>
 <body>
+<main>
 
 <!-- ── CONTACT HERO ───────────────────────────────────────────── -->
 <section class="page-hero" style="background-color:var(--color-secondary); padding-bottom: 5rem;">
@@ -51,8 +52,8 @@
 
     <!-- Left: info cards -->
     <div class="contact-info-col">
-      <h2 class="contact-info-heading">Talk to a Home Services Specialist</h2>
-      <p class="contact-info-sub">A real glass and window specialist reviews every call and form submission.</p>
+      <h2 class="contact-info-heading">Talk to the Glass and Window Team</h2>
+      <p class="contact-info-sub">Start in the approved project chat. Share photos, the address, approximate dimensions, and what you want to change so the in-house team can guide the next step.</p>
 
       <div class="contact-cards">
         <!-- Phone -->
@@ -62,7 +63,7 @@
           </div>
           <div>
             <div class="contact-card-label">Call Us</div>
-            <div class="contact-card-value" id="contact-phone-display"></div>
+            <div class="contact-card-value" id="contact-phone-display">(425) 890-8233</div>
             <div class="contact-card-note">Use the project chat or call the team</div>
           </div>
         </a>
@@ -74,7 +75,7 @@
           </div>
           <div>
             <div class="contact-card-label">Email Us</div>
-            <div class="contact-card-value" id="contact-email-display"></div>
+            <div class="contact-card-value" id="contact-email-display">sales@eliteglassandwindow.com</div>
             <div class="contact-card-note">Share photos and project details by email</div>
           </div>
         </a>
@@ -86,8 +87,8 @@
           </div>
           <div>
             <div class="contact-card-label">Service Area</div>
-            <div class="contact-card-value" id="contact-city-display"></div>
-            <div class="contact-card-note" id="contact-license-display"></div>
+            <div class="contact-card-value" id="contact-city-display">Redmond</div>
+            <div class="contact-card-note" id="contact-license-display">4028 148th Ave NE, Redmond, WA 98052 — contact us before visiting</div>
           </div>
         </div>
       </div>
@@ -126,10 +127,12 @@
     <div id="contact-map-header"></div>
     <div id="contact-map"></div>
   </div>
-</section><script src="../components.js?v=20260921-install2"></script><script src="/generic-runtime.js"></script>
+</section>
+</main>
+<script src="../components.js?v=20260921-install2"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  document.title = `Contact | Get a Free Quote | ${CONFIG.businessName}`;
+  document.title = CONFIG.seo.pages.contact.title;
 
   // Fill contact info
   const phoneCard = document.getElementById('contact-phone-card');

@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="../styles.css?v=20260921-install2" />
 </head>
 <body>
+<main>
 
 <!-- ── CITY HERO ─────────────────────────────────────────────── -->
 <section class="page-hero city-hero" id="city-hero">
@@ -42,13 +43,13 @@
       <h1 class="city-headline" id="city-headline"></h1>
       <p class="city-sub" id="city-sub"></p>
       <div class="city-service-pills" id="city-service-pills"></div>
-      <div class="city-rating">
+      <div class="city-rating" style="display:none">
         <div class="stars" id="city-stars"></div>
         <span class="city-rating-text" id="city-rating-text"></span>
       </div>
     </div>
     <div class="city-form-col">
-      <div id="city-lead-form"></div>
+      <div id="city-lead-form"><div class="inline-estimate-cta"><a href="/contact" class="btn-primary btn-lg" data-lead-cta data-original-href="/contact">Get Free Estimate</a></div></div>
     </div>
   </div>
 </section>
@@ -61,12 +62,16 @@
   </div>
 </section>
 
+<!-- CITY SERVICE PRIORITIES -->
+<!-- CITY PROJECT PROOF -->
+
 <!-- ── MAP ───────────────────────────────────────────────────── -->
 <section class="section-y bg-slate-50 city-planning-section">
   <div class="container-wide" style="max-width:56rem;margin-inline:auto">
     <div class="section-eyebrow">Local Project Planning</div>
     <h2 class="section-title text-navy">Planning Glass or Window Work in %%CITY_NAME%%</h2>
     <p class="city-local-copy">%%CITY_FOCUS%%</p>
+    <p class="city-local-copy">%%ESTIMATE_READY%%</p>
     <p class="city-local-copy">Elite Glass &amp; Windows serves %%CITY_NAME%% as part of its %%CITY_REGION%% service area. Product selection and final fabrication follow verified measurements and the written project scope.</p>
     <a class="city-authority-link" href="%%CITY_AUTHORITY_URL%%" target="_blank" rel="noopener noreferrer">Check current project guidance from %%CITY_AUTHORITY%%</a>
   </div>
@@ -96,7 +101,9 @@
 </section>
 
 <!-- ── CTA ────────────────────────────────────────────────────── -->
-<div id="city-cta"></div><script src="../components.js?v=20260921-install2"></script><script src="/generic-runtime.js"></script>
+<div id="city-cta"></div>
+</main>
+<script src="../components.js?v=20260921-install2"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
   // Read slug from URL: /your-city.html -> your-city
@@ -110,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <h1 style="font-family:var(--font-display);font-size:2rem;font-weight:700">Location Not Found</h1>
         <p style="margin-top:1rem;color:rgba(255,255,255,0.8)">
           We may still serve your area!
-          <a href="/contact.html" data-lead-cta data-original-href="/contact.html" style="color:var(--color-primary);text-decoration:underline">Contact us</a> to find out.
+          <a href="/contact" data-lead-cta data-original-href="/contact" style="color:var(--color-primary);text-decoration:underline">Contact us</a> to find out.
         </p>
       </div>`;
     return;
@@ -119,20 +126,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const countyStr = area.county ? `, ${area.county} County` : '';
 
   // Meta
-  document.title = `Glass & Window Services in ${area.name}, ${CONFIG.stateShort} | ${CONFIG.businessName}`;
+  document.title = profile.title;
   document.querySelector('meta[name="description"]').setAttribute('content',
-    `${CONFIG.businessName} provides window replacement, shower doors, custom glass, mirrors, railings, doors, and commercial glass in ${area.name}, ${CONFIG.stateShort}.`
+    profile.description
   );
 
   // Hero
   document.getElementById('city-eyebrow').textContent = `${CONFIG.businessName} · ${area.name}, ${CONFIG.stateShort}`;
   document.getElementById('city-headline').innerHTML = `Glass & Window Services in <span style="color:var(--color-primary)">${area.name}</span>`;
-  document.getElementById('city-sub').innerHTML = `Custom-measured glass, windows, doors, showers, mirrors, railings, and commercial solutions for ${area.name} homes and businesses.`;
+  document.getElementById('city-sub').textContent = profile.intro;
   document.querySelector('.city-rating').style.display = 'none';
 
   // Service pills
-  document.getElementById('city-service-pills').innerHTML = CONFIG.services.map(s => `
-    <a href="/services/${s.slug}.html" class="city-service-pill">${s.name}</a>`).join('');
+  document.getElementById('city-service-pills').innerHTML = profile.serviceSlugs.map(serviceSlug => CONFIG.services.find(service => service.slug === serviceSlug)).map(s => `
+    <a href="/services/${s.slug}" class="city-service-pill">${s.name}</a>`).join('');
 
   // Lead form
   buildLeadForm('city-lead-form', { variant: 'card', showCity: true, showMessage: false });
@@ -142,13 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     eyebrow: area.name,
     title: `Why ${area.name} Homeowners & Businesses Choose ${CONFIG.businessName}`
   });
-  const whyPoints = [
-    `Redmond-based team serving ${area.name}`,
-    "Residential and commercial glass expertise",
-    "Clear estimates and practical recommendations",
-    "Custom measurement and product guidance",
-    "Professional installation and final walkthrough",
-  ];
+  const whyPoints = CONFIG.story.proofPoints;
   document.getElementById('city-why-grid').innerHTML = whyPoints.map(item => `
     <div class="city-why-item">
       <svg class="why-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
@@ -164,28 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('city-map').innerHTML = mapEmbedHTML(`${area.name} ${CONFIG.stateShort} home services contractor`);
 
   // FAQs
-  const cityFaqs = [
-    {
-      q: `Do you provide glass and window services in ${area.name}?`,
-      a: `Yes. ${area.name} is within our listed Greater Seattle service area. Availability depends on the project type, address, and schedule.`,
-    },
-    {
-      q: `Which services are available in ${area.name}?`,
-      a: `We provide window and glass replacement, shower doors, entry and patio doors, glass railings, mirrors, storefront glass, and custom fabricated glass.`,
-    },
-    {
-      q: `Can I visit the showroom before a ${area.name} project?`,
-      a: `Yes. Our showroom is at ${CONFIG.address}. Contact the team before visiting to confirm current hours and relevant product samples.`,
-    },
-    {
-      q: `How do I request an estimate in ${area.name}?`,
-      a: `Share the address, product or glass type, approximate dimensions, photos, and any timeline constraints. Final custom fabrication requires verified measurements.`,
-    },
-    {
-      q: `Where can I check permit requirements for a ${area.name} project?`,
-      a: `Requirements depend on the property and scope. Check current guidance from ${profile.authority} before work that changes an opening, egress, a guard, structure, or the exterior envelope.`,
-    },
-  ];
+  const cityFaqs = profile.faqs;
 
   document.getElementById('city-faq-header').innerHTML = sectionHeaderHTML({
     eyebrow: `${area.name} FAQ`,
@@ -252,6 +232,16 @@ document.addEventListener('DOMContentLoaded', () => {
 .city-nearby-links { display:flex; flex-wrap:wrap; gap:0.75rem; margin-top:1.25rem; }
 .city-nearby-links a { min-height:44px; display:inline-flex; align-items:center; padding:0.65rem 1rem; border:1px solid var(--color-slate-200); border-radius:999px; color:var(--color-navy); font-weight:700; text-decoration:none; }
 .city-nearby-links a:hover, .city-nearby-links a:focus-visible { border-color:var(--color-primary); color:var(--color-primary); }
+.city-project-proof { display:grid; gap:1.5rem; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); margin-top:2rem; }
+.city-project-proof article { background:#fff; border:1px solid var(--color-slate-200); border-radius:1rem; overflow:hidden; padding-bottom:1.25rem; }
+.city-project-proof img { width:100%; height:auto; aspect-ratio:16/10; object-fit:cover; }
+.city-project-proof h3,.city-project-proof p,.city-project-proof a { display:block; margin:1rem 1.25rem 0; }
+.city-priority-grid { display:grid; gap:1.5rem; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); margin-top:2rem; }
+.city-priority-card { background:#fff; border:1px solid var(--color-slate-200); border-radius:1rem; overflow:hidden; }
+.city-priority-card img { width:100%; height:auto; aspect-ratio:3/2; object-fit:cover; }
+.city-priority-card div { padding:1.25rem; }
+.city-priority-card h3 { margin-bottom:.5rem; }
+.city-priority-card a { min-height:44px; display:inline-flex; align-items:center; margin-top:.75rem; color:var(--color-primary); font-weight:700; }
 </style>
 
 </body>

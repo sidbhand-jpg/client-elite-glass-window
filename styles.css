@@ -1079,3 +1079,7 @@ h3 { font-size: 1.25rem; font-weight: 700; }
   .mobile-cta-row .btn { min-height: 3rem; }
   .chat-fab { width: 3.5rem; height: 3.5rem; right: 1rem; bottom: 1rem; }
 }
+/* Crawlable initial navigation; the enhanced header replaces it when JS runs. */
+.static-navigation { position:absolute; inset-inline:0; top:0; z-index:60; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:.25rem 1rem; min-height:64px; padding:.75rem 1rem; background:#fff; border-bottom:1px solid #e2e8f0; }
+.static-navigation a { min-height:44px; display:inline-flex; align-items:center; color:#1c2333; font-weight:700; text-decoration:none; }
+.static-navigation a:focus-visible { outline:3px solid #004080; outline-offset:3px; }

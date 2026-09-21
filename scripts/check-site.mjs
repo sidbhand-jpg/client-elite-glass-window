@@ -18,12 +18,26 @@ assert.equal(config.services.length, 8);
 assert.equal(config.serviceAreas.length, 37);
 assert.equal(Object.keys(config.citySeo).length, 37);
 assert.ok(!('webhookUrl' in config), 'A webhook URL must never be shipped in browser config.');
+assert.equal(config.seo.home.primaryIntent, 'glass company in Redmond');
+for (const service of config.services) {
+  for (const field of ['primaryIntent', 'title', 'description', 'featuredImage', 'updatedAt', 'decisionGuide', 'process']) assert.ok(service[field], `${service.slug}: missing ${field}`);
+}
+for (const area of config.serviceAreas) {
+  const profile = config.citySeo[area.slug];
+  for (const field of ['primaryIntent', 'title', 'description', 'intro', 'estimateReady', 'updatedAt']) assert.ok(profile[field], `${area.slug}: missing ${field}`);
+  assert.equal(profile.serviceSlugs.length, 3, `${area.slug}: must prioritize three services`);
+  assert.equal(profile.faqs.length, 4, `${area.slug}: must have four local FAQs`);
+}
 
 const sitemap = await read('sitemap.xml');
 const sitemapUrls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
 assert.equal(sitemapUrls.length, 52);
 assert.equal(new Set(sitemapUrls).size, 52);
 assert.ok(!sitemap.includes('/404.html'));
+assert.ok(!sitemapUrls.some(url => url.endsWith('.html')), 'Canonical sitemap URLs must match Cloudflare Pages extensionless responses.');
+assert.equal((sitemap.match(/<lastmod>/g) || []).length, 52);
+assert.equal((sitemap.match(/<image:image>/g) || []).length, 52);
+assert.ok(!sitemap.includes(new Date().toISOString().slice(0, 10)) || config.seo.updatedAt === new Date().toISOString().slice(0, 10), 'Sitemap dates must come from content metadata, not build time.');
 
 const generated = [
   'index.html', 'about.html', 'installation-process.html', 'contact.html', 'our-work.html', 'privacy-policy.html', 'terms.html', '404.html',
@@ -32,16 +46,48 @@ const generated = [
 ];
 assert.equal(generated.length, 53);
 
+const titles = new Set();
+const descriptions = new Set();
+const canonicals = new Set();
+const stripExecutable = html => html.replace(/<script\b[\s\S]*?<\/script>/gi, '').replace(/<style\b[\s\S]*?<\/style>/gi, '');
+
 for (const relative of generated) {
   const html = await read(relative);
+  const visibleHtml = stripExecutable(html);
   assert.match(html, /<title>[^<]+<\/title>/, `${relative}: missing title`);
   assert.match(html, /<meta name="description" content="[^"]+"/, `${relative}: missing description`);
   assert.match(html, /<link rel="canonical" href="https:\/\/eliteglassandwindow\.com\//, `${relative}: missing canonical`);
   assert.match(html, /property="og:image"/, `${relative}: missing social image`);
   assert.match(html, /name="twitter:card" content="summary_large_image"/, `${relative}: missing Twitter metadata`);
   assert.ok(!/%%[A-Z_]+%%/.test(html), `${relative}: unresolved generator token`);
+  if (relative !== '404.html') {
+    const title = html.match(/<title>([^<]+)<\/title>/)[1];
+    const description = html.match(/<meta name="description" content="([^"]+)"/)[1];
+    const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)[1];
+    const expectedPath = relative === 'index.html' ? '/' : `/${relative.replace(/\.html$/, '')}`;
+    assert.equal(canonical, `https://eliteglassandwindow.com${expectedPath}`, `${relative}: canonical must match its 200 route`);
+    assert.ok(!titles.has(title), `${relative}: duplicate title ${title}`);
+    assert.ok(!descriptions.has(description), `${relative}: duplicate description`);
+    assert.ok(!canonicals.has(canonical), `${relative}: duplicate canonical`);
+    titles.add(title); descriptions.add(description); canonicals.add(canonical);
+    assert.equal((visibleHtml.match(/<h1\b/gi) || []).length, 1, `${relative}: must contain one visible H1 in raw HTML`);
+    assert.match(visibleHtml, /<main(?:\s|>)/, `${relative}: missing main landmark`);
+    assert.match(visibleHtml, /id="static-navigation"/, `${relative}: missing crawlable initial navigation`);
+    assert.ok(!/href="\/(?:about|installation-process|contact|our-work|privacy-policy|terms|services\/[^"#?]+|cities\/[^"#?]+)\.html/.test(visibleHtml), `${relative}: internal links must use canonical extensionless routes`);
+    const jsonLdBlocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)];
+    assert.equal(jsonLdBlocks.length, 1, `${relative}: expected one generated JSON-LD graph`);
+    const graph = JSON.parse(jsonLdBlocks[0][1]);
+    assert.ok(Array.isArray(graph['@graph']), `${relative}: JSON-LD must use @graph`);
+    assert.ok(graph['@graph'].some(node => node['@type'] === 'WebPage' || ['AboutPage','ContactPage','CollectionPage'].includes(node['@type'])), `${relative}: missing page schema`);
+  }
   for (const image of html.matchAll(/<img\b[^>]*>/gi)) {
     assert.match(image[0], /\balt="[^"]*"/, `${relative}: image missing alt text`);
+  }
+  for (const image of visibleHtml.matchAll(/<img\b[^>]*\bsrc="([^"]*)"[^>]*>/gi)) {
+    const src = image[1];
+    if (!src || /^(https?:|data:)/i.test(src)) continue;
+    const localPath = src.startsWith('/') ? path.join(root, src.slice(1)) : path.resolve(path.dirname(path.join(root, relative)), src);
+    await fs.access(localPath).catch(() => assert.fail(`${relative}: missing image ${src}`));
   }
   for (const href of html.matchAll(/href="([^"]+)"/gi)) {
     const value = href[1];
@@ -65,6 +111,15 @@ for (const area of config.serviceAreas) {
   assert.match(html, /city-nearby-links/);
   assert.match(html, /BreadcrumbList/);
   assert.match(html, /FAQPage/);
+  assert.match(stripExecutable(html), new RegExp(config.citySeo[area.slug].intro.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').slice(0, 60)));
+  assert.equal((stripExecutable(html).match(/class="city-service-pill"/g) || []).length, 3, `${area.slug}: raw HTML must contain three priority service links`);
+  for (const faq of config.citySeo[area.slug].faqs) assert.ok(stripExecutable(html).includes(faq.q.replaceAll('&', '&amp;')), `${area.slug}: missing visible FAQ`);
+}
+assert.equal(new Set(config.serviceAreas.map(area => config.citySeo[area.slug].intro)).size, 37, 'City introductions must be distinct.');
+assert.equal(new Set(config.serviceAreas.map(area => JSON.stringify(config.citySeo[area.slug].faqs.map(faq => faq.q)))).size, 37, 'City FAQ sets must be distinct.');
+for (const slug of ['redmond','bellevue','kirkland','sammamish','issaquah','bothell','seattle','renton','lynnwood']) {
+  assert.ok(config.citySeo[slug].projectRefs.length + config.citySeo[slug].supportingProjectRefs.length > 0, `${slug}: missing verified project references`);
+  assert.match(await read(`cities/${slug}.html`), /city-project-proof/, `${slug}: missing visible project proof`);
 }
 
 for (const service of config.services) {
@@ -73,7 +128,20 @@ for (const service of config.services) {
   assert.match(html, /BreadcrumbList/);
   assert.match(html, /FAQPage/);
   assert.ok(service.faqs.length >= 4, `${service.slug}: needs at least four useful FAQs`);
+  assert.ok(stripExecutable(html).includes('How to choose the right scope'), `${service.slug}: missing static decision guide`);
+  assert.ok(stripExecutable(html).includes('What happens next'), `${service.slug}: missing static process`);
 }
+
+const robots = await read('robots.txt');
+for (const agent of ['*', 'Googlebot', 'Bingbot', 'OAI-SearchBot']) assert.match(robots, new RegExp(`User-agent: ${agent === '*' ? '\\*' : agent}\\nAllow: /`));
+assert.match(robots, /Sitemap: https:\/\/eliteglassandwindow\.com\/sitemap\.xml/);
+const redirects = await read('_redirects');
+for (const legacy of ['/elite/about-us/', '/elite/contact/', '/elite/installation-process/', '/elite/product/windows/', '/elite/projects/window-replacement/']) assert.ok(redirects.includes(legacy), `Missing redirect for ${legacy}`);
+for (const project of loadConst(await read('PROJECTS.js'), 'PROJECTS')) assert.ok(redirects.includes(`#${project.id}`), `Missing legacy redirect to #${project.id}`);
+
+const headers = await read('_headers');
+assert.match(headers, /https:\/\/:project\.pages\.dev\/\*[\s\S]+X-Robots-Tag: noindex, nofollow/);
+assert.match(headers, /https:\/\/:version\.:project\.pages\.dev\/\*[\s\S]+X-Robots-Tag: noindex, nofollow/);
 
 const components = await read('components.js');
 assert.match(components, /if \(isChatOnlyMode\(\)\)[\s\S]+inline-estimate-cta[\s\S]+Get Free Estimate/);
@@ -82,6 +150,7 @@ assert.match(components, /form\.elements\.sms_consent\.checked/);
 assert.match(components, /data-lead-cta/);
 assert.ok(!components.includes('mode: \'no-cors\''));
 assert.ok(!components.includes('CONFIG.webhookUrl'));
+assert.ok(!/href="\/[^"]+\.html/.test(components), 'Enhanced navigation must link directly to canonical routes.');
 
 const homepage = await read('index.html');
 assert.ok(!homepage.includes('hero-lead-form'), 'Homepage hero must not contain an inline form.');
@@ -171,4 +240,4 @@ try {
   globalThis.fetch = originalFetch;
 }
 
-console.log(`Validated ${generated.length} generated pages, ${sitemapUrls.length} sitemap URLs, both consent states, and API rejection paths.`);
+console.log(`Validated ${generated.length} pages, ${sitemapUrls.length} sitemap URLs, unique metadata, static content, schema graphs, crawler rules, redirects, and fail-closed lead paths.`);
