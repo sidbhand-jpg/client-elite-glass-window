@@ -151,7 +151,18 @@ assert.match(components, /form\.elements\.sms_consent\.checked/);
 assert.match(components, /data-lead-cta/);
 assert.ok(!components.includes('mode: \'no-cors\''));
 assert.ok(!components.includes('CONFIG.webhookUrl'));
+assert.match(components, /src="\/logo-hero\.svg\?v=20260922" alt="\$\{CONFIG\.businessName\}"/, 'The shared header must use the white-text logo on every page.');
+assert.doesNotMatch(components, /logoSrc|src="\$\{logoSrc\}"/, 'Header logo selection must not fall back to the dark-text logo.');
+assert.match(components, /normalizedPath === '\/' \|\| normalizedPath === '\/index\.html'/, 'Only the homepage may use the transparent header treatment.');
+assert.match(components, /header\.classList\.toggle\('menu-open', !isOpen\)/, 'Opening the mobile menu must make the header opaque.');
+assert.match(components, /header\.classList\.remove\('menu-open'\)/, 'Closing from a mobile navigation link must restore the header state.');
 assert.ok(!/href="\/[^"]+\.html/.test(components), 'Enhanced navigation must link directly to canonical routes.');
+assert.equal(config.leadCapture.turnstileSiteKey, '0x4AAAAAAFAAJqlP8Ya8d_3L', 'Website chat must use the production Turnstile widget.');
+
+const styles = await read('styles.css');
+assert.match(styles, /\.site-header \{[\s\S]*?background-color: var\(--color-secondary\);[\s\S]*?box-shadow: var\(--shadow-xl\);/, 'Inner-page headers must be opaque by default.');
+assert.match(styles, /\.site-header--home \{[\s\S]*?background-color: transparent;[\s\S]*?box-shadow: none;/, 'Only the homepage may start with a transparent header.');
+assert.match(styles, /\.site-header\.menu-open[\s\S]*?background-color: var\(--color-secondary\);/, 'An open mobile menu must force an opaque header.');
 
 const homepage = await read('index.html');
 assert.ok(!homepage.includes('hero-lead-form'), 'Homepage hero must not contain an inline form.');
@@ -175,9 +186,9 @@ assert.doesNotMatch(favicon, /<rect\b/, 'Favicon must not contain a background r
 const heroLogo = await read('logo-hero.svg');
 assert.match(heroLogo, /Elite Glass &amp; Window/);
 assert.match(heroLogo, /fill="#ffffff"/);
-assert.match(components, /logo-hero\.svg\?v=20260921/);
+assert.match(components, /logo-hero\.svg\?v=20260922/);
 assert.doesNotMatch(components, /class="btn-phone" data-lead-cta/, 'Phone buttons must initiate calls instead of opening chat.');
-assert.match(homepage, /components\.js\?v=20260921-hero1/, 'Homepage must load the cache-busted hero runtime.');
+assert.match(homepage, /components\.js\?v=20260922-nav1/, 'Homepage must load the cache-busted navigation runtime.');
 for (const service of config.services) {
   assert.match(service.image, /^\/public\/service-luxury\/.+-960\.webp$/);
   await fs.access(path.join(root, service.image.slice(1)));

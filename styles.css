@@ -169,10 +169,16 @@ h3 { font-size: 1.25rem; font-weight: 700; }
   right: 0;
   padding-top: 1px;
   z-index: 50;
-  background-color: transparent;
+  background-color: var(--color-secondary);
+  box-shadow: var(--shadow-xl);
   transition: background-color 0.3s, box-shadow 0.3s;
 }
-.site-header.scrolled {
+.site-header--home {
+  background-color: transparent;
+  box-shadow: none;
+}
+.site-header.scrolled,
+.site-header.menu-open {
   background-color: var(--color-secondary);
   box-shadow: var(--shadow-xl);
 }

@@ -152,16 +152,15 @@ function renderStars(count = 5) {
 
 // ── Logo SVG ─────────────────────────────────────────────────
 function logoHTML() {
-  const isHomepage = window.location.pathname === '/' || window.location.pathname === '/index.html';
-  const logoSrc = isHomepage ? '/logo-hero.svg?v=20260921' : '/logo.svg';
-  const logoAlt = isHomepage ? 'Elite Glass & Window' : CONFIG.businessName;
   return `<a href="/" class="logo-link" aria-label="${CONFIG.businessName} home">
-    <img src="${logoSrc}" alt="${logoAlt}" class="brand-logo-img" />
+    <img src="/logo-hero.svg?v=20260922" alt="${CONFIG.businessName}" class="brand-logo-img" />
   </a>`;
 }
 
 // ── HEADER ───────────────────────────────────────────────────
 function renderHeader() {
+  const normalizedPath = window.location.pathname.replace(/\/+$/, '') || '/';
+  const isHomepage = normalizedPath === '/' || normalizedPath === '/index.html';
   const servicesDropdown = CONFIG.services.map(s => `
     <a href="/services/${s.slug}" class="dropdown-item">
       <div class="dropdown-item-title">${s.name}</div>
@@ -192,7 +191,7 @@ function renderHeader() {
     </div>`).join('');
 
   const html = `
-  <header class="site-header" id="site-header">
+  <header class="site-header${isHomepage ? ' site-header--home' : ''}" id="site-header">
     <div class="container-wide header-inner">
       ${logoHTML()}
 
@@ -304,6 +303,7 @@ function initHeader() {
   hamburger.addEventListener('click', () => {
     const isOpen = drawer.style.display !== 'none';
     drawer.style.display = isOpen ? 'none' : 'block';
+    header.classList.toggle('menu-open', !isOpen);
     iconMenu.style.display = isOpen ? 'block' : 'none';
     iconX.style.display = isOpen ? 'none' : 'block';
     hamburger.setAttribute('aria-expanded', String(!isOpen));
@@ -339,6 +339,7 @@ function initHeader() {
   drawer.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       drawer.style.display = 'none';
+      header.classList.remove('menu-open');
       iconMenu.style.display = 'block';
       iconX.style.display = 'none';
       hamburger.setAttribute('aria-expanded', 'false');

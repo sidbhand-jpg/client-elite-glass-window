@@ -10,7 +10,7 @@
 const fs   = require('fs');
 const path = require('path');
 const vm   = require('vm');
-const RUNTIME_ASSET_VERSION = '20260921-hero1';
+const RUNTIME_ASSET_VERSION = '20260922-nav1';
 
 // ── Load CONFIG ──────────────────────────────────────────────
 const configSrc = fs.readFileSync(path.join(__dirname, 'CONFIG.js'), 'utf8');

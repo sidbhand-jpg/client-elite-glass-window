@@ -33,7 +33,7 @@ const CONFIG = {
   leadCaptureMode: "chat_only",
   leadCapture: {
     endpoint: "/api/chat-lead",
-    turnstileSiteKey: "0x4AAAAAAE7E54DBfycoeKkF",
+    turnstileSiteKey: "0x4AAAAAAFAAJqlP8Ya8d_3L",
   },
   metaPixelId: "",
   clarityProjectId: "yae0ijptel",
