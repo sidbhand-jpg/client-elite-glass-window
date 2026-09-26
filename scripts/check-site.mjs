@@ -38,7 +38,16 @@ assert.ok(!sitemap.includes('/404.html'));
 assert.ok(!sitemapUrls.some(url => url.endsWith('.html')), 'Canonical sitemap URLs must match Cloudflare Pages extensionless responses.');
 assert.equal((sitemap.match(/<lastmod>/g) || []).length, 52);
 assert.equal((sitemap.match(/<image:image>/g) || []).length, 52);
-assert.ok(!sitemap.includes(new Date().toISOString().slice(0, 10)) || config.seo.updatedAt === new Date().toISOString().slice(0, 10), 'Sitemap dates must come from content metadata, not build time.');
+for (const match of sitemap.matchAll(/<url><loc>(.*?)<\/loc><lastmod>(.*?)<\/lastmod>/g)) {
+  const pathname = new URL(match[1]).pathname;
+  const service = pathname.match(/^\/services\/([^/]+)$/);
+  const city = pathname.match(/^\/cities\/([^/]+)$/);
+  const meta = pathname === '/' ? config.seo.home
+    : service ? config.services.find(item => item.slug === service[1])
+    : city ? config.citySeo[city[1]]
+    : config.seo.pages[pathname.slice(1)];
+  assert.equal(match[2], meta?.updatedAt, `${pathname}: sitemap date must match content metadata`);
+}
 
 const generated = [
   'index.html', 'about.html', 'installation-process.html', 'contact.html', 'our-work.html', 'privacy-policy.html', 'terms.html', '404.html',

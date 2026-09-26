@@ -311,7 +311,7 @@ const CONFIG = {
     { q: "Do you work with contractors and designers?", a: "Yes. We work directly with homeowners and also coordinate with contractors, builders, architects, designers, and property managers." }
   ],
   portfolioProjects: [],
-  legal: { privacyPolicyDate: "September 17, 2026", termsDate: "September 17, 2026" },
+  legal: { privacyPolicyDate: "September 26, 2026", termsDate: "September 17, 2026" },
 };
 
 // Search, answer-engine, and static-rendering content. This is deliberately
@@ -331,7 +331,7 @@ CONFIG.seo = {
     "installation-process": { title: "Glass & Window Installation Process | Elite Glass", description: "See how Elite Glass & Windows moves from project photos and product guidance to verified measurements, installation, and an owner-involved quality check.", primaryIntent: "glass and window installation process", featuredImage: "/public/service-luxury/window-replacement-960.webp", updatedAt: "2026-09-21" },
     contact: { title: "Contact Elite Glass & Windows | Free Estimate", description: "Start a free glass, window, shower-door, railing, mirror, door, or storefront estimate with Elite Glass & Windows in Redmond.", primaryIntent: "contact Elite Glass and Windows", featuredImage: "/public/social/elite-glass-og.jpg", updatedAt: "2026-09-21" },
     "our-work": { title: "Glass, Window & Door Projects | Elite Glass", description: "View verified Elite Glass & Windows projects in Redmond, Bellevue, Bothell, Kirkland, and nearby Greater Seattle communities.", primaryIntent: "Elite Glass and Windows projects", featuredImage: "/public/projects-optimized/window_redmond_main.webp", updatedAt: "2026-09-21" },
-    "privacy-policy": { title: "Privacy Policy | Elite Glass & Windows", description: "Privacy policy for the Elite Glass & Windows website, chat requests, analytics, and advertising measurement.", primaryIntent: "Elite Glass and Windows privacy policy", featuredImage: "/public/social/elite-glass-og.jpg", updatedAt: "2026-09-17" },
+    "privacy-policy": { title: "Privacy Policy | Elite Glass & Windows", description: "Privacy policy for the Elite Glass & Windows website, direct messages, chat requests, analytics, and advertising measurement.", primaryIntent: "Elite Glass and Windows privacy policy", featuredImage: "/public/social/elite-glass-og.jpg", updatedAt: "2026-09-26" },
     terms: { title: "Website Terms | Elite Glass & Windows", description: "Website terms for Elite Glass & Windows, including estimates, custom measurements, communications, and product information.", primaryIntent: "Elite Glass and Windows website terms", featuredImage: "/public/social/elite-glass-og.jpg", updatedAt: "2026-09-17" },
   },
 };
