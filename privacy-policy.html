@@ -74,15 +74,15 @@
 
     <div class="prose prose-section">
       <h2 class="section-title text-navy" style="font-size:1.5rem; margin-bottom:0.75rem;">1. Information We Collect</h2>
-      <p>When you use our project chat, send us a Facebook Messenger or Instagram direct message, or use another website form when enabled, we collect:</p>
+      <p>When you use our project chat, follow a link from a Facebook Messenger or Instagram reply to our short project form, or use another website form when enabled, we collect:</p>
       <ul>
         <li><strong>Contact information</strong> — name and phone number, plus an email address if you choose to provide one</li>
         <li><strong>Project details</strong> — ZIP code, project type, residential or commercial property type, description, timeline, and any notes you provide</li>
-        <li><strong>Direct-message details</strong> — your platform-provided sender identifier and the name, phone number, and project type you provide to our automated DM intake</li>
+        <li><strong>Short project form details</strong> — the name, phone number, and project type you provide after opening our link from a direct message. The form does not receive your Instagram or Messenger account identifier</li>
         <li><strong>SMS consent</strong> — whether you opted in to receive text messages from us</li>
         <li><strong>Technical and attribution data</strong> — IP address, browser type, page and referring URLs, and UTM or campaign parameters used to understand how visitors find our website</li>
       </ul>
-      <p>Our DM intake stores the fields needed to complete your request and prevent duplicate submissions. We do not collect payment information through this website or the DM intake.</p>
+      <p>We do not collect payment information through this website or the short project form.</p>
     </div>
 
     <div class="prose prose-section">
@@ -99,12 +99,12 @@
 
     <div class="prose prose-section">
       <h2 class="section-title text-navy" style="font-size:1.5rem; margin-bottom:0.75rem;">3. Information Sharing</h2>
-      <p>We do not sell your personal information. We disclose information only as needed to operate the website and DM intake, respond to requests, provide services, maintain records, or comply with law, including to:</p>
+      <p>We do not sell your personal information. We disclose information only as needed to operate the website and short project form, respond to requests, provide services, maintain records, or comply with law, including to:</p>
       <ul>
         <li><strong>Authorized staff and project teams</strong> — to review your request and perform agreed work</li>
         <li><strong>Meta</strong> — as the operator of Facebook Messenger and Instagram, where you initiate a direct message</li>
-        <li><strong>Cloudflare</strong> — for website and DM automation hosting, security, and intake state storage</li>
-        <li><strong>Make and Supabase</strong> — for lead processing, workflow automation, and record storage where applicable; DM intake leads are not sent to Supabase</li>
+        <li><strong>Cloudflare</strong> — for website and project form hosting and security</li>
+        <li><strong>Make and Supabase</strong> — for lead processing, workflow automation, and record storage where applicable; short project form leads are not sent to Supabase</li>
         <li><strong>Google Workspace and Slack</strong> — for internal operational notifications and records</li>
         <li><strong>Other service providers</strong> — only where reasonably needed to support our operations</li>
         <li><strong>Legal authorities</strong> — if required by law</li>
@@ -151,7 +151,7 @@
         <li>Request deletion of your data</li>
         <li>Opt out of SMS at any time by replying STOP</li>
       </ul>
-      <p>To exercise any of these rights, including deletion of information submitted through Facebook Messenger or Instagram, email us at <a href="mailto:sales@eliteglassandwindow.com">sales@eliteglassandwindow.com</a> with the platform and account you used. We may ask you to verify your request before deleting records we are able to remove, subject to applicable recordkeeping obligations.</p>
+      <p>To exercise any of these rights, including deletion of information submitted through the short project form, email us at <a href="mailto:sales@eliteglassandwindow.com">sales@eliteglassandwindow.com</a> with enough information to locate your request. We may ask you to verify your request before deleting records we are able to remove, subject to applicable recordkeeping obligations.</p>
     </div>
 
     <div class="prose prose-section">
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.title = `Privacy Policy | ${CONFIG.businessName}`;
   document.getElementById('privacy-date').textContent = `Effective date: ${CONFIG.legal.privacyPolicyDate}`;
   document.getElementById('privacy-intro').textContent =
-    `${CONFIG.legalBusinessName}, doing business as ${CONFIG.businessName} ("we", "us", or "our"), is committed to protecting your privacy. This policy explains what information we collect when you visit our website, send us a Facebook Messenger or Instagram direct message, or submit project information, how we use it, and your rights.`;
+    `${CONFIG.legalBusinessName}, doing business as ${CONFIG.businessName} ("we", "us", or "our"), is committed to protecting your privacy. This policy explains what information we collect when you visit our website, open our project form from a Facebook Messenger or Instagram reply, or submit project information, how we use it, and your rights.`;
   document.getElementById('privacy-contact-box').innerHTML = `
     <strong>${CONFIG.legalBusinessName} d/b/a ${CONFIG.businessName}</strong><br/>
     ${CONFIG.address}<br/>

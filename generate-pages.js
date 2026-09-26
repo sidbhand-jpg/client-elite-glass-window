@@ -399,6 +399,7 @@ const pagesToRoot = [
   ['pages/about.html',          'about.html'],
   ['pages/installation-process.html', 'installation-process.html'],
   ['pages/contact.html',        'contact.html'],
+  ['pages/dm.html',             'dm.html'],
   ['pages/our-work.html',       'our-work.html'],
   ['pages/privacy-policy.html', 'privacy-policy.html'],
   ['pages/terms.html',          'terms.html'],
@@ -408,6 +409,7 @@ const rootMeta = {
   'about.html': [CONFIG.seo.pages.about.title, CONFIG.seo.pages.about.description],
   'installation-process.html': [CONFIG.seo.pages['installation-process'].title, CONFIG.seo.pages['installation-process'].description],
   'contact.html': [CONFIG.seo.pages.contact.title, CONFIG.seo.pages.contact.description],
+  'dm.html': [CONFIG.seo.pages.dm.title, CONFIG.seo.pages.dm.description],
   'our-work.html': [CONFIG.seo.pages['our-work'].title, CONFIG.seo.pages['our-work'].description],
   'privacy-policy.html': [CONFIG.seo.pages['privacy-policy'].title, CONFIG.seo.pages['privacy-policy'].description],
   'terms.html': [CONFIG.seo.pages.terms.title, CONFIG.seo.pages.terms.description],
@@ -456,7 +458,7 @@ pagesToRoot.forEach(([src, dest]) => {
       ];
   html = injectGeneratedSeo(html, pathname, rootSchemas);
 
-  writeFile(destPath, canonicalizeInternalLinks(injectStaticNavigation(html)));
+  writeFile(destPath, canonicalizeInternalLinks(dest === 'dm.html' ? html : injectStaticNavigation(html)));
 });
 
 // ── Summary ───────────────────────────────────────────────────
@@ -535,7 +537,7 @@ indexHtml = moveInlineStylesToHead(indexHtml);
 fs.writeFileSync(path.join(__dirname, 'index.html'), indexHtml, 'utf8');
 
 const sitemapPaths = [
-  '/', '/about', '/installation-process', '/contact', '/our-work', '/privacy-policy', '/terms',
+  '/', '/about', '/installation-process', '/contact', '/dm', '/our-work', '/privacy-policy', '/terms',
   ...CONFIG.services.map(service => `/services/${service.slug}`),
   ...CONFIG.serviceAreas.map(area => `/cities/${area.slug}`),
 ];

@@ -32,12 +32,12 @@ for (const area of config.serviceAreas) {
 
 const sitemap = await read('sitemap.xml');
 const sitemapUrls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1]);
-assert.equal(sitemapUrls.length, 52);
-assert.equal(new Set(sitemapUrls).size, 52);
+assert.equal(sitemapUrls.length, 53);
+assert.equal(new Set(sitemapUrls).size, 53);
 assert.ok(!sitemap.includes('/404.html'));
 assert.ok(!sitemapUrls.some(url => url.endsWith('.html')), 'Canonical sitemap URLs must match Cloudflare Pages extensionless responses.');
-assert.equal((sitemap.match(/<lastmod>/g) || []).length, 52);
-assert.equal((sitemap.match(/<image:image>/g) || []).length, 52);
+assert.equal((sitemap.match(/<lastmod>/g) || []).length, 53);
+assert.equal((sitemap.match(/<image:image>/g) || []).length, 53);
 for (const match of sitemap.matchAll(/<url><loc>(.*?)<\/loc><lastmod>(.*?)<\/lastmod>/g)) {
   const pathname = new URL(match[1]).pathname;
   const service = pathname.match(/^\/services\/([^/]+)$/);
@@ -50,11 +50,11 @@ for (const match of sitemap.matchAll(/<url><loc>(.*?)<\/loc><lastmod>(.*?)<\/las
 }
 
 const generated = [
-  'index.html', 'about.html', 'installation-process.html', 'contact.html', 'our-work.html', 'privacy-policy.html', 'terms.html', '404.html',
+  'index.html', 'about.html', 'installation-process.html', 'contact.html', 'dm.html', 'our-work.html', 'privacy-policy.html', 'terms.html', '404.html',
   ...config.services.map(service => `services/${service.slug}.html`),
   ...config.serviceAreas.map(area => `cities/${area.slug}.html`),
 ];
-assert.equal(generated.length, 53);
+assert.equal(generated.length, 54);
 
 const titles = new Set();
 const descriptions = new Set();
@@ -82,8 +82,8 @@ for (const relative of generated) {
     titles.add(title); descriptions.add(description); canonicals.add(canonical);
     assert.equal((visibleHtml.match(/<h1\b/gi) || []).length, 1, `${relative}: must contain one visible H1 in raw HTML`);
     assert.match(visibleHtml, /<main(?:\s|>)/, `${relative}: missing main landmark`);
-    assert.match(visibleHtml, /id="static-navigation"/, `${relative}: missing crawlable initial navigation`);
-    assert.ok(!/href="\/(?:about|installation-process|contact|our-work|privacy-policy|terms|services\/[^"#?]+|cities\/[^"#?]+)\.html/.test(visibleHtml), `${relative}: internal links must use canonical extensionless routes`);
+    assert.match(visibleHtml, relative === 'dm.html' ? /aria-label="Elite Glass & Windows home"/ : /id="static-navigation"/, `${relative}: missing crawlable initial navigation`);
+    assert.ok(!/href="\/(?:about|installation-process|contact|dm|our-work|privacy-policy|terms|services\/[^"#?]+|cities\/[^"#?]+)\.html/.test(visibleHtml), `${relative}: internal links must use canonical extensionless routes`);
     const jsonLdBlocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)];
     assert.equal(jsonLdBlocks.length, 1, `${relative}: expected one generated JSON-LD graph`);
     const graph = JSON.parse(jsonLdBlocks[0][1]);
