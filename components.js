@@ -5,15 +5,15 @@
 
 // Load Clarity after the visitor interacts so analytics does not delay the
 // initial render or create third-party storage during a no-interaction visit.
-if (CONFIG.clarityProjectId) {
-  const loadClarity = () => {
-    if (window.clarity) return;
+function loadClarity() {
+    if (!CONFIG.clarityProjectId || window.clarity) return;
     (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
       t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
     })(window, document, "clarity", "script", CONFIG.clarityProjectId);
-  };
+}
+if (CONFIG.clarityProjectId) {
   addEventListener('pointerdown', loadClarity, { once: true, passive: true });
   addEventListener('keydown', loadClarity, { once: true, passive: true });
 }
@@ -514,8 +514,8 @@ function initProjectChat() {
     returnFocus = trigger instanceof HTMLElement ? trigger : fab; panel.hidden = false; fab.setAttribute('aria-expanded', 'true'); iconMsg.hidden = true; iconX.hidden = false; document.body.classList.add('chat-open'); loadTurnstile();
     // Track actual opens from both the floating button and every estimate CTA.
     // Never include form values in analytics or let blocked analytics stop intake.
-    if (wasClosed && CONFIG.clarityProjectId && typeof window.clarity === 'function') {
-      try { window.clarity('event', 'egw_widget_open'); } catch { /* analytics is optional */ }
+    if (wasClosed && CONFIG.clarityProjectId) {
+      try { loadClarity(); window.clarity('event', 'egw_widget_open'); } catch { /* analytics is optional */ }
     }
     const firstField = form.querySelector('input:not([type="hidden"])');
     (firstField || closeBtn).focus();

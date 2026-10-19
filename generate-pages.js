@@ -10,7 +10,7 @@
 const fs   = require('fs');
 const path = require('path');
 const vm   = require('vm');
-const RUNTIME_ASSET_VERSION = '20261019-widget3';
+const RUNTIME_ASSET_VERSION = '20261019-widget4';
 
 // ── Load CONFIG ──────────────────────────────────────────────
 const configSrc = fs.readFileSync(path.join(__dirname, 'CONFIG.js'), 'utf8');
