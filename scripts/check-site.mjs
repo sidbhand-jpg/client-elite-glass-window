@@ -197,7 +197,8 @@ assert.match(heroLogo, /Elite Glass &amp; Window/);
 assert.match(heroLogo, /fill="#ffffff"/);
 assert.match(components, /logo-hero\.svg\?v=20260922/);
 assert.doesNotMatch(components, /class="btn-phone" data-lead-cta/, 'Phone buttons must initiate calls instead of opening chat.');
-assert.match(homepage, /components\.js\?v=20260922-nav1/, 'Homepage must load the cache-busted navigation runtime.');
+assert.match(homepage, /components\.js\?v=20261019-widget1/, 'Homepage must load the cache-busted widget runtime.');
+assert.match(homepage, /styles\.css\?v=20261019-widget1/, 'Homepage must load the cache-busted widget styles.');
 for (const service of config.services) {
   assert.match(service.image, /^\/public\/service-luxury\/.+-960\.webp$/);
   await fs.access(path.join(root, service.image.slice(1)));
@@ -211,8 +212,7 @@ const { onRequest } = await import(moduleUrl);
 const uuid = '123e4567-e89b-42d3-a456-426614174000';
 const validPayload = {
   source: 'website_chat', submission_id: uuid, full_name: 'Test Only', phone: '(425) 555-0100', email: '',
-  postal_code: '98052', project_type: 'window-replacement', property_type: 'residential',
-  project_summary: 'TEST ONLY project information.', timeline: 'researching', sms_consent: false,
+  project_summary: 'TEST ONLY project information.', contact_consent: true, sms_consent: false,
   company_website: '', form_started_at: Date.now() - 3000, turnstile_token: 'test-token',
   source_url: `${canonicalOrigin}/contact.html`, page_path: '/contact.html', utm_source: 'test',
 };
@@ -228,6 +228,12 @@ response = await onRequest({ request: makeRequest(validPayload, { origin: 'https
 assert.equal(response.status, 403);
 response = await onRequest({ request: makeRequest({ ...validPayload, phone: '123' }), env: {} });
 assert.equal(response.status, 422);
+response = await onRequest({ request: makeRequest({ ...validPayload, email: 'invalid' }), env: {} });
+assert.equal(response.status, 422);
+response = await onRequest({ request: makeRequest({ ...validPayload, project_summary: 'short' }), env: {} });
+assert.equal(response.status, 422);
+response = await onRequest({ request: makeRequest({ ...validPayload, source: 'website_form' }), env: {} });
+assert.equal(response.status, 422, 'Legacy full forms must still supply their project fields.');
 response = await onRequest({ request: makeRequest({ ...validPayload, project_summary: 'x'.repeat(21_000) }), env: {} });
 assert.equal(response.status, 413);
 response = await onRequest({ request: makeRequest({ ...validPayload, company_website: 'bot.example' }), env: {} });
@@ -270,6 +276,8 @@ try {
   assert.equal(downstreamPayloads[1].business, 'Elite Glass & Windows');
   assert.equal(downstreamPayloads[1].top_priority, validPayload.project_summary);
   assert.equal(downstreamPayloads[1].sms_consent, false);
+  assert.equal(downstreamPayloads[1].contact_consent, true);
+  for (const key of ['zip', 'project_type', 'property_type', 'timeline']) assert.equal(downstreamPayloads[1][key], '', `Removed widget field ${key} must not be invented.`);
   response = await onRequest({
     request: makeRequest({ ...validPayload, sms_consent: true }),
     env: { LEAD_CAPTURE_ENABLED: 'true', TURNSTILE_SECRET_KEY: 'test-secret', MAKE_WEBSITE_CHAT_WEBHOOK_URL: 'https://example.invalid/make' },

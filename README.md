@@ -36,6 +36,8 @@ The browser posts only to the same-origin Pages Function at `/api/chat-lead`. Co
 
 The site captures page/referrer, UTMs, campaign identifiers, `_fbp`, `_fbc`, and a stable submission UUID. The Function validates and sanitizes the request, verifies Turnstile, and sends a flat payload to the private Make webhook. It fails closed when required server configuration is absent.
 
+The widget uses a single screen with Name, optional Email, Phone, and Project Details. Clicking Submit records `contact_consent: true` under the displayed project-contact notice. The widget has no SMS checkbox and sends `sms_consent: false`; the separate optional SMS consent in the preserved full forms is unchanged. ZIP, project type, property type, and timeline are optional for widget requests and remain blank when not supplied.
+
 ## Content rules
 
 - Keep the Houzflow template components and layouts as the visual system.

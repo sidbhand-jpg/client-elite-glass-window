@@ -10,7 +10,7 @@
 const fs   = require('fs');
 const path = require('path');
 const vm   = require('vm');
-const RUNTIME_ASSET_VERSION = '20260922-nav1';
+const RUNTIME_ASSET_VERSION = '20261019-widget1';
 
 // ── Load CONFIG ──────────────────────────────────────────────
 const configSrc = fs.readFileSync(path.join(__dirname, 'CONFIG.js'), 'utf8');
@@ -50,7 +50,8 @@ function moveInlineStylesToHead(html) {
 }
 
 function cacheBustRuntimeAssets(html) {
-  return html.replace(/components\.js\?v=[^"']+/g, `components.js?v=${RUNTIME_ASSET_VERSION}`);
+  return html.replace(/components\.js\?v=[^"']+/g, `components.js?v=${RUNTIME_ASSET_VERSION}`)
+    .replace(/styles\.css(?:\?v=[^"']+)?(?=["'])/g, `styles.css?v=${RUNTIME_ASSET_VERSION}`);
 }
 
 function writeFile(outPath, content) {

@@ -457,9 +457,8 @@ function renderFooter() {
 // ── LEAD FORM BUILDER ─────────────────────────────────────────
 // Hidden fields carrying Meta CAPI attribution data, injected into
 // every lead form. Populated at submit time from HouzflowAttribution.
-// Accessible, multi-step chat used as the only active form while A2P is pending.
+// Accessible, single-screen project intake used as the active website form.
 function renderProjectChat() {
-  const serviceOptions = CONFIG.services.map(service => `<option value="${service.slug}">${service.name}</option>`).join('');
   const turnstile = CONFIG.leadCapture.turnstileSiteKey ? `<div class="cf-turnstile" data-sitekey="${CONFIG.leadCapture.turnstileSiteKey}" data-theme="light"></div>` : '';
   document.body.insertAdjacentHTML('beforeend', `
     <div class="chat-widget" id="chat-widget">
@@ -471,29 +470,15 @@ function renderProjectChat() {
         <div class="chat-body" id="chat-body">
           <form id="chat-form" class="chat-form" novalidate>
             <p class="chat-intro" id="chat-dialog-description">Share a few details so the right glass specialist can follow up.</p>
-            <div class="chat-progress" aria-label="Form progress"><span id="chat-progress-text">Step 1 of 3</span><div class="chat-progress-track" aria-hidden="true"><span id="chat-progress-bar"></span></div></div>
-            <fieldset class="chat-step" data-chat-step="0">
-              <legend>How can we reach you?</legend>
-              <label class="form-label" for="chat-full-name">Full name <span aria-hidden="true">*</span></label><input required id="chat-full-name" name="full_name" autocomplete="name" maxlength="100" class="form-input" />
-              <label class="form-label" for="chat-phone">Phone number <span aria-hidden="true">*</span></label><input required id="chat-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" class="form-input" aria-describedby="chat-phone-help" /><small id="chat-phone-help" class="form-help">Use a US phone number, including area code.</small>
-              <label class="form-label" for="chat-email">Email address <span class="form-optional">optional</span></label><input id="chat-email" name="email" type="email" autocomplete="email" maxlength="254" class="form-input" />
-            </fieldset>
-            <fieldset class="chat-step" data-chat-step="1" hidden>
-              <legend>What are you planning?</legend>
-              <label class="form-label" for="chat-postal-code">Project ZIP code <span aria-hidden="true">*</span></label><input required id="chat-postal-code" name="postal_code" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}(-[0-9]{4})?" maxlength="10" class="form-input" />
-              <label class="form-label" for="chat-project-type">Project type <span aria-hidden="true">*</span></label><select required id="chat-project-type" name="project_type" class="form-select"><option value="">Choose a project</option>${serviceOptions}<option value="other">Not sure yet</option></select>
-              <label class="form-label" for="chat-property-type">Property type <span aria-hidden="true">*</span></label><select required id="chat-property-type" name="property_type" class="form-select"><option value="">Choose a property type</option><option value="residential">Residential</option><option value="commercial">Commercial</option><option value="other">Other / not sure</option></select>
-              <label class="form-label" for="chat-timeline">Timeline <span aria-hidden="true">*</span></label><select required id="chat-timeline" name="timeline" class="form-select"><option value="">Choose a timeline</option><option value="as-soon-as-practical">As soon as practical</option><option value="one-to-three-months">1–3 months</option><option value="three-plus-months">3+ months</option><option value="researching">Researching options</option></select>
-            </fieldset>
-            <fieldset class="chat-step" data-chat-step="2" hidden>
-              <legend>Project details and contact consent</legend>
-              <label class="form-label" for="chat-project-summary">Tell us about the project <span aria-hidden="true">*</span></label><textarea required id="chat-project-summary" name="project_summary" rows="4" minlength="10" maxlength="2000" class="form-textarea" placeholder="What needs to be repaired, replaced, or created?"></textarea>
-              ${consentDisclosureHTML('chat')}
-              <div class="form-honeypot" aria-hidden="true"><label for="chat-company-website">Company website</label><input id="chat-company-website" name="company_website" tabindex="-1" autocomplete="off" /></div>
-              <input type="hidden" name="form_started_at" value="${Date.now()}" />${turnstile}
-            </fieldset>
+            <label class="form-label" for="chat-full-name">Name <span aria-hidden="true">*</span></label><input required id="chat-full-name" name="full_name" autocomplete="name" minlength="2" maxlength="100" class="form-input" />
+            <label class="form-label" for="chat-email">Email <span class="form-optional">optional</span></label><input id="chat-email" name="email" type="email" autocomplete="email" maxlength="254" class="form-input" />
+            <label class="form-label" for="chat-phone">Phone <span aria-hidden="true">*</span></label><input required id="chat-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" class="form-input" />
+            <label class="form-label" for="chat-project-summary">Project Details <span aria-hidden="true">*</span></label><textarea required id="chat-project-summary" name="project_summary" rows="3" minlength="10" maxlength="2000" class="form-textarea" placeholder="What needs to be repaired, replaced, or created?"></textarea>
+            <div class="form-honeypot" aria-hidden="true"><label for="chat-company-website">Company website</label><input id="chat-company-website" name="company_website" tabindex="-1" autocomplete="off" /></div>
+            <input type="hidden" name="form_started_at" value="${Date.now()}" />${turnstile}
             <div id="chat-error" class="form-error" role="alert" aria-live="assertive" hidden></div><div id="chat-status" class="sr-only" role="status" aria-live="polite"></div>
-            <div class="chat-actions"><button type="button" class="chat-back" id="chat-back-btn" hidden>Back</button><button type="button" class="btn-primary w-full" id="chat-next-btn">Continue</button><button type="submit" class="btn-primary w-full" id="chat-submit-btn" hidden>Send My Project Details</button></div>
+            <p class="consent-text" id="chat-contact-consent">By clicking Submit, you agree to be contacted by Elite Glass &amp; Windows regarding your project.</p>
+            <button type="submit" class="btn-primary w-full" id="chat-submit-btn" aria-describedby="chat-contact-consent">Submit</button>
           </form>
         </div>
       </div>
@@ -513,12 +498,6 @@ function initProjectChat() {
   const chatBody = document.getElementById('chat-body');
   const chatError = document.getElementById('chat-error');
   const status = document.getElementById('chat-status');
-  const nextBtn = document.getElementById('chat-next-btn');
-  const backBtn = document.getElementById('chat-back-btn');
-  const steps = Array.from(form.querySelectorAll('[data-chat-step]'));
-  const progressText = document.getElementById('chat-progress-text');
-  const progressBar = document.getElementById('chat-progress-bar');
-  let currentStep = 0;
   let returnFocus = fab;
   function loadTurnstile() {
     if (!CONFIG.leadCapture.turnstileSiteKey || document.querySelector('[data-turnstile-loader]')) return;
@@ -530,16 +509,10 @@ function initProjectChat() {
     document.head.appendChild(script);
   }
   if (localStorage.getItem('elite_glass_chat_submitted') === '1') form.innerHTML = '<p class="text-center text-muted" style="padding:1rem">We already have your project details. A team member will follow up.</p>';
-  function setStep(index) {
-    if (!steps.length) return;
-    currentStep = Math.max(0, Math.min(index, steps.length - 1));
-    steps.forEach((step, stepIndex) => { step.hidden = stepIndex !== currentStep; });
-    progressText.textContent = `Step ${currentStep + 1} of ${steps.length}`; progressBar.style.width = `${((currentStep + 1) / steps.length) * 100}%`;
-    backBtn.hidden = currentStep === 0; nextBtn.hidden = currentStep === steps.length - 1; submitBtn.hidden = currentStep !== steps.length - 1;
-    const firstField = steps[currentStep].querySelector('input:not([type="hidden"]), select, textarea'); if (!panel.hidden && firstField) firstField.focus();
-  }
   function openPanel(trigger = document.activeElement) {
-    returnFocus = trigger instanceof HTMLElement ? trigger : fab; panel.hidden = false; fab.setAttribute('aria-expanded', 'true'); iconMsg.hidden = true; iconX.hidden = false; document.body.classList.add('chat-open'); loadTurnstile(); setStep(currentStep);
+    returnFocus = trigger instanceof HTMLElement ? trigger : fab; panel.hidden = false; fab.setAttribute('aria-expanded', 'true'); iconMsg.hidden = true; iconX.hidden = false; document.body.classList.add('chat-open'); loadTurnstile();
+    const firstField = form.querySelector('input:not([type="hidden"])');
+    (firstField || closeBtn).focus();
   }
   function closePanel() {
     panel.hidden = true; fab.setAttribute('aria-expanded', 'false'); iconMsg.hidden = false; iconX.hidden = true; document.body.classList.remove('chat-open'); if (returnFocus && document.contains(returnFocus)) returnFocus.focus();
@@ -554,26 +527,20 @@ function initProjectChat() {
     if (!focusable.length) return; const first = focusable[0]; const last = focusable[focusable.length - 1];
     if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); } else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
   });
-  nextBtn.addEventListener('click', () => {
-    const invalid = Array.from(steps[currentStep].querySelectorAll('input, select, textarea')).find(field => field.type !== 'hidden' && !field.checkValidity());
-    if (invalid) { invalid.reportValidity(); invalid.focus(); return; } setStep(currentStep + 1);
-  });
-  backBtn.addEventListener('click', () => setStep(currentStep - 1));
   form.addEventListener('submit', async event => {
     event.preventDefault(); if (!form.checkValidity()) { form.reportValidity(); return; }
     submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; chatError.hidden = true; status.textContent = 'Sending your project details.';
     const data = Object.fromEntries(new FormData(form).entries()); const attribution = HouzflowAttribution.get();
     try {
-      await postLead({ source: 'website_chat', submission_id: getSubmissionId(), full_name: data.full_name, phone: data.phone, email: data.email || '', postal_code: data.postal_code, project_type: data.project_type, property_type: data.property_type, project_summary: data.project_summary, timeline: data.timeline, sms_consent: form.elements.sms_consent.checked, company_website: data.company_website || '', form_started_at: Number(data.form_started_at), turnstile_token: data['cf-turnstile-response'] || '', ...attribution });
+      await postLead({ source: 'website_chat', submission_id: getSubmissionId(), full_name: data.full_name, phone: data.phone, email: data.email || '', project_summary: data.project_summary, contact_consent: true, sms_consent: false, company_website: data.company_website || '', form_started_at: Number(data.form_started_at), turnstile_token: data['cf-turnstile-response'] || '', ...attribution });
       if (typeof fbq !== 'undefined' && CONFIG.metaPixelId) fbq('track', 'Lead', {}, { eventID: attribution.lead_event_id });
       localStorage.setItem('elite_glass_chat_submitted', '1'); sessionStorage.removeItem('elite_glass_submission_id');
       chatBody.innerHTML = '<div class="chat-thanks"><svg class="chat-thanks-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><div class="chat-thanks-title">Thanks — your project details were received.</div><p class="chat-intro">A team member will review the information and follow up.</p></div>';
       setTimeout(closePanel, 4500);
     } catch {
-      chatError.innerHTML = `We could not send this request. Please try again or call <a href="tel:${CONFIG.phoneRaw}">${CONFIG.phone}</a>.`; chatError.hidden = false; status.textContent = 'Your request was not sent.'; submitBtn.disabled = false; submitBtn.textContent = 'Send My Project Details';
+      chatError.innerHTML = `We could not send this request. Please try again or call <a href="tel:${CONFIG.phoneRaw}">${CONFIG.phone}</a>.`; chatError.hidden = false; status.textContent = 'Your request was not sent.'; submitBtn.disabled = false; submitBtn.textContent = 'Submit';
     }
   });
-  setStep(0);
   setTimeout(() => { fab.classList.add('chat-bounce'); setTimeout(() => fab.classList.remove('chat-bounce'), 1100); }, 2000);
 }
 

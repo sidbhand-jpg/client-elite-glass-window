@@ -33,6 +33,7 @@ function normalizePhone(value) {
 
 function validate(payload) {
   const fields = {};
+  const isWidget = payload.source === 'website_chat';
   const fullName = text(payload.full_name, 100);
   const phone = normalizePhone(payload.phone);
   const email = text(payload.email, 254).toLowerCase();
@@ -46,11 +47,11 @@ function validate(payload) {
   if (fullName.length < 2) fields.full_name = 'Enter your full name.';
   if (!phone) fields.phone = 'Enter a valid US phone number.';
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) fields.email = 'Enter a valid email address.';
-  if (!/^\d{5}(?:-\d{4})?$/.test(postalCode)) fields.postal_code = 'Enter a valid ZIP code.';
-  if (!projectType) fields.project_type = 'Choose a project type.';
-  if (!ALLOWED_PROPERTY_TYPES.has(propertyType)) fields.property_type = 'Choose a property type.';
+  if ((!isWidget || postalCode) && !/^\d{5}(?:-\d{4})?$/.test(postalCode)) fields.postal_code = 'Enter a valid ZIP code.';
+  if (!isWidget && !projectType) fields.project_type = 'Choose a project type.';
+  if ((!isWidget || propertyType) && !ALLOWED_PROPERTY_TYPES.has(propertyType)) fields.property_type = 'Choose a property type.';
   if (projectSummary.length < 10) fields.project_summary = 'Provide at least 10 characters about the project.';
-  if (!ALLOWED_TIMELINES.has(timeline)) fields.timeline = 'Choose a timeline.';
+  if ((!isWidget || timeline) && !ALLOWED_TIMELINES.has(timeline)) fields.timeline = 'Choose a timeline.';
   if (!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(submissionId)) fields.submission_id = 'Invalid submission reference.';
 
   return {
@@ -125,6 +126,7 @@ export async function onRequest(context) {
     project_summary: clean.projectSummary,
     top_priority: clean.projectSummary,
     timeline: clean.timeline,
+    contact_consent: payload.contact_consent === true,
     sms_consent: payload.sms_consent === true,
     source_url: text(payload.source_url, 1000),
     page_path: text(payload.page_path, 300),
