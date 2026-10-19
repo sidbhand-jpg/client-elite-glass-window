@@ -38,6 +38,8 @@ The site captures page/referrer, UTMs, campaign identifiers, `_fbp`, `_fbc`, and
 
 The widget uses a single screen with Name, optional Email, Phone, and Project Details. Clicking Submit records `contact_consent: true` under the displayed project-contact notice. The widget has no SMS checkbox and sends `sms_consent: false`; the separate optional SMS consent in the preserved full forms is unchanged. ZIP, project type, property type, and timeline are optional for widget requests and remain blank when not supplied.
 
+Clarity receives `egw_widget_open` when the widget changes from closed to open, including opens from the floating button and estimate CTAs. It contains no form values. The website funnel can use Website visit → `egw_widget_open` → Submit form to show sessions that opened the widget and did not reach Clarity's submit event. The open event starts collecting after deployment and does not backfill earlier sessions.
+
 ## Content rules
 
 - Keep the Houzflow template components and layouts as the visual system.

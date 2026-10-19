@@ -197,8 +197,8 @@ assert.match(heroLogo, /Elite Glass &amp; Window/);
 assert.match(heroLogo, /fill="#ffffff"/);
 assert.match(components, /logo-hero\.svg\?v=20260922/);
 assert.doesNotMatch(components, /class="btn-phone" data-lead-cta/, 'Phone buttons must initiate calls instead of opening chat.');
-assert.match(homepage, /components\.js\?v=20261019-widget1/, 'Homepage must load the cache-busted widget runtime.');
-assert.match(homepage, /styles\.css\?v=20261019-widget1/, 'Homepage must load the cache-busted widget styles.');
+assert.match(homepage, /components\.js\?v=20261019-widget2/, 'Homepage must load the cache-busted widget runtime.');
+assert.match(homepage, /styles\.css\?v=20261019-widget2/, 'Homepage must load the cache-busted widget styles.');
 for (const service of config.services) {
   assert.match(service.image, /^\/public\/service-luxury\/.+-960\.webp$/);
   await fs.access(path.join(root, service.image.slice(1)));

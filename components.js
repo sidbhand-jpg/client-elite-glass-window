@@ -510,7 +510,13 @@ function initProjectChat() {
   }
   if (localStorage.getItem('elite_glass_chat_submitted') === '1') form.innerHTML = '<p class="text-center text-muted" style="padding:1rem">We already have your project details. A team member will follow up.</p>';
   function openPanel(trigger = document.activeElement) {
+    const wasClosed = panel.hidden;
     returnFocus = trigger instanceof HTMLElement ? trigger : fab; panel.hidden = false; fab.setAttribute('aria-expanded', 'true'); iconMsg.hidden = true; iconX.hidden = false; document.body.classList.add('chat-open'); loadTurnstile();
+    // Track actual opens from both the floating button and every estimate CTA.
+    // Never include form values in analytics or let blocked analytics stop intake.
+    if (wasClosed && CONFIG.clarityProjectId && typeof window.clarity === 'function') {
+      try { window.clarity('event', 'egw_widget_open'); } catch { /* analytics is optional */ }
+    }
     const firstField = form.querySelector('input:not([type="hidden"])');
     (firstField || closeBtn).focus();
   }
